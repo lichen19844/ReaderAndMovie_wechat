@@ -46,7 +46,7 @@ Page({
       //定义一个空的对象，方便放入任何内容，也可以放入一个空数组[]
       postsCollected[postId] = false;
       //意味着在空对象中先放入一个postId: false的对象，以它为起点
-      //亦能写成 postCollected = false; 注意这里的postCollected不可随意变更，需和其它postCollected名字一致
+      //亦能写成 postCollected = false; 但是注意这里的postCollected不可随意变更，需和其它postCollected名字一致
       // postCollected = false;
       // this.setData({
       //   collected: postCollected
@@ -75,8 +75,20 @@ Page({
       title: postCollected? "已收藏":"取消收藏",
       //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
       duration: 1000,
-      icon: "success"
+      // icon: "success",
+      image: postCollected ? "../../../images/avatar/3.png" :"../../../images/avatar/1.png"
+      //三元表达式的用法
     })
+
+    // wx.showModal({
+    //   title: "收藏",
+    //   content: "是否收藏该文章",
+    //   showCancel: "true",
+    //   cancelText: "不收藏",
+    //   cancelColor: "#333",
+    //   confirmText: "收藏",
+    //   confirmColor: "#405f80",
+    // })
 
   },
 
