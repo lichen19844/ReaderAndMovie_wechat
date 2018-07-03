@@ -33,7 +33,7 @@ Page({
     //注意postsCollected 不是 postsData 或 postList 或 local_database
     if (postsCollected) {
       var postCollected = postsCollected[postId]
-      //把postId读取到定义的postsCollected缓存池中
+      //把postId读取到定义的postsCollected缓存池中，并将postId的键值赋予变量postCollected
       if (postCollected) {
         this.setData({
           collected: postCollected
@@ -72,7 +72,10 @@ Page({
     });
 
     wx.showToast({
-      title: "收藏成功"
+      title: postCollected? "已收藏":"取消收藏",
+      //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
+      duration: 1000,
+      icon: "success"
     })
 
   },
