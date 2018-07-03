@@ -71,24 +71,24 @@ Page({
       collected: postCollected
     });
 
-    wx.showToast({
-      title: postCollected? "已收藏":"取消收藏",
-      //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
-      duration: 1000,
-      // icon: "success",
-      image: postCollected ? "../../../images/avatar/3.png" :"../../../images/avatar/1.png"
-      //三元表达式的用法
-    })
-
-    // wx.showModal({
-    //   title: "收藏",
-    //   content: "是否收藏该文章",
-    //   showCancel: "true",
-    //   cancelText: "不收藏",
-    //   cancelColor: "#333",
-    //   confirmText: "收藏",
-    //   confirmColor: "#405f80",
+    // wx.showToast({
+    //   title: postCollected? "已收藏":"取消收藏",
+    //   //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
+    //   duration: 1000,
+    //   // icon: "success",
+    //   image: postCollected ? "../../../images/avatar/3.png" :"../../../images/avatar/1.png"
+    //   //三元表达式的用法
     // })
+
+    wx.showModal({
+      title: "收藏",
+      content: "是否收藏该文章",
+      showCancel: "true",
+      cancelText: "不收藏",
+      cancelColor: "#333",
+      confirmText: "收藏",
+      confirmColor: "#405f80",
+    })
 
   },
 
