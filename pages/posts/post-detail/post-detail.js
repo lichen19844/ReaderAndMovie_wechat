@@ -58,21 +58,21 @@ Page({
   },
 
   onCollectionTap: function(event) {
-    var postsCollected = wx.getStorageSync('posts_collected');
-    //post键值赋予变量postCollected
-    var postCollected = postsCollected[this.data.currentPostId];
-    //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
-    postCollected = !postCollected;
-    console.log(postsCollected);
-    //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
-    //更新最新状态的data数据
-    postsCollected[this.data.currentPostId] = postCollected;
-    //更新最新状态的文章数据的所有缓存值
-    // wx.setStorageSync('posts_collected', postsCollected);
-    // //更新数据绑定变量，从而实现切换图片
-    // this.setData({
-    //   collected: postCollected
-    // });
+    // var postsCollected = wx.getStorageSync('posts_collected');
+    // //post键值赋予变量postCollected
+    // var postCollected = postsCollected[this.data.currentPostId];
+    // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
+    // postCollected = !postCollected;
+    // console.log(postsCollected);
+    // //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
+    // //更新最新状态的data数据
+    // postsCollected[this.data.currentPostId] = postCollected;
+    // //更新最新状态的文章数据的所有缓存值
+    // // wx.setStorageSync('posts_collected', postsCollected);
+    // // //更新数据绑定变量，从而实现切换图片
+    // // this.setData({
+    // //   collected: postCollected
+    // // });
 
     // wx.showToast({
     //   title: postCollected? "已收藏":"取消收藏",
@@ -92,11 +92,30 @@ Page({
     //   confirmText: "收藏",
     //   confirmColor: "#405f80",
     // })
-    this.showModal(postsCollected, postCollected);
+    // this.showModal(postsCollected, postCollected);
     //这里不能在this.showModal()之后连着写this.showToast(),不然postCollected = !postCollected;的状态会在点击收藏图标后马上传入showToast方法，进而同步显示，这样在视觉上不好。应该在放入this.showModal()的if判断里，由if为真的执行来触发
     // this.showToast(postsCollected, postCollected);
+    // this.getPostsCollectedSyc();
+    this.getPostsCollectedAsy();
   },
 
+  //异步的方法
+  getPostsCollectedAsy: function(){
+    var that = this;
+    wx.getStorage({
+      key: "posts_collected",
+      success: function(res){
+        var postsCollected = res.data;
+        var postCollected = postsCollected[that.data.currentPostId];
+        postCollected = !postCollected;
+        postsCollected[that.data.currentPostId] = postCollected;
+        console.log(postsCollected);
+        that.showModal(postsCollected, postCollected);        
+      }
+    })
+  },
+
+  //同步的方法
   getPostsCollectedSyc: function(){
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
