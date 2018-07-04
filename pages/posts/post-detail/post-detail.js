@@ -97,6 +97,14 @@ Page({
     // this.showToast(postsCollected, postCollected);
   },
 
+  getPostsCollectedSyc: function(){
+    var postsCollected = wx.getStorageSync('posts_collected');
+    var postCollected = postsCollected[this.data.currentPostId];
+    postCollected = !postCollected;
+    console.log(postsCollected);
+    this.showModal(postsCollected, postCollected);
+  },
+
   showModal: function(postsCollected, postCollected) {
     var that = this;
     //先让用户确定是否收藏
