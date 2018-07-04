@@ -93,6 +93,8 @@ Page({
     //   confirmColor: "#405f80",
     // })
     this.showModal(postsCollected, postCollected);
+    //这里不能在this.showModal()之后连着写this.showToast(),不然postCollected = !postCollected;的状态会在点击收藏图标后马上传入showToast方法，进而同步显示，这样在视觉上不好。应该在放入this.showModal()的if判断里，由if为真的执行来触发
+    // this.showToast(postsCollected, postCollected);
   },
 
   showModal: function(postsCollected, postCollected) {
@@ -107,7 +109,7 @@ Page({
       confirmText: "确认",
       confirmColor: "#405f80",
       success: function(res) {
-        //判断res.confirm是否为真，才能执行一下动作
+        //点击确定键后，判断if(res.confirm)为真，再执行里面的动作
         if (res.confirm) {
           //成功选择了收藏之后，才设置更新文章数据的缓存值
           wx.setStorageSync('posts_collected', postsCollected);
@@ -117,8 +119,8 @@ Page({
           });
           that.showToast(postsCollected, postCollected);
         }
-      }
-    })
+      },
+    });
   },
 
   showToast: function (postsCollected, postCollected) {
