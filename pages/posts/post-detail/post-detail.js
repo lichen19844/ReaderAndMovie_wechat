@@ -105,6 +105,7 @@ Page({
     wx.getStorage({
       key: "posts_collected",
       success: function(res){
+        //res.data是wx.getStorage的属性，存储内容
         var postsCollected = res.data;
         var postCollected = postsCollected[that.data.currentPostId];
         postCollected = !postCollected;
@@ -117,6 +118,7 @@ Page({
 
   //同步的方法
   getPostsCollectedSyc: function(){
+    //
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
     postCollected = !postCollected;
