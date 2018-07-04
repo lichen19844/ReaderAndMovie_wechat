@@ -61,10 +61,10 @@ Page({
     //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     postCollected = !postCollected;
     console.log(postsCollected);
-    //更新data数据
     //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
+    //更新最新状态的data数据
     postsCollected[this.data.currentPostId] = postCollected;
-    //更新文章数据的缓存值
+    //更新最新状态的文章数据的所有缓存值
     // wx.setStorageSync('posts_collected', postsCollected);
     // //更新数据绑定变量，从而实现切换图片
     // this.setData({
@@ -76,7 +76,7 @@ Page({
     //   //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
     //   duration: 1000,
     //   // icon: "success",
-    //   image: postCollected ? "../../../images/avatar/3.png" :"../../../images/avatar/1.png"
+      // image: postCollected ? "../../../images/avatar/3.png":"../../../images/avatar/1.png"
     //   //三元表达式的用法
     // })
 
@@ -89,47 +89,50 @@ Page({
     //   confirmText: "收藏",
     //   confirmColor: "#405f80",
     // })
-    this.showModal();
+    this.showModal(postsCollected, postCollected);
   },
 
-  showModal: function (event) {
+  showModal: function (postsCollected, postCollected) {
+    var that = this;
+    //先让用户确定是否收藏
     wx.showModal({
       title: "收藏",
-      content: postCollected?"是否收藏该文章":"",
+      content: postCollected?"收藏该文章?":"",
       showCancel: "true",
-      cancelText: "不收藏",
+      cancelText: "取消",
       cancelColor: "#333",
-      confirmText: "收藏",
+      confirmText: "确认",
       confirmColor: "#405f80",
-      sucess: function(res){
+      success: function(res){
+        //判断res.confirm是否为真，才能执行一下动作
         if(res.confirm){
-          //更新文章数据的缓存值
+          //成功选择了收藏之后，才设置文章数据的缓存值
           wx.setStorageSync('posts_collected', postsCollected);
           //更新数据绑定变量，从而实现切换图片
-          this.setData({
+          that.setData({
             collected: postCollected
-          });
+          })
         }
       }
     })
   },
 
-  showToast: function(event) {
-    //先对缓存进行设置
-    wx.setStorageSync('posts_collected', postsCollected);
-    //更新数据绑定变量，从而实现切换图片
-    this.setData({
-      collected: postCollected
-    });
-
-    wx.showToast({
-      title: postCollected ? "已收藏" : "取消收藏",
-      //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
-      duration: 1000,
-      // icon: "success",
-      image: postCollected ? "../../../images/avatar/3.png" : "../../../images/avatar/1.png"
-      //三元表达式的用法
-    })
-  },
+  // showToast: function (postsCollected, postCollected) {
+  //   //先对缓存进行设置
+  //   wx.setStorageSync('posts_collected', postsCollected);
+  //   //更新数据绑定变量，实现切换图片（意味是否显示收藏状态）
+  //   this.setData({
+  //     collected: postCollected
+  //   });
+  // //再显示showToast提示状态
+  //   wx.showToast({
+  //     title: postCollected ? "已收藏" : "取消收藏",
+  //     //用变量postCollected来做三元表达式的判断，因为postCollected的键值不是ture就是false
+  //     duration: 1000,
+  //     // icon: "success",
+  //     image: postCollected ? "../../../images/avatar/3.png" : "../../../images/avatar/1.png"
+  //     //三元表达式的用法
+  //   })
+  // },
 
 })
