@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //isPlayingMusic可以不写，空属性的值就默认为false
+    // isPlayingMusic: false
   },
 
   /**
@@ -206,14 +207,27 @@ Page({
   },
 
   onMusicTap: function(event){
-    wx.playBackgroundAudio({
-      //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
-      dataUrl: 'http://music.163.com/song/media/outer/url?id=108220.mp3',
-      title: '此时此刻-许巍',
-      //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
-      coverImgUrl: 'http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg'
-    })
-  }
+    //this.data.isPlayingMusic里的isPlayingMusic可以设为不存在或false
+    var isPlayingMusic = this.data.isPlayingMusic;
+    if(isPlayingMusic){
+      //状态如果为真，音乐是播放状态，点击之后音乐要暂停，并且改变状态为假，给下一次点击做准备
+      wx.pauseBackgroundAudio();
+      this.data.isPlayingMusic = false;
+    }
+    //状态如果为假，音乐是暂停状态，点击之后音乐要播放，并改变状态为真，给下一次点击做准备
+    else{
+      wx.playBackgroundAudio({
+        //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
+        dataUrl: 'http://music.163.com/song/media/outer/url?id=108220.mp3',
+        title: '此时此刻-许巍',
+        //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
+        coverImgUrl: 'http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg'
+      }),
+      this.data.isPlayingMusic = true;
+    }
+
+
+  },
 
 
 })
