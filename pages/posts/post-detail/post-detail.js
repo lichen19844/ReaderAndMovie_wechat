@@ -44,7 +44,7 @@ Page({
       }
     } else {
       var postsCollected = {};
-      //定义一个空的对象，方便放入任何内容，也可以放入一个空数组[]
+      //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
       postsCollected[postId] = false;
       //意味着在空对象中先放入一个postId: false的对象，以它为起点
       //亦能写成 postCollected = false; 但是注意这里的postCollected不可随意变更，需和其它postCollected名字一致
@@ -105,7 +105,7 @@ Page({
     wx.getStorage({
       key: "posts_collected",
       success: function(res){
-        //res.data是wx.getStorage的属性，存储内容
+        //res这个参数理解为一个Object对象,res = {data: key对应的内容}。 res.data指服务器返回的内容
         var postsCollected = res.data;
         var postCollected = postsCollected[that.data.currentPostId];
         postCollected = !postCollected;
@@ -118,10 +118,12 @@ Page({
 
   //同步的方法
   getPostsCollectedSyc: function(){
-    //
+    //wx.getStorageSync的key: value关系公式：var value = wx.getStorageSync('key')
+    //postsCollected就是这个value，相当于异步方法里的data，注意和这里的data不是一回事
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
     postCollected = !postCollected;
+    postsCollected[that.data.currentPostId] = postCollected;
     console.log(postsCollected);
     this.showModal(postsCollected, postCollected);
   },
