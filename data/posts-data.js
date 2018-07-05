@@ -12,7 +12,12 @@ var local_database = [
     author: "林白衣",
     dateTime: "24小时前",
     detail: "所以每天跑步科不科学完全看自己，所以我建议大家为了自己的健康考虑，我们还是选择适当的跑步强度吧，不要太过执着，不要太过卖力，只有合适的跑步才能让你健康！",
-    postId: 0
+    postId: 0,
+    music: {
+      url: "http://music.163.com/song/media/outer/url?id=108219.mp3",
+      title: "黄昏-周转雄",
+      coverImg: "http://img.game333.net/uploads/shouyou/2017/03/28/20170328113601387.png"
+    }
   },
 
   {
@@ -28,7 +33,12 @@ var local_database = [
     author: "知更鸟",
     dateTime: "48天前",
     detail: "所以每天跑步科不科学完全看自己，所以我建议大家为了自己的健康考虑，我们还是选择适当的跑步强度吧，不要太过执着，不要太过卖力，只有合适的跑步才能让你健康！",
-    postId: 1
+    postId: 1,
+    music: {
+      url: "http://music.163.com/song/media/outer/url?id=108221.mp3",
+      title: "女儿情-万晓利",
+      coverImg: "https://b-ssl.duitang.com/uploads/item/201512/13/20151213190125_KcZnY.jpeg"
+    }
   },
 
   {
@@ -45,9 +55,9 @@ var local_database = [
     avatar: "/images/avatar/3.png",
     postId: 2,
     music: {
-      url: "http://ws.stream.qqmusic.qq.com/C100004HLusI2lLjZy.m4a?fromtag=38",
-      title: "女儿情-万晓利",
-      coverImg: "http://y.gtimg.cn/music/photo_new/T002R150x150M000004Wv5BO30pPc0.jpg?max_age=2592000"
+      url: "http://music.163.com/song/media/outer/url?id=108222.mp3",
+      title: "天涯-任贤齐",
+      coverImg: "http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg"
     }
   },
 
@@ -65,9 +75,9 @@ var local_database = [
     avatar: "/images/avatar/5.png",
     postId: 3,
     music: {
-      url: "http://ws.stream.qqmusic.qq.com/C100002mWVx72p8Ugp.m4a?fromtag=38",
-      title: "恋恋风尘-老狼",
-      coverImg: "http://y.gtimg.cn/music/photo_new/T002R150x150M000001VaXQX1Z1Imq.jpg?max_age=2592000",
+      url: "http://music.163.com/song/media/outer/url?id=108223.mp3",
+      title: "红豆-王菲",
+      coverImg: "http://img.anfone.net/Outside/anfone/201666/2016661523021277.jpg"
     }
   },
 
@@ -85,9 +95,9 @@ var local_database = [
     avatar: "../../../images/avatar/3.png",
     postId: 4,
     music: {
-      url: "http://ws.stream.qqmusic.qq.com/C100000Zn0vS4fKKo8.m4a?fromtag=38",
-      title: "沉默是金-张国荣",
-      coverImg: "http://y.gtimg.cn/music/photo_new/T002R150x150M000003at0mJ2YrR2H.jpg?max_age=2592000"
+      url: "http://music.163.com/song/media/outer/url?id=108224.mp3",
+      title: "哈哈-庾澄庆",
+      coverImg: "http://pic.ffpic.com/files/2014/0506/0505wmfjpgsjbz7.jpg"
     }
   },
 
@@ -105,9 +115,9 @@ var local_database = [
     avatar: "../../../images/avatar/5.png",
     postId: 5,
     music: {
-      url: "http://ws.stream.qqmusic.qq.com/C100002I8eGJ28BI17.m4a?fromtag=38",
-      title: "朋友-谭咏麟",
-      coverImg: "http://y.gtimg.cn/music/photo_new/T002R150x150M000004eGsCN3SUheO.jpg?max_age=2592000"
+      url: "http://music.163.com/song/media/outer/url?id=108225.mp3",
+      title: "光芒-哈瑞贝利",
+      coverImg: "http://pic.ffpic.com/files/2014/0506/0505wmfjpgsjbz5.jpg"
     }
   }
 ]

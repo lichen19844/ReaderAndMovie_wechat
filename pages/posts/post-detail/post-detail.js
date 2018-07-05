@@ -207,23 +207,31 @@ Page({
   },
 
   onMusicTap: function(event){
+    var postsData = postsData.postList[this.data.currentPostId];
     //this.data.isPlayingMusic里的isPlayingMusic可以设为不存在或false
     var isPlayingMusic = this.data.isPlayingMusic;
     if(isPlayingMusic){
       //状态如果为真，音乐是播放状态，点击之后音乐要暂停，并且改变状态为假，给下一次点击做准备
       wx.pauseBackgroundAudio();
-      this.data.isPlayingMusic = false;
+      this.setData({
+        isPlayingMusic: false,
+      });
+      //只有在onLoad()里面对data赋值才可以直接用this.data.xxx=true等操作，涉及到数据绑定的，如果是在别的除了onLoad()以外的函数里，必须使用this.setData()进行更新变量数据；如果发现有使用这样的方法，那也是从onLoad()穿过来的才能这样写
+      // this.data.isPlayingMusic = false;
     }
     //状态如果为假，音乐是暂停状态，点击之后音乐要播放，并改变状态为真，给下一次点击做准备
     else{
       wx.playBackgroundAudio({
         //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
-        dataUrl: 'http://music.163.com/song/media/outer/url?id=108220.mp3',
-        title: '此时此刻-许巍',
+        dataUrl: postData.music.url,
+        title: postData.music.title,
         //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
-        coverImgUrl: 'http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg'
+        coverImgUrl: postData.music.coverImg
       }),
-      this.data.isPlayingMusic = true;
+        this.setData({
+        isPlayingMusic: true
+        });
+      // this.data.isPlayingMusic = true;
     }
 
 
