@@ -95,8 +95,8 @@ Page({
     // this.showModal(postsCollected, postCollected);
     //这里不能在this.showModal()之后连着写this.showToast(),不然postCollected = !postCollected;的状态会在点击收藏图标后马上传入showToast方法，进而同步显示，这样在视觉上不好。应该在放入this.showModal()的if判断里，由if为真的执行来触发
     // this.showToast(postsCollected, postCollected);
-    // this.getPostsCollectedSyc();
-    this.getPostsCollectedAsy();
+    this.getPostsCollectedSyc();
+    // this.getPostsCollectedAsy();
   },
 
   //异步的方法
@@ -123,7 +123,7 @@ Page({
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
     postCollected = !postCollected;
-    postsCollected[that.data.currentPostId] = postCollected;
+    postsCollected[this.data.currentPostId] = postCollected;
     console.log(postsCollected);
     this.showModal(postsCollected, postCollected);
   },
