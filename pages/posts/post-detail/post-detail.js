@@ -207,7 +207,7 @@ Page({
   },
 
   onMusicTap: function(event){
-    var postsData = postsData.postList[this.data.currentPostId];
+    var postData = postsData.postList[this.data.currentPostId];
     //this.data.isPlayingMusic里的isPlayingMusic可以设为不存在或false
     var isPlayingMusic = this.data.isPlayingMusic;
     if(isPlayingMusic){
