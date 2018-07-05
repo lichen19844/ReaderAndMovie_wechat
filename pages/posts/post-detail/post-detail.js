@@ -100,7 +100,7 @@ Page({
   },
 
   //异步的方法
-  getPostsCollectedAsy: function(){
+  getPostsCollectedAsy: function(event){
     var that = this;
     wx.getStorage({
       key: "posts_collected",
@@ -117,7 +117,7 @@ Page({
   },
 
   //同步的方法
-  getPostsCollectedSyc: function(){
+  getPostsCollectedSyc: function(event){
     //wx.getStorageSync的key: value关系公式：var value = wx.getStorageSync('key')
     //postsCollected就是这个value，相当于异步方法里的data，注意和这里的data不是一回事
     var postsCollected = wx.getStorageSync('posts_collected');
@@ -178,7 +178,7 @@ Page({
       '分享到朋友圈',
       '分享到QQ',
       '分享到微博'
-      ]
+      ];
     wx.showActionSheet({
       itemList: itemList,
       itemColor: "#405f80",
@@ -203,6 +203,17 @@ Page({
       }
 
     })
+  },
+
+  onMusicTap: function(event){
+    wx.playBackgroundAudio({
+      //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
+      dataUrl: 'http://music.163.com/song/media/outer/url?id=108220.mp3',
+      title: '此时此刻-许巍',
+      //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
+      coverImgUrl: 'http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg'
+    })
   }
+
 
 })
