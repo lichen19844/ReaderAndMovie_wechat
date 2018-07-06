@@ -13,6 +13,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  //onLoad是页面全局监听事件
   onLoad: function(options) {
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     var postId = options.id;
@@ -55,7 +56,22 @@ Page({
       // });
       //把空对象更新到缓存里
       wx.setStorageSync('posts_collected', postsCollected);
-    }
+    };
+
+    var that = this;
+    wx.onBackgroundAudioPlay(function(){
+      that.setData({
+        isPlayingMusic: true,
+      });
+      //错误的写法 that.data.isPlayingMusic = true;
+    });
+
+    wx.onBackgroundAudioPause(function () {
+      that.setData({
+        isPlayingMusic: false,
+      });
+      //错误的写法 that.data.isPlayingMusic = false;
+    });    
   },
 
   onCollectionTap: function(event) {
@@ -206,20 +222,23 @@ Page({
     })
   },
 
+  //onMusicTap是音乐全局监听事件
   onMusicTap: function(event){
     var postData = postsData.postList[this.data.currentPostId];
     //this.data.isPlayingMusic里的isPlayingMusic可以设为不存在或false
     var isPlayingMusic = this.data.isPlayingMusic;
     if(isPlayingMusic){
-      //状态如果为真，音乐是播放状态，点击之后音乐要暂停，并且改变状态为假，给下一次点击做准备
+      //状态如果为真，音乐则是播放状态，点击之后暂停音乐，并且改变状态为false，给下一次点击做准备
       wx.pauseBackgroundAudio();
+      //停止播放
+      //wx.stopBackgroundAudio();
       this.setData({
         isPlayingMusic: false,
       });
-      //只有在onLoad()里面对data赋值才可以直接用this.data.xxx=true等操作，涉及到数据绑定的，如果是在别的除了onLoad()以外的函数里，必须使用this.setData()进行更新变量数据；如果发现有使用这样的方法，那也是从onLoad()穿过来的才能这样写
-      // this.data.isPlayingMusic = false;
+      //只有在onLoad()函数才可以直接用this.data.xxx=true等操作；如果是在别的除了onLoad()以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数只能引用通过onLoad()函数过来的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
+      // 不可以这样写： this.data.isPlayingMusic = false;
     }
-    //状态如果为假，音乐是暂停状态，点击之后音乐要播放，并改变状态为真，给下一次点击做准备
+    //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
     else{
       wx.playBackgroundAudio({
         //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效

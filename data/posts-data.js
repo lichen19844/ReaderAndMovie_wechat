@@ -37,7 +37,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108221.mp3",
       title: "女儿情-万晓利",
-      coverImg: "https://b-ssl.duitang.com/uploads/item/201512/13/20151213190125_KcZnY.jpeg"
+      coverImg: "http://i.shangc.net/2017/0115/20170115084221396.jpg"
     }
   },
 
@@ -57,7 +57,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108222.mp3",
       title: "天涯-任贤齐",
-      coverImg: "http://img.djye.com/sort/652171a50b2ab1e0e8a8573ad2fe0ad4.jpg"
+      coverImg: "http://i.shangc.net/2018/0102/20180102041142213.jpg"
     }
   },
 
@@ -97,7 +97,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108224.mp3",
       title: "哈哈-庾澄庆",
-      coverImg: "http://pic.ffpic.com/files/2014/0506/0505wmfjpgsjbz7.jpg"
+      coverImg: "http://i.shangc.net/2018/0320/20180320024633749.jpg"
     }
   },
 
@@ -117,7 +117,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108225.mp3",
       title: "光芒-哈瑞贝利",
-      coverImg: "http://pic.ffpic.com/files/2014/0506/0505wmfjpgsjbz5.jpg"
+      coverImg: "http://i.shangc.net/2017/0612/20170612014413747.jpg"
     }
   }
 ]
