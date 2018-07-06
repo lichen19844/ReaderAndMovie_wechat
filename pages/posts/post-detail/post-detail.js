@@ -1,13 +1,15 @@
-var postsData = require('../../../data/posts-data.js')
+var postsData = require('../../../data/posts-data.js');
+var app = getApp(); 
 
 Page({
 
   /**
    * 页面的初始数据
    */
+  //页面关闭再进来，data状态里的数据会被初始化成默认状态，onLoad会重新执行一遍，音乐图标恢复是因为html标签里的isPlayingMusic被初始化了，而音乐不暂停是因为没有产生点击事件来触发
   data: {
     //isPlayingMusic可以不写，空属性的值就默认为false
-    // isPlayingMusic: false
+    isPlayingMusic: false
   },
 
   /**
@@ -15,6 +17,7 @@ Page({
    */
   //onLoad是页面全局监听事件
   onLoad: function(options) {
+    var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     var postId = options.id;
     //将postId 赋予this.data.currentPostId，并且是在data{}数据层面，便于其它函数调用
@@ -59,6 +62,7 @@ Page({
     };
 
     var that = this;
+    //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function(){
       that.setData({
         isPlayingMusic: true,
@@ -235,7 +239,7 @@ Page({
       this.setData({
         isPlayingMusic: false,
       });
-      //只有在onLoad()函数才可以直接用this.data.xxx=true等操作；如果是在别的除了onLoad()以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数只能引用通过onLoad()函数过来的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
+      //只有在onLoad函数才可以直接用this.data.xxx=true等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
       // 不可以这样写： this.data.isPlayingMusic = false;
     }
     //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备

@@ -16,7 +16,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108219.mp3",
       title: "黄昏-周转雄",
-      coverImg: "http://img.game333.net/uploads/shouyou/2017/03/28/20170328113601387.png"
+      coverImg: "https://t11.baidu.com/it/u=3361518172,3741974690&fm=76"
     }
   },
 

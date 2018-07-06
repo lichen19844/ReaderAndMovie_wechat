@@ -1,6 +1,5 @@
 var postsData = require('../../data/posts-data.js')
 
-
 Page({
 
   /**
