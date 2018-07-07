@@ -9,7 +9,7 @@ Page({
   //页面关闭再进来，data状态里的数据会被初始化成默认状态，onLoad会重新执行一遍，音乐图标恢复是因为html标签里的isPlayingMusic被初始化了，而音乐不暂停是因为没有产生点击事件来触发
   data: {
     //isPlayingMusic可以不写，空属性的值就默认为false
-    isPlayingMusic: false
+    // isPlayingMusic: false
   },
 
   /**
@@ -17,15 +17,16 @@ Page({
    */
   //onLoad是页面全局监听事件
   onLoad: function(options) {
-    var globalData = app.globalData;
+    // var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     var postId = options.id;
-    //将postId 赋予this.data.currentPostId，并且是在data{}数据层面，便于其它函数调用
+    //将postId 赋予this.data.currentPostId，等同于同时将新造变量currentPostId放置在了本页面的data{}数据层面，便于其它函数调用
     this.data.currentPostId = postId;
     // console.log(postId);
     var postData = postsData.postList[postId];
     // console.log(postData);
     this.setData({
+      //setData里的变量可以直接拿到html标签里用，俗称数据绑定
       postData: postData
     });
 
@@ -44,6 +45,7 @@ Page({
       //把postId读取到定义的postsCollected缓存池中，并将postId的键值赋予变量postCollected
       if (postCollected) {
         this.setData({
+          //加载时的判断
           collected: postCollected
         });
       }
@@ -60,14 +62,26 @@ Page({
       //把空对象更新到缓存里
       wx.setStorageSync('posts_collected', postsCollected);
     };
+    //设计音乐播放对应图片的状态
+    if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId){
+      // 错误写法 this.data.isPlayingMusic = true;
+      this.setData({
+        isPlayingMusic: true,
+      })
+    };
+    this.setMusicMonitor();
+  },
 
+  setMusicMonitor: function(){
     var that = this;
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
-    wx.onBackgroundAudioPlay(function(){
+    wx.onBackgroundAudioPlay(function () {
       that.setData({
         isPlayingMusic: true,
       });
       //错误的写法 that.data.isPlayingMusic = true;
+      app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = that.data.currentPostId;
     });
 
     wx.onBackgroundAudioPause(function () {
@@ -75,7 +89,10 @@ Page({
         isPlayingMusic: false,
       });
       //错误的写法 that.data.isPlayingMusic = false;
-    });    
+      app.globalData.g_isPlayingMusic = false;
+      //在暂停的时候清空Id
+      app.globalData.g_currentMusicPostId = null;
+    });  
   },
 
   onCollectionTap: function(event) {
@@ -167,6 +184,7 @@ Page({
           wx.setStorageSync('posts_collected', postsCollected);
           //更新数据绑定变量，从而实现切换图片
           that.setData({
+            //点击时的判断
             collected: postCollected
           });
           that.showToast(postsCollected, postCollected);
@@ -229,9 +247,13 @@ Page({
   //onMusicTap是音乐全局监听事件
   onMusicTap: function(event){
     var postData = postsData.postList[this.data.currentPostId];
-    //this.data.isPlayingMusic里的isPlayingMusic可以设为不存在或false
-    var isPlayingMusic = this.data.isPlayingMusic;
-    if(isPlayingMusic){
+    //this.data.isPlayingMusic里的isPlayingMusic可以在data{}中写入不存在（即不写）或false，可以理解成在data{}中放置了一个变量isPlayingMusic
+    var isPlayingMusic_one = this.data.isPlayingMusic;
+    //错误写法，这不是在绑定变量的值 this.setData({
+    //   isPlayingMusic_one: isPlayingMusic
+    // })
+
+    if (isPlayingMusic_one){
       //状态如果为真，音乐则是播放状态，点击之后暂停音乐，并且改变状态为false，给下一次点击做准备
       wx.pauseBackgroundAudio();
       //停止播放
@@ -239,8 +261,8 @@ Page({
       this.setData({
         isPlayingMusic: false,
       });
-      //只有在onLoad函数才可以直接用this.data.xxx=true等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
-      // 不可以这样写： this.data.isPlayingMusic = false;
+      // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
+      //只有在onLoad函数才可以直接用this.data.xxx=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
     }
     //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
     else{
@@ -254,7 +276,7 @@ Page({
         this.setData({
         isPlayingMusic: true
         });
-      // this.data.isPlayingMusic = true;
+      //错误写法 this.data.isPlayingMusic = true;
     }
 
 
