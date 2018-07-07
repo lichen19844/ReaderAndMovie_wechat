@@ -262,7 +262,7 @@ Page({
         isPlayingMusic: false,
       });
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
-      //只有在onLoad函数才可以直接用this.data.xxx=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
+      //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
     }
     //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
     else{

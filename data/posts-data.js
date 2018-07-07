@@ -37,7 +37,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108221.mp3",
       title: "女儿情-万晓利",
-      coverImg: "http://i.shangc.net/2017/0115/20170115084221396.jpg"
+      coverImg: "https://oimagea6.ydstatic.com/image?id=3677653726231871766&product=adpublish&w=640&h=480&sc=0&rm=2&gsb=0&gsbd=60"
     }
   },
 
