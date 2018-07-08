@@ -182,5 +182,8 @@ Page({
         });
     }
   },
-
+  onUnload: function () {
+    // Do something when page close.
+    console.log("onUnload")
+  },
 })
