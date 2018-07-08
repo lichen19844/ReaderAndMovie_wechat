@@ -8,6 +8,7 @@ Page({
   },
 
   onLoad: function(options) {
+    console.log("page onLoad");
 
     var postId = options.id;
 
@@ -51,6 +52,7 @@ Page({
       that.setData({
         isPlayingMusic: true,
       });
+      console.log("listen play");
       app.globalData.g_isPlayingMusic = true;
       // app.globalData.g_currentMusicPostId = that.data.currentPostId;
     });
@@ -59,9 +61,38 @@ Page({
       that.setData({
         isPlayingMusic: false,
       });
+      console.log("listen pause");
       app.globalData.g_isPlayingMusic = false;
       // app.globalData.g_currentMusicPostId = null;
     });  
+  },
+
+  onMusicTap: function (event) {
+    var postData = postsData.postList[this.data.currentPostId];
+
+    var isPlayingMusic_one = this.data.isPlayingMusic;
+
+    if (isPlayingMusic_one) {
+
+      wx.pauseBackgroundAudio();
+
+      this.setData({
+        isPlayingMusic: false,
+      });
+      console.log("do pause")
+    }
+
+    else {
+      wx.playBackgroundAudio({
+        dataUrl: postData.music.url,
+        title: postData.music.title,
+        coverImgUrl: postData.music.coverImg
+      }),
+        this.setData({
+          isPlayingMusic: true
+        });
+        console.log("do play")
+    }
   },
 
   onCollectionTap: function(event) {
@@ -156,34 +187,18 @@ Page({
     })
   },
 
-  onMusicTap: function(event){
-    var postData = postsData.postList[this.data.currentPostId];
 
-    var isPlayingMusic_one = this.data.isPlayingMusic;
-
-    if (isPlayingMusic_one){
-
-      wx.pauseBackgroundAudio();
-
-      this.setData({
-        isPlayingMusic: false,
-      });
-    }
-
-    else{
-      wx.playBackgroundAudio({
-
-        dataUrl: postData.music.url,
-        title: postData.music.title,
-        coverImgUrl: postData.music.coverImg
-      }),
-        this.setData({
-        isPlayingMusic: true
-        });
-    }
+  onShow:function(){
+    console.log("page onShow")
+  },
+  onHide:function(){
+    console.log("page onHide")
   },
   onUnload: function () {
     // Do something when page close.
-    console.log("onUnload")
+    console.log("page onUnload")
   },
+  
 })
+//页面虽然卸载了，但是音乐总控开关不受其影响，会继续播放，我们现在的目的是进入其它页面时，播放图标需要正常显示，音乐的状态不管它
+//思路是设置一个全局变量，然后利用提取到全局变量的每个页面唯一的id和当前页面来做比较
