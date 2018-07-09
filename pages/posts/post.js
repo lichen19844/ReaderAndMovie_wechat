@@ -27,5 +27,5 @@ Page({
       //url: "post-detail/post-detail"代表的是post-detail的页面框架
       //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
     });
-  }
+  },
 })
