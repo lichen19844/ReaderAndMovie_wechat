@@ -18,7 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   //onLoad是页面全局监听事件
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log("page onLoad");
     // var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
@@ -75,10 +75,10 @@ Page({
     this.setMusicMonitor();
   },
 
-  setMusicMonitor: function () {
+  setMusicMonitor: function() {
     var that = this;
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
-    wx.onBackgroundAudioPlay(function () {
+    wx.onBackgroundAudioPlay(function() {
       that.setData({
         isPlayingMusic: true,
       });
@@ -88,7 +88,7 @@ Page({
       app.globalData.g_currentMusicPostId = that.data.currentPostId;
     });
 
-    wx.onBackgroundAudioPause(function () {
+    wx.onBackgroundAudioPause(function() {
       that.setData({
         isPlayingMusic: false,
       });
@@ -101,7 +101,7 @@ Page({
   },
 
   //onMusicTap是音乐全局监听事件
-  onMusicTap: function (event) {
+  onMusicTap: function(event) {
     var postData = postsData.postList[this.data.currentPostId];
     //this.data.isPlayingMusic里的isPlayingMusic可以在data{}中写入不存在（即不写）或false，可以理解成在data{}中放置了一个变量isPlayingMusic
     var isPlayingMusic_one = this.data.isPlayingMusic;
@@ -124,12 +124,12 @@ Page({
     //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
     else {
       wx.playBackgroundAudio({
-        //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
-        dataUrl: postData.music.url,
-        title: postData.music.title,
-        //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
-        coverImgUrl: postData.music.coverImg
-      }),
+          //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
+          dataUrl: postData.music.url,
+          title: postData.music.title,
+          //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
+          coverImgUrl: postData.music.coverImg
+        }),
         this.setData({
           isPlayingMusic: true
         });
@@ -137,8 +137,8 @@ Page({
       //错误写法 this.data.isPlayingMusic = true;
     }
   },
-  
-  onCollectionTap: function (event) {
+
+  onCollectionTap: function(event) {
     // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected
     // var postCollected = postsCollected[this.data.currentPostId];
@@ -181,11 +181,11 @@ Page({
   },
 
   //异步的方法
-  getPostsCollectedAsy: function (event) {
+  getPostsCollectedAsy: function(event) {
     var that = this;
     wx.getStorage({
       key: "posts_collected",
-      success: function (res) {
+      success: function(res) {
         //res这个参数理解为一个Object对象,res = {data: key对应的内容}。 res.data指服务器返回的内容
         var postsCollected = res.data;
         var postCollected = postsCollected[that.data.currentPostId];
@@ -198,7 +198,7 @@ Page({
   },
 
   //同步的方法
-  getPostsCollectedSyc: function (event) {
+  getPostsCollectedSyc: function(event) {
     //wx.getStorageSync的key: value关系公式：var value = wx.getStorageSync('key')
     //postsCollected就是这个value，相当于异步方法里的data，注意和这里的data不是一回事
     var postsCollected = wx.getStorageSync('posts_collected');
@@ -209,7 +209,7 @@ Page({
     this.showModal(postsCollected, postCollected);
   },
 
-  showModal: function (postsCollected, postCollected) {
+  showModal: function(postsCollected, postCollected) {
     var that = this;
     //先让用户确定是否收藏
     wx.showModal({
@@ -220,7 +220,7 @@ Page({
       cancelColor: "#333",
       confirmText: "确认",
       confirmColor: "#405f80",
-      success: function (res) {
+      success: function(res) {
         //点击确定键后，判断if(res.confirm)为真，再执行里面的动作
         if (res.confirm) {
           //成功选择了收藏之后，才设置更新文章数据的缓存值
@@ -236,7 +236,7 @@ Page({
     });
   },
 
-  showToast: function (postsCollected, postCollected) {
+  showToast: function(postsCollected, postCollected) {
     // //先对缓存进行设置
     // wx.setStorageSync('posts_collected', postsCollected);
     // //更新数据绑定变量，实现切换图片（意味是否显示收藏状态）
@@ -254,7 +254,7 @@ Page({
     })
   },
 
-  onShareTap: function (event) {
+  onShareTap: function(event) {
     var itemList = [
       '分享给微信好友',
       '分享到朋友圈',
@@ -264,7 +264,7 @@ Page({
     wx.showActionSheet({
       itemList: itemList,
       itemColor: "#405f80",
-      success: function (res) {
+      success: function(res) {
         //res.cancel 用户是不是点击了取消按钮
         //res.tapIndex 数组元素的序号，从0开始
         wx.showModal({
@@ -272,7 +272,7 @@ Page({
           content: "用户是否取消？" + res.cancel + "现在无法实现分享功能，什么时候能支持呢"
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res.errMsg);
         wx.showModal({
           title: "确定取消？ ",
@@ -287,13 +287,13 @@ Page({
     })
   },
 
-  onShow: function () {
+  onShow: function() {
     console.log("page onShow")
   },
-  onHide: function () {
+  onHide: function() {
     console.log("page onHide")
   },
-  onUnload: function () {
+  onUnload: function() {
     // Do something when page close.
     console.log("page onUnload")
   },
