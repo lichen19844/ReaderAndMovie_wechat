@@ -100,6 +100,44 @@ Page({
     });  
   },
 
+  //onMusicTap是音乐全局监听事件
+  onMusicTap: function (event) {
+    var postData = postsData.postList[this.data.currentPostId];
+    //this.data.isPlayingMusic里的isPlayingMusic可以在data{}中写入不存在（即不写）或false，可以理解成在data{}中放置了一个变量isPlayingMusic
+    var isPlayingMusic_one = this.data.isPlayingMusic;
+    //错误写法，这不是在绑定变量的值 this.setData({
+    //   isPlayingMusic_one: isPlayingMusic
+    // })
+
+    if (isPlayingMusic_one) {
+      //状态如果为真，音乐则是播放状态，点击之后暂停音乐，并且改变状态为false，给下一次点击做准备
+      wx.pauseBackgroundAudio();
+      //停止播放
+      //wx.stopBackgroundAudio();
+      this.setData({
+        isPlayingMusic: false,
+      });
+      console.log("do pause");
+      // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
+      //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
+    }
+    //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
+    else {
+      wx.playBackgroundAudio({
+        //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
+        dataUrl: postData.music.url,
+        title: postData.music.title,
+        //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
+        coverImgUrl: postData.music.coverImg
+      }),
+        this.setData({
+          isPlayingMusic: true
+        });
+      console.log("do play");
+      //错误写法 this.data.isPlayingMusic = true;
+    }
+  },
+
   onCollectionTap: function(event) {
     // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected
@@ -249,43 +287,7 @@ Page({
     })
   },
 
-  //onMusicTap是音乐全局监听事件
-  onMusicTap: function(event){
-    var postData = postsData.postList[this.data.currentPostId];
-    //this.data.isPlayingMusic里的isPlayingMusic可以在data{}中写入不存在（即不写）或false，可以理解成在data{}中放置了一个变量isPlayingMusic
-    var isPlayingMusic_one = this.data.isPlayingMusic;
-    //错误写法，这不是在绑定变量的值 this.setData({
-    //   isPlayingMusic_one: isPlayingMusic
-    // })
 
-    if (isPlayingMusic_one){
-      //状态如果为真，音乐则是播放状态，点击之后暂停音乐，并且改变状态为false，给下一次点击做准备
-      wx.pauseBackgroundAudio();
-      //停止播放
-      //wx.stopBackgroundAudio();
-      this.setData({
-        isPlayingMusic: false,
-      });
-      console.log("do pause");
-      // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
-      //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
-    }
-    //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
-    else{
-      wx.playBackgroundAudio({
-        //小程序中不能存放本地音乐，只能使用网络流媒体，这个播放地址暂时有效
-        dataUrl: postData.music.url,
-        title: postData.music.title,
-        //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
-        coverImgUrl: postData.music.coverImg
-      }),
-        this.setData({
-        isPlayingMusic: true
-        });
-      console.log("do play");
-      //错误写法 this.data.isPlayingMusic = true;
-    }
-  },
   onShow: function () {
     console.log("page onShow")
   },
