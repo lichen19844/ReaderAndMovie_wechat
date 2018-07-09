@@ -17,6 +17,7 @@ Page({
    */
   //onLoad是页面全局监听事件
   onLoad: function(options) {
+    console.log("page onLoad");
     // var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     var postId = options.id;
@@ -79,6 +80,7 @@ Page({
       that.setData({
         isPlayingMusic: true,
       });
+      console.log("listen play");
       //错误的写法 that.data.isPlayingMusic = true;
       app.globalData.g_isPlayingMusic = true;
       app.globalData.g_currentMusicPostId = that.data.currentPostId;
@@ -88,6 +90,7 @@ Page({
       that.setData({
         isPlayingMusic: false,
       });
+      console.log("listen pause");
       //错误的写法 that.data.isPlayingMusic = false;
       app.globalData.g_isPlayingMusic = false;
       //在暂停的时候清空Id
@@ -261,6 +264,7 @@ Page({
       this.setData({
         isPlayingMusic: false,
       });
+      console.log("do pause");
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
       //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
     }
@@ -276,11 +280,22 @@ Page({
         this.setData({
         isPlayingMusic: true
         });
+      console.log("do play");
       //错误写法 this.data.isPlayingMusic = true;
     }
-
-
+  },
+  onShow: function () {
+    console.log("page onShow")
+  },
+  onHide: function () {
+    console.log("page onHide")
+  },
+  onUnload: function () {
+    // Do something when page close.
+    console.log("page onUnload")
   },
 
-
 })
+
+//在真机环境，我们不能直接触及后台，只能通过页面来操作。现在执行退出页面，此时页面虽然卸载了，但是后台音乐总控开关不受其影响，会继续播放，我们现在的目的是进入其它页面时，播放图标需要正常显示，可以保持上一首音乐播放的状态
+//正常实现图标的思路是设置一个全局变量，然后利用提取到全局变量的每个页面唯一的id和当前页面来做比较
