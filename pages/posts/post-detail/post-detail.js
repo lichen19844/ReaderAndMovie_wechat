@@ -65,7 +65,7 @@ Page({
       //把空对象更新到缓存里
       wx.setStorageSync('posts_collected', postsCollected);
     };
-    //设计音乐播放对应图片的状态
+    //设计音乐播放对应图标的状态，由2个条件同时满足才行，其中判断全局变量的值和当前页面的id值是否一致
     if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId) {
       // 错误写法 this.data.isPlayingMusic = true;
       this.setData({
@@ -87,8 +87,9 @@ Page({
         isPlayingMusic: true,
       });
       console.log("listen play");
-      //错误的写法 that.data.isPlayingMusic = true;
+      //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = true;
+      //如果当前监听页面是播放的状态，将当前页面的id赋值给全局变量
       app.globalData.g_currentMusicPostId = that.data.currentPostId;
     });
 
@@ -97,9 +98,9 @@ Page({
         isPlayingMusic: false,
       });
       console.log("listen pause");
-      //错误的写法 that.data.isPlayingMusic = false;
+      //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
-      //在暂停的时候清空Id
+      //如果当前监听页面是暂停的状态，清空id值
       app.globalData.g_currentMusicPostId = null;
     });
   },
@@ -121,6 +122,7 @@ Page({
       this.setData({
         isPlayingMusic: false,
       });
+      //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = false;
       console.log("do pause");
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
       //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
@@ -137,6 +139,7 @@ Page({
         this.setData({
           isPlayingMusic: true
         });
+      //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = true;
       console.log("do play");
       //错误写法 this.data.isPlayingMusic = true;
     }
@@ -291,7 +294,7 @@ Page({
     })
   },
 
-  onPreviousTap: function (event) {
+  onPreviousTap: function(event) {
     var postId = this.data.currentPostId;
     var m = postId;
     var n = postsData.postList.length;
@@ -301,42 +304,40 @@ Page({
     var postUrl = "post-detail?id=";
 
     if (m >= 0) {
-    wx.redirectTo({
-      url: postUrl + m,
-      //url: "post-detail/post-detail"代表的是post-detail的页面框架
-      //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
-    });
-    console.log("next post id is " + m);
-    } 
-    else {
+      wx.redirectTo({
+        url: postUrl + m,
+        //url: "post-detail/post-detail"代表的是post-detail的页面框架
+        //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
+      });
+      console.log("next post id is " + m);
+    } else {
       wx.navigateTo({
         url: postUrl + postId
       });
       console.log("next post id is " + postId);
     };
   },
-  
-  onNextTap: function (event) {
+
+  onNextTap: function(event) {
     var postId = this.data.currentPostId;
     var m = postId;
     var n = postsData.postList.length;
-    m++;    
+    m++;
     // postId++;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     var postUrl = "post-detail?id=";
-    if (m <= (n - 1)){
+    if (m <= (n - 1)) {
       wx.redirectTo({
         url: postUrl + m
         //url: "post-detail/post-detail"代表的是post-detail的页面框架
         //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
       });
       console.log("next post id is " + m);
-    } 
-    else{
+    } else {
       wx.navigateTo({
         url: postUrl + postId
       });
-      console.log("next post id is " + postId);      
+      console.log("next post id is " + postId);
     };
 
   },

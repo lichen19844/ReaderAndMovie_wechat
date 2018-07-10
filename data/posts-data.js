@@ -77,7 +77,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108223.mp3",
       title: "红豆-王菲",
-      coverImg: "http://img.anfone.net/Outside/anfone/201666/2016661523021277.jpg"
+      coverImg: "https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b8389b504fc2d562f97bec27e61190ef77c66c8c.jpg"
     }
   },
 
