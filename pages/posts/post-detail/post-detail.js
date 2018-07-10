@@ -2,7 +2,7 @@ var postsData = require('../../../data/posts-data.js');
 var app = getApp();
 console.log(app);
 console.log(getApp().globalData);
-console.log(postsData.postList.length);
+console.log("postsData's length is " + postsData.postList.length);
 Page({
 
   /**
@@ -293,30 +293,52 @@ Page({
 
   onPreviousTap: function (event) {
     var postId = this.data.currentPostId;
-    postId--;
+    var m = postId;
+    var n = postsData.postList.length;
+    m--;
+    // postId--;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     var postUrl = "post-detail?id=";
-    console.log("next post id is " + postId);
 
+    if (m >= 0) {
     wx.redirectTo({
-      url: postUrl + postId
+      url: postUrl + m,
       //url: "post-detail/post-detail"代表的是post-detail的页面框架
       //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
     });
+    console.log("next post id is " + m);
+    } 
+    else {
+      wx.navigateTo({
+        url: postUrl + postId
+      });
+      console.log("next post id is " + postId);
+    };
   },
   
   onNextTap: function (event) {
     var postId = this.data.currentPostId;
-    postId++;
+    var m = postId;
+    var n = postsData.postList.length;
+    m++;    
+    // postId++;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     var postUrl = "post-detail?id=";
-    console.log("next post id is " + postId);
+    if (m <= (n - 1)){
+      wx.redirectTo({
+        url: postUrl + m
+        //url: "post-detail/post-detail"代表的是post-detail的页面框架
+        //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
+      });
+      console.log("next post id is " + m);
+    } 
+    else{
+      wx.navigateTo({
+        url: postUrl + postId
+      });
+      console.log("next post id is " + postId);      
+    };
 
-    wx.redirectTo({
-      url: postUrl + postId
-      //url: "post-detail/post-detail"代表的是post-detail的页面框架
-      //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
-    });
   },
 
   onShow: function() {
