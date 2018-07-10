@@ -103,6 +103,17 @@ Page({
       //如果当前监听页面是暂停的状态，清空id值
       app.globalData.g_currentMusicPostId = null;
     });
+
+    wx.onBackgroundAudioStop(function () {
+      that.setData({
+        isPlayingMusic: false,
+      });
+      console.log("listen stop");
+      //触发变量变化用监听或点击 二选一 
+      app.globalData.g_isPlayingMusic = false;
+      //如果当前监听页面是暂停的状态，清空id值
+      app.globalData.g_currentMusicPostId = null;
+    });
   },
 
   //onMusicTap是音乐全局监听事件
@@ -343,14 +354,17 @@ Page({
   },
 
   onShow: function() {
-    console.log("page onShow")
+    console.log("page onShow");
   },
   onHide: function() {
     console.log("page onHide")
   },
   onUnload: function() {
     // Do something when page close.
-    console.log("page onUnload")
+    console.log("page onUnload");
+    //卸载页面同时关闭音乐
+    // wx.stopBackgroundAudio();
+
   },
 
 })
