@@ -79,8 +79,8 @@ Page({
     var that = this;
     var pages = getCurrentPages();
     var currentPage = pages[pages.length - 1];
-    console.log("currentPageDataTest", currentPage.data);
-
+    console.log("currentPageDataTest is ", currentPage.data);
+    console.log("currentPage.data.currentPostId is ", currentPage.data.currentPostId);
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function() {
       that.setData({
@@ -373,8 +373,8 @@ Page({
 //我们现在的目的是进入其它页面时，播放图标需要正常显示，可以保持上一首音乐播放的状态
 //正常实现图标的思路是设置一个全局变量，然后利用提取到全局变量的每个页面唯一的id和当前页面来做比较。解决这个问题的思路变成了需要找到一个全局变量来记录音乐播放的状态。这个全局变量和页面无关，不会因为页面的销毁而丢失。这样，变量的生命周期就可以和音乐播放的生命周期在同一个级别上。
 //小程序的全局变量应该如何使用。首先对比一个页面中的共享变量是如何设置的。页面的共享变量被设置在页面Page方法的object对象上，比如data就是object对象的一个属性。所以，我们在其他方法中才能够多次使用this.data的方式引用这个data对象。页面的共享变量应该在页面中设置，所以全局共享变量自然应该在应用程序级别设置。我们可以在app.js中添加以下代码，设置小程序的全局变量。
-
-// var pages = getCurrentPages(); //getCurrentPages() 函数用于获取当前页面栈的实例，以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。
+// var pages = getCurrentPages(); //getCurrentPages() 函数用于获取当前页面栈的实例，以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。getCurrentPages()方法：利用此方法可获取所有打开页面数组，再根据其获取到相应的页面，然后执行页面里的方法。
+//五层的限制只是针对 navigateTo，redirectTo 则无此限制。因为 redirectTo 的行为是：关闭当前页面，跳转到应用内的某个页面。
 // var Page = pages[pages.length - 1];//当前页
 // var prevPage = pages[pages.length - 2];  //上一个页面
 // var info = prevPage.data //取上页data里的数据也可以修改

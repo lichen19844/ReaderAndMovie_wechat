@@ -30,7 +30,7 @@ App({
 
   //globalData可以是自定义的对象参数
   globalData: {
-    //初始变量为false，指代了上一篇文章的音乐是否在播放
+    //初始变量为false，指代了后台总控的音乐（无论是否为当前音乐）是否在播放（另外一个不是很准确的理解：也可以理解成上一页面的音乐）
     g_isPlayingMusic: false,
     //指代哪一个音乐正在被播放
     g_currentMusicPostId: null
