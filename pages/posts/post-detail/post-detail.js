@@ -2,7 +2,7 @@ var postsData = require('../../../data/posts-data.js');
 var app = getApp();
 console.log(app);
 console.log(getApp().globalData);
-
+console.log(postsData.postList.length);
 Page({
 
   /**
@@ -14,7 +14,7 @@ Page({
     // isPlayingMusic: false
   },
 
-  /**
+  /** 
    * 生命周期函数--监听页面加载
    */
   //onLoad是页面全局监听事件
@@ -291,13 +291,29 @@ Page({
     })
   },
 
-  onPostTap: function (event) {
-    var postId = event.currentTarget.dataset.postid;
+  onPreviousTap: function (event) {
+    var postId = this.data.currentPostId;
+    postId--;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
-    console.log("on post id is " + postId);
+    var postUrl = "post-detail?id=";
+    console.log("next post id is " + postId);
 
-    wx.navigateTo({
-      url: "post-detail/post-detail?id=" + postId
+    wx.redirectTo({
+      url: postUrl + postId
+      //url: "post-detail/post-detail"代表的是post-detail的页面框架
+      //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
+    });
+  },
+  
+  onNextTap: function (event) {
+    var postId = this.data.currentPostId;
+    postId++;
+    //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
+    var postUrl = "post-detail?id=";
+    console.log("next post id is " + postId);
+
+    wx.redirectTo({
+      url: postUrl + postId
       //url: "post-detail/post-detail"代表的是post-detail的页面框架
       //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
     });

@@ -7,9 +7,9 @@
     <text class="const-text">发表于</text>
     <text class="date">{{postData.dateTime}}</text>
   </view>
-
-  <view class="author-date">
     <text class="title">{{postData.title}}</text>
+  <view class="author-date">
+    <text catchtap="onPreviousTap" class="const-text">上一篇</text>
     <text catchtap="onNextTap" class="const-text">下一篇</text>
   </view>
 
