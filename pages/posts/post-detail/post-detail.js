@@ -80,7 +80,7 @@ Page({
     var pages = getCurrentPages();
     var currentPage = pages[pages.length - 1];
     var prevPage = pages[pages.length - 2];
-    var nextPage = pages[pages.length];
+    //页面栈实际不存在这个页面： var nextPage = pages[pages.length];
     console.log("pages is ", pages);
     console.log("currentPage is ", currentPage);
     console.log("currentPage__Route__ is ", currentPage.__route__);
@@ -89,28 +89,37 @@ Page({
     console.log("currentPage.data.currentPostId is ", currentPage.data.currentPostId);
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function() {
-      that.setData({
-        isPlayingMusic: true,
-      });
-      console.log("listen play");
+      // "==" 要求值相等即可; "===" 要求值和类型都必须相等
+      if (currentPage.data.currentPostId === that.data.currentPostId) {
+        if (app.globalData.g_currentMusicPostId == that.data.currentPostId) {
+          that.setData({
+            isPlayingMusic: true,
+          });
+          console.log("listen play");
+        }
+      }
       //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = true;
       //如果当前监听页面是播放的状态，将当前页面的id赋值给全局变量
-      app.globalData.g_currentMusicPostId = that.data.currentPostId;
+      // app.globalData.g_currentMusicPostId = that.data.currentPostId;
     });
 
     wx.onBackgroundAudioPause(function() {
+      if (currentPage.data.currentPostId === that.data.currentPostId) {
+        if (app.globalData.g_currentMusicPostId == that.data.currentPostId) {
       that.setData({
         isPlayingMusic: false,
       });
       console.log("listen pause");
+        }
+        }
       //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
       //如果当前监听页面是暂停的状态，清空id值
-      app.globalData.g_currentMusicPostId = null;
+      // app.globalData.g_currentMusicPostId = null;
     });
 
-    wx.onBackgroundAudioStop(function () {
+    wx.onBackgroundAudioStop(function() {
       that.setData({
         isPlayingMusic: false,
       });
@@ -118,7 +127,7 @@ Page({
       //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
       //如果当前监听页面是暂停的状态，清空id值
-      app.globalData.g_currentMusicPostId = null;
+      // app.globalData.g_currentMusicPostId = null;
     });
   },
 
@@ -141,6 +150,8 @@ Page({
       });
       //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = false;
       console.log("do pause");
+      // app.globalData.g_currentMusicPostId = null;
+      app.globalData.g_isPlayingMusic = false;
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
       //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
     }
@@ -158,7 +169,8 @@ Page({
         });
       //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = true;
       console.log("do play");
-      //错误写法 this.data.isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = this.data.currentPostId;
+      app.globalData.g_isPlayingMusic = true;
     }
   },
 
