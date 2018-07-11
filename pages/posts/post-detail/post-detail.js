@@ -93,9 +93,7 @@ Page({
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function() {
       // "==" 要求值相等即可; "===" 要求值和类型都必须相等
-      //如果A并且如果B
       if (currentPage.data.currentPostId === that.data.currentPostId) {
-        //这里考虑的是退出当前页面再进入当前页面时，判断全局变量记录的id值是否在再次进入时一致
         if (app.globalData.g_currentMusicPostId == that.data.currentPostId) {
           that.setData({
             isPlayingMusic: true,
@@ -112,12 +110,12 @@ Page({
     wx.onBackgroundAudioPause(function() {
       if (currentPage.data.currentPostId === that.data.currentPostId) {
         if (app.globalData.g_currentMusicPostId == that.data.currentPostId) {
-      that.setData({
-        isPlayingMusic: false,
-      });
-      console.log("listen pause");
+          that.setData({
+            isPlayingMusic: false,
+          });
+          console.log("listen pause");
         }
-        }
+      }
       //触发变量变化用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
       //如果当前监听页面是暂停的状态，清空id值
@@ -156,6 +154,7 @@ Page({
       //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = false;
       console.log("do pause");
       // app.globalData.g_currentMusicPostId = null;
+      app.globalData.g_currentMusicPostId = this.data.currentPostId;
       app.globalData.g_isPlayingMusic = false;
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
       //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
@@ -168,7 +167,7 @@ Page({
           title: postData.music.title,
           //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
           coverImgUrl: postData.music.coverImg
-        });
+        }),
         this.setData({
           isPlayingMusic: true
         });
@@ -176,7 +175,7 @@ Page({
       console.log("do play");
       app.globalData.g_currentMusicPostId = this.data.currentPostId;
       app.globalData.g_isPlayingMusic = true;
-    };
+    }
   },
 
   onCollectionTap: function(event) {
