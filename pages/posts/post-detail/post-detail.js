@@ -1,8 +1,8 @@
 var postsData = require('../../../data/posts-data.js');
 var app = getApp();
-console.log(app);
-console.log(getApp().globalData);
-console.log("postsData's length is " + postsData.postList.length);
+console.log("app is ", app);
+console.log("getApp().globalData is ", getApp().globalData);
+console.log("postsData's length is ", postsData.postList.length);
 Page({
 
   /**
@@ -20,14 +20,17 @@ Page({
   //onLoad是页面全局监听事件
   onLoad: function(options) {
     console.log("page onLoad");
+    console.log("options is ", options);
+    console.log("options.id is ", options.id);
     // var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     var postId = options.id;
+    // console.log("options is ", options);
     //将postId 赋予this.data.currentPostId，等同于同时将新造变量currentPostId放置在了本页面的data{}数据层面，便于其它函数调用
     this.data.currentPostId = postId;
-    // console.log(postId);
+    console.log("postId is ", this.data.currentPostId);
     var postData = postsData.postList[postId];
-    // console.log(postData);
+    console.log("postData is ", postData);
     this.setData({
       //setData里的变量可以直接拿到html标签里用，俗称数据绑定
       postData: postData
