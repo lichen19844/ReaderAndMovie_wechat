@@ -168,7 +168,7 @@ Page({
           title: postData.music.title,
           //小程序同样不能存放大尺寸封面，只能使用网络云存储图片
           coverImgUrl: postData.music.coverImg
-        }),
+        });
         this.setData({
           isPlayingMusic: true
         });
@@ -176,7 +176,7 @@ Page({
       console.log("do play");
       app.globalData.g_currentMusicPostId = this.data.currentPostId;
       app.globalData.g_isPlayingMusic = true;
-    }
+    };
   },
 
   onCollectionTap: function(event) {
