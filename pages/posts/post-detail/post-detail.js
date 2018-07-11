@@ -93,7 +93,9 @@ Page({
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function() {
       // "==" 要求值相等即可; "===" 要求值和类型都必须相等
+      //如果A并且如果B
       if (currentPage.data.currentPostId === that.data.currentPostId) {
+        //这里考虑的是退出当前页面再进入当前页面时，判断全局变量记录的id值是否在再次进入时一致
         if (app.globalData.g_currentMusicPostId == that.data.currentPostId) {
           that.setData({
             isPlayingMusic: true,
