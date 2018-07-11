@@ -79,7 +79,13 @@ Page({
     var that = this;
     var pages = getCurrentPages();
     var currentPage = pages[pages.length - 1];
-    console.log("currentPageDataTest is ", currentPage.data);
+    var prevPage = pages[pages.length - 2];
+    var nextPage = pages[pages.length];
+    console.log("pages is ", pages);
+    console.log("currentPage is ", currentPage);
+    console.log("currentPage__Route__ is ", currentPage.__route__);
+    console.log("currentPageRoute is ", currentPage.route);
+    console.log("currentPageData is ", currentPage.data);
     console.log("currentPage.data.currentPostId is ", currentPage.data.currentPostId);
     //监听事件的变化，注意不是页面的变化，中间操作数据达到传递数据的目的
     wx.onBackgroundAudioPlay(function() {
