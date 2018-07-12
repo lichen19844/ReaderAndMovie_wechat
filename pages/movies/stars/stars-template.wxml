@@ -1,8 +1,9 @@
 <template name="starsTemplate">
 <view>
-  <image src="/image/icon/star.png"></image>
-  <image src="/image/icon/star.png"></image>
-  <image src="/image/icon/star.png"></image>   <image src="/image/icon/star.png"></image>
-  <image src="/image/icon/star.png"></image>   <text></text>  
+  <image src="/images/icon/star.png"></image>
+  <image src="/images/icon/star.png"></image>
+  <image src="/images/icon/star.png"></image>
+  <image src="/images/icon/star.png"></image>
+  <image src="/images/icon/star.png"></image>   <text></text>  
 </view>
 </template>
