@@ -2,9 +2,11 @@
   "pages": [
     "pages/welcome/welcome",
     "pages/posts/post",
-
     "pages/posts/post-detail/post-detail",
-    "pages/movies/movies"
+    "pages/movies/movies",
+    "pages/movies/stars/stars-template",
+    "pages/movies/movie/movie-template",
+    "pages/movies/movie-list/movie-list-template"
   ],
   "window": {
     "navigationBarBackgroundColor": "#405f80"

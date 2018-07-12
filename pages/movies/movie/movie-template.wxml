@@ -1,0 +1,28 @@
+<import src="../stars/stars-template.wxml" />
+
+<template name="movieTemplate">
+  <view>
+    <image src="/images/yourname.webp"></image>
+    <text>你的名字</text>
+    <template is = "starsTemplate" />
+  </view>
+</template>
+
+<!-- 调用API方法，拿豆瓣举例
+搜索：豆瓣api v2
+打开网页：https://developers.douban.com/wiki/?title=movie_v2
+点击“电影条目信息”
+看到的信息是：
+Resources URI：
+/v2/movie/subject/:id
+Required Scope：
+movie_basic_r
+Example:
+GET /v2/movie/subject/1764796
+以上，只有Required Scope的内容是movie_basic_r，我们才可以读取，如果是movie_advance_r就不行
+
+找到某部电影，如《你的名字》https://movie.douban.com/subject/26683290/，读取网址上的id为26683290
+用抬头http://api.douban.com/结合Resources URI找到json文件：
+http://api.douban.com//v2/movie/subject/26683290
+发现json文件是被编码过的，去找工具json在线解析
+进行解码，使得读码有条理 -->
