@@ -1,17 +1,15 @@
 {
   "pages": [
-
-    "pages/posts/post",
     "pages/welcome/welcome",
+    "pages/posts/post",
+
     "pages/posts/post-detail/post-detail",
     "pages/movies/movies",
     "pages/movies2/movies2"
   ],
-
   "window": {
     "navigationBarBackgroundColor": "#405f80"
   },
-
   "tabBar": {
     "list": [
       {
@@ -19,12 +17,12 @@
         "text": "电影列表"
       },
       {
-        "pagePath": "pages/posts/post",
-        "text": "文章列表"
-      },
-      {
         "pagePath": "pages/welcome/welcome",
         "text": "欢迎页"
+      },
+      {
+        "pagePath": "pages/posts/post",
+        "text": "文章列表"
       }
     ]
   }
