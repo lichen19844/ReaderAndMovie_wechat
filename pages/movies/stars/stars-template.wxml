@@ -1,9 +1,13 @@
 <template name="starsTemplate">
-<view>
-  <image src="/images/icon/star.png"></image>
-  <image src="/images/icon/star.png"></image>
-  <image src="/images/icon/star.png"></image>
-  <image src="/images/icon/star.png"></image>
-  <image src="/images/icon/star.png"></image>   <text></text>  
-</view>
+  <view class="stars-container">
+    <view class="stars">
+      <image src="/images/icon/star.png"></image>
+      <image src="/images/icon/star.png"></image>
+      <image src="/images/icon/star.png"></image>
+      <image src="/images/icon/star.png"></image>
+      <image src="/images/icon/star.png"></image>
+    </view>
+    <!-- 这个view的作用是方便让5颗星星作为一个整体和文字之间有个间距 -->
+    <text class="star-score">8.9</text>
+  </view>
 </template>
