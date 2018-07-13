@@ -1,2 +1,6 @@
 /* pages/movies/movies.wxss */
 @import "movie-list/movie-list-template.wxss";
+
+ .movies-container {
+  background-color: #f2f2f2;
+} 
