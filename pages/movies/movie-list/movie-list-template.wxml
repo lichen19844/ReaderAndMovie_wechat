@@ -2,20 +2,22 @@
 
 <template name="movieListTemplate">
   <view class="movie-list-container">
+    <view class="inner-container">
 
-    <view class="moive-head">
-      <text class="slogn">正在热映</text>
-      <view class="more">
-        <text class="more-text">更多</text>
-        <image class="more-img" src="/images/icon/arrow-right.png"></image>
+      <view class="moive-head">
+        <text class="slogn">正在热映</text>
+        <view class="more">
+          <text class="more-text">更多</text>
+          <image class="more-img" src="/images/icon/arrow-right.png"></image>
+        </view>
       </view>
-    </view>
 
-    <view class="movies-container">
-      <template is="movieTemplate" />
-      <template is="movieTemplate" />
-      <template is="movieTemplate" />
-    </view>
+      <view class="movies-container">
+        <template is="movieTemplate" />
+        <template is="movieTemplate" />
+        <template is="movieTemplate" />
+      </view>
 
+    </view>
   </view>
 </template>
