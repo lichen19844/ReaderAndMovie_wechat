@@ -1,7 +1,7 @@
 var local_database = [
   {
-    date: "Sep 18 2016",
-    title: "正是虾肥蟹黄时",
+    "date": "Sep 18 2016",
+    "title": "正是虾肥蟹黄时",
     imgSrc: "/images/post/a4.jpg",
     avatar: "/images/avatar/1.png",
     img_condition: true,

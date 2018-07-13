@@ -5,7 +5,9 @@
     <view class="inner-container">
 
       <view class="moive-head">
-        <text class="slogn">正在热映</text>
+        <!-- <view class="slogntext"> -->
+          <text class="slogn">正在热映</text>
+        <!-- </view> -->
         <view class="more">
           <text class="more-text">更多</text>
           <image class="more-img" src="/images/icon/arrow-right.png"></image>

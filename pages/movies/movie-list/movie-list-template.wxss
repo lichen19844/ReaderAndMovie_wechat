@@ -7,31 +7,38 @@
   flex-direction: column;
 }
 
- .inner-container {
+.inner-container {
   margin: 0 auto 20rpx;
-} 
-
-.moive-head {
-  border: 1rpx solid;
-   padding: 30rpx 20rpx 22rpx; 
-   display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* space-between	项目位于各行之间留有空白的容器内。
-  space-around	项目位于各行之前、之间、之后都留有空白的容器内。 */
 }
 
+.moive-head {
+  /* border: 1rpx solid; */
+  padding: 30rpx 20rpx 22rpx;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between; */
+  /* space-between	项目位于各行之间留有空白的容器内。space-around	项目位于各行之前、之间、之后都留有空白的容器内。 */
+}
+
+/* .slogntext {
+  border: 1rpx solid;
+}   */
+
 .slogn {
-  /* vertical-align: middle; */
+  vertical-align: middle;
   font-size: 24rpx;
+  /* border: 1rpx solid; */
 }
 
 .more {
-  /* float: right; */
+  float: right;
+  /* border: 1rpx solid; */
 }
 
 .more-text {
   vertical-align: middle;
-   margin-right: 10rpx; 
+  /* 用了盒子模型后vertical-align: middle会失效 */
+  margin-right: 10rpx;
   color: #1f4ba5;
 }
 
