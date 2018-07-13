@@ -16,7 +16,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108219.mp3",
       title: "黄昏-周转雄",
-      coverImg: "http://5b0988e595225.cdn.sohucs.com/images/20171211/6d7ad753485a4913a9ba689e11fca0a4.gif"
+      coverImg: "http://photocdn.sohu.com/20160310/mp62777185_1457580095147_7.gif"
     }
   },
 
@@ -37,7 +37,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108221.mp3",
       title: "女儿情-万晓利",
-      coverImg: "http://5b0988e595225.cdn.sohucs.com/images/20171228/19f9301854ec4e1e98863342079fa86e.gif"
+      coverImg: "http://photocdn.sohu.com/20160310/mp62777185_1457580095147_8.gif"
     }
   },
 
@@ -57,7 +57,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108222.mp3",
       title: "天涯-任贤齐",
-      coverImg: "http://i.shangc.net/2018/0102/20180102041142213.jpg"
+      coverImg: "http://photocdn.sohu.com/20160310/mp62777185_1457580095147_11.gif"
     }
   },
 
@@ -77,7 +77,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108223.mp3",
       title: "红豆-王菲",
-      coverImg: "https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/b8389b504fc2d562f97bec27e61190ef77c66c8c.jpg"
+      coverImg: "http://photocdn.sohu.com/20160310/mp62777185_1457580095147_17.gif"
     }
   },
 
@@ -97,7 +97,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108224.mp3",
       title: "哈哈-庾澄庆",
-      coverImg: "http://i.shangc.net/2018/0320/20180320024633749.jpg"
+      coverImg: "http://photocdn.sohu.com/20160310/mp62777185_1457580095147_19.gif"
     }
   },
 
@@ -117,7 +117,7 @@ var local_database = [
     music: {
       url: "http://music.163.com/song/media/outer/url?id=108225.mp3",
       title: "光芒-哈瑞贝利",
-      coverImg: "http://i.shangc.net/2017/0612/20170612014413747.jpg"
+      coverImg: "http://img.mp.itc.cn/upload/20170712/cf2d535a20f34b0ead2a6b645c052cf0_th.jpg"
     }
   }
 ]
