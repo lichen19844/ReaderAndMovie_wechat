@@ -1,16 +1,18 @@
 <import src="movie-list/movie-list-template.wxml" />
 
 <view class="movies_container">
-  <view  class="movies-template">
+  <view class="movies-template">
+    <template is="movieListTemplate" data="{{movies}}" />
+  </view>
+
+  <view class="movies-template">
     <template is="movieListTemplate" />
   </view>
 
-  <view  class="movies-template">
-    <template is="movieListTemplate" />
-  </view>
-  
-  <view  class="movies-template">
-    <template is="movieListTemplate" />
+  <view class="movies-template">
+    <block wx:for="{{movies}}" wx:for-item="movie">
+      <template is="movieListTemplate" data="{{...movie}}" />
+    </block>
   </view>
 </view>
 <!-- 通过Wxml工具看出class样式对template是无效的，template是一个占位符，解决方法是给template加一个view组件标签-->
