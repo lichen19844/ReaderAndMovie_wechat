@@ -23,8 +23,8 @@ Page({
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
     // 下列异步函数虽然按顺序排列，但因为每个函数实际在每次调用所花费的时间会有不同，导致实际展现到页面的顺序会有变化
     this.getMovieListData(inTheatersUrl);
-    this.getMovieListData(comingSoonUrl);
-    this.getMovieListData(top250Url);
+    // this.getMovieListData(comingSoonUrl);
+    // this.getMovieListData(top250Url);
 
     // wx.request({
     //   url: 'https://api.douban.com/v2/movie/top250',
@@ -50,7 +50,10 @@ Page({
     // })
   },
 
+//所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   getMovieListData: function(url){
+    //that应对success函数而生
+    var that = this;
     wx.request({
       url: url,
       //用不到 data: {},
@@ -58,9 +61,10 @@ Page({
       header: {
         "Content-Type": "json"
       },
-      //success函数拿到数据
+      //如果成功拿到数据，会执行success函数，并把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据
       success: function(res){
-        console.log("success data is ", res)
+        console.log("success's whole res data is ", res);
+        that.processDoubanData(res.data);
       },
       fail: function(error){
         console.log("failed");
@@ -69,6 +73,34 @@ Page({
     })
   },
 
+  //将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里
+  processDoubanData: function(moviesDouban){
+    // 处理 API 数据的主要逻辑： 
+    // 1. 定义一个空数组
+    // 2. 用 for in 来遍历数据数组
+    // 3. 在循环中，把每一条数据的属性值赋值给一个临时对象temp
+    // 4. 在循环中，用 push 方法，把临时对象加到空数组中
+    var movies = [];
+    for(var idx in moviesDouban.subjects){
+          var subject = moviesDouban.subjects[idx];
+          var title = subject.title;
+          if(title.length >= 6){
+            title = title.substring(0, 6) + "...";
+          }
+          var temp = {
+            title: title,
+            average: subject.rating.average,
+            coverageUrl: subject.images.large,
+            movieId: subject.id
+          }
+          movies.push(temp)
+    };
+    //做数据绑定到data中
+    this.setData({
+      movies: movies
+    })
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

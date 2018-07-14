@@ -21,6 +21,7 @@ Page({
   onLoad: function(options) {
     console.log("page onLoad");
     console.log("options is ", options);
+    //想要打印id，必须写成带有形参的形式options.id
     console.log("options.id is ", options.id);
     // var globalData = app.globalData;
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
