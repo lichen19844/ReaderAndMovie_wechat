@@ -61,9 +61,10 @@ Page({
       header: {
         "Content-Type": "json"
       },
-      //如果成功拿到数据，会执行success函数，并把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据
+      //如果成功拿到数据，会执行success函数，并把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据，类型是个对象
       success: function(res){
         console.log("success's whole res data is ", res);
+        //用一个函数来处理数据，这里是使用res数据的data属性
         that.processDoubanData(res.data);
       },
       fail: function(error){
@@ -73,7 +74,7 @@ Page({
     })
   },
 
-  //将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里
+  //这个函数的作用：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
   processDoubanData: function(moviesDouban){
     // 处理 API 数据的主要逻辑： 
     // 1. 定义一个空数组
@@ -85,14 +86,17 @@ Page({
           var subject = moviesDouban.subjects[idx];
           var title = subject.title;
           if(title.length >= 6){
+//             substring
+// public String substring(int beginIndex, int endIndex)
+// Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex- beginIndex. 
             title = title.substring(0, 6) + "...";
-          }
+          };
           var temp = {
             title: title,
             average: subject.rating.average,
             coverageUrl: subject.images.large,
             movieId: subject.id
-          }
+          };
           movies.push(temp)
     };
     //做数据绑定到data中
