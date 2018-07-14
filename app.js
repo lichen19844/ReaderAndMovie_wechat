@@ -33,7 +33,9 @@ App({
     //初始变量为false，可以用来指代后台总控的音乐（无论是否为当前音乐）是否在播放（另外一个不是很准确的理解：也可以理解成上一页面的音乐）
     g_isPlayingMusic: false,
     //指代哪一个音乐正在被播放
-    g_currentMusicPostId: null
+    g_currentMusicPostId: null,
+    // doubanBase: "https://api.douban.com",
+    doubanBase: "http://t.yushu.im",
 
   }
 })

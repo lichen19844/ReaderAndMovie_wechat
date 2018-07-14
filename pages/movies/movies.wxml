@@ -13,4 +13,4 @@
     <template is="movieListTemplate" />
   </view>
 </view>
-<!-- 通过Wxml工具看出class样式对template是无效的 -->
+<!-- 通过Wxml工具看出class样式对template是无效的，template是一个占位符，解决方法是给template加一个view组件标签-->
