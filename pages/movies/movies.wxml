@@ -1,7 +1,16 @@
 <import src="movie-list/movie-list-template.wxml" />
 
-<view class="movies-container">
-  <template is="movieListTemplate" />
-  <template is="movieListTemplate" />
-  <template is="movieListTemplate" />
+<view class="movies_container">
+  <view  class="movies-template">
+    <template is="movieListTemplate" />
+  </view>
+
+  <view  class="movies-template">
+    <template is="movieListTemplate" />
+  </view>
+  
+  <view  class="movies-template">
+    <template is="movieListTemplate" />
+  </view>
 </view>
+//通过Wxml工具看出class样式对template是无效的
