@@ -64,7 +64,7 @@ Page({
       //如果成功拿到数据，会执行success函数，并把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据，类型是个对象
       success: function(res){
         console.log("success's whole res data is ", res);
-        //用一个函数来处理数据，这里是使用res数据的data属性
+        //用一个函数来处理接收的数据，这里是使用res数据的data属性
         that.processDoubanData(res.data);
       },
       fail: function(error){
