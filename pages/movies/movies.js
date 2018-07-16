@@ -8,7 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    inTheaters: {},
+    comingSoon: {},
+    top250: {}
   },
 
   /**
@@ -22,9 +24,10 @@ Page({
     var comingSoonUrl = app.globalData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
     // 下列异步函数虽然按顺序排列，但因为每个函数实际在每次调用所花费的时间会有不同，导致实际展现到页面的顺序会有变化
-    this.getMovieListData(inTheatersUrl);
-    // this.getMovieListData(comingSoonUrl);
-    // this.getMovieListData(top250Url);
+    // 如果有三个相同的getMovieListData函数一起执行，结果会执行最后一次调用的top250Url参数
+    this.getMovieListData(inTheatersUrl, inTheaters);
+    this.getMovieListData(comingSoonUrl, comingSoon);
+    this.getMovieListData(top250Url, top250);
 
     // wx.request({
     //   url: 'https://api.douban.com/v2/movie/top250',
@@ -51,7 +54,7 @@ Page({
   },
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
-  getMovieListData: function(url, processDoubanData) {
+  getMovieListData: function(url, processDoubanData, settedKey) {
     //that应对success函数而生
     var that = this;
     wx.request({
@@ -76,7 +79,7 @@ Page({
   },
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
-  processDoubanData: function(moviesDouban) {
+  processDoubanData: function (moviesDouban, settedKey) {
     // 处理 API 数据的主要逻辑： 
     // 1. 定义一个空数组
     // 2. 用 for in 来遍历数据数组

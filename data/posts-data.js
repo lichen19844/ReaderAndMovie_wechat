@@ -1,3 +1,4 @@
+// 假数据
 var local_database = [
   {
     "date": "Sep 18 2016",
