@@ -8,6 +8,7 @@
       <image src="/images/icon/star.png"></image>
     </view>
     <!-- 这个view的作用是方便让5颗星星作为一个整体和文字之间有个间距 -->
+    <!-- 接收来自上一层的movie数据里的average -->
     <text class="star-score">{{average}}</text>
   </view>
 </template>
