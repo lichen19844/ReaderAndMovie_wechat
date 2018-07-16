@@ -113,10 +113,12 @@ Page({
     };
     var readyData = {};
     // 动态语言赋值
+    readyData[settedKey] = movies;
     //最新的movies数组里会有遍历后的多组数据，这时将数据绑定到了data中
-    this.setData({
-      movies: movies
-    })
+    this.setData(
+      // {movies: movies}
+      readyData
+    );
 
   },
 
