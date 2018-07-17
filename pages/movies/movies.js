@@ -11,7 +11,9 @@ Page({
   data: {
     inTheaters: {},
     comingSoon: {},
-    top250: {}
+    top250: {},
+    test1: {},
+    test2: {}
   },
 
   /**
@@ -56,8 +58,8 @@ Page({
   },
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
-  // 接受data里的key，这里设置一个形参settedKey
-  getMovieListData: function(url, settedKey) {
+  // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
+  getMovieListData: function (url, settedKey, processDoubanData) {
     //that应对success函数而生
     var that = this;
     wx.request({
@@ -71,7 +73,7 @@ Page({
       success: function(res) {
         //res拿到的是完整的数据
         console.log("success's whole res data is ", res);
-        //用一个函数来处理接收的数据，这里是使用res数据的data属性，这里一个疑点，为什么settedKey可以绕过success函数而近来呢
+        //用一个函数来处理接收的数据，这里是使用res数据的data属性，settedKey不可以可以放入success函数
         that.processDoubanData(res.data, settedKey);
       },
       fail: function(error) {
@@ -111,6 +113,7 @@ Page({
       movies.push(temp);
       console.log("movies data is ", idx, movies);
     };
+    
     var readyData = {};
     // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
@@ -122,7 +125,7 @@ Page({
     this.setData(
       // {movies: movies}
       readyData
-      //等同于{settedKey: movies} 
+    //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}变成了字符串，但它原来的关系没有变化，settedeKey任然是个变量
     );
 
   },
