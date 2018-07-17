@@ -26,7 +26,7 @@ Page({
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
     // 下列异步函数虽然按顺序排列，但因为每个函数实际在每次调用所花费的时间会有不同，导致实际展现到页面的顺序会有变化
     // 如果有三个相同的getMovieListData函数一起执行，结果会执行最后一次调用的top250Url参数
-    //把data中的key传进来
+    //把data中的key传进来当参数,要带引号，除非命名是key的变量可以不用带
     this.getMovieListData(inTheatersUrl, 'inTheaters');
     this.getMovieListData(comingSoonUrl, 'comingSoon');
     this.getMovieListData(top250Url, 'top250'); 
@@ -57,7 +57,7 @@ Page({
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey
-  getMovieListData: function(url, processDoubanData, settedKey) {
+  getMovieListData: function(url, settedKey) {
     //that应对success函数而生
     var that = this;
     wx.request({
@@ -71,7 +71,7 @@ Page({
       success: function(res) {
         //res拿到的是完整的数据
         console.log("success's whole res data is ", res);
-        //用一个函数来处理接收的数据，这里是使用res数据的data属性
+        //用一个函数来处理接收的数据，这里是使用res数据的data属性，这里一个疑点，为什么settedKey可以绕过success函数而近来呢
         that.processDoubanData(res.data, settedKey);
       },
       fail: function(error) {
@@ -112,12 +112,17 @@ Page({
       console.log("movies data is ", idx, movies);
     };
     var readyData = {};
-    // 动态语言赋值
-    readyData[settedKey] = movies;
+    // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
+    // readyData[settedKey] = movies;
+    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组）
+    readyData[settedKey] = {
+      movies: movies
+    };
     //最新的movies数组里会有遍历后的多组数据，这时将数据绑定到了data中
     this.setData(
       // {movies: movies}
       readyData
+      //等同于{settedKey: movies} 
     );
 
   },

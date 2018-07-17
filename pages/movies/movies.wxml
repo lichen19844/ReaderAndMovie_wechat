@@ -5,15 +5,15 @@
   <view  class="movies-template">
     <!-- 编写模板，自下而上；数据传递，自上而下 -->
     <!-- 这里传递对应movies.wxml的movies.js中data里的movies数据 到向下的movieListTemplate模板中 -->
-    <template is="movieListTemplate" data="{{movies}}" />
+    <template is="movieListTemplate" data="{{...inTheaters}}" />
   </view>
 
   <view  class="movies-template">
-    <template is="movieListTemplate" />
+    <template is="movieListTemplate" data="{{...comingSoon}}" />
   </view>
   
   <view  class="movies-template">
-    <template is="movieListTemplate" />
+    <template is="movieListTemplate" data="{{...top250}}" />
   </view>
 </view>
 <!-- 通过Wxml工具看出class样式对template是无效的，template是一个占位符，解决方法是给template加一个view组件标签-->
