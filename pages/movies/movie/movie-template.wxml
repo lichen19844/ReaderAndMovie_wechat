@@ -5,8 +5,9 @@
     <!-- 接收来自上一层的movie数据，数据里有coverageUrl和title，可以直接写出来 -->
     <image class="movie-img" src="{{coverageUrl}}"></image>
     <text class="movie-title">{{title}}</text>
-    <!-- 向下传递movie数据里的average -->
-    <template is="starsTemplate" data="{{average}}" />
+    <!-- 向下传递movie数据里的average，直接使用不带movie.样式的子数据(甚至是子子数据)渲染页面 -->
+    <!-- <template is="starsTemplate" data="{{average}}" /> -->
+    <template is="starsTemplate" data="{{stars: stars, score: average}}" />
   </view>
 </template>
 

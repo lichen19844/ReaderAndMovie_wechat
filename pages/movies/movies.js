@@ -1,4 +1,5 @@
 // pages/movies/movies.js
+var util = require('../../utils/util.js');
 
 var app = getApp();
 
@@ -9,6 +10,7 @@ Page({
    */
   // 我们所期望的数据结构变量，有三个不同的数据对象，这样就可以绑定到三个不同的movieListTemplate模板上
   data: {
+    //初始化，如果是对象，给一个空值，养成好习惯，这里可以对照post-detail.js的isPlayingMusic用法
     inTheaters: {},
     comingSoon: {},
     top250: {},
@@ -29,9 +31,9 @@ Page({
     // 下列异步函数虽然按顺序排列，但因为每个函数实际在每次调用所花费的时间会有不同，导致实际展现到页面的顺序会有变化
     // 如果有三个相同的getMovieListData函数一起执行，结果会执行最后一次调用的top250Url参数
     //把data中的key传进来当参数,要带引号，除非命名是key的变量可以不用带
-    this.getMovieListData(inTheatersUrl, 'inTheaters');
-    this.getMovieListData(comingSoonUrl, 'comingSoon');
-    this.getMovieListData(top250Url, 'top250'); 
+    this.getMovieListData(inTheatersUrl, 'inTheaters', '正在热映');
+    this.getMovieListData(comingSoonUrl, 'comingSoon', '即将上映');
+    this.getMovieListData(top250Url, 'top250', '电影Top250'); 
 
     // wx.request({
     //   url: 'https://api.douban.com/v2/movie/top250',
@@ -59,7 +61,7 @@ Page({
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
-  getMovieListData: function (url, settedKey, processDoubanData) {
+  getMovieListData: function (url, settedKey, categoryTitle, processDoubanData) {
     //that应对success函数而生
     var that = this;
     wx.request({
@@ -74,7 +76,7 @@ Page({
         //res拿到的是完整的数据
         console.log("success's whole res data is ", res);
         //用一个函数来处理接收的数据，这里是使用res数据的data属性，settedKey不可以可以放入success函数
-        that.processDoubanData(res.data, settedKey);
+        that.processDoubanData(res.data, settedKey, categoryTitle);
       },
       fail: function(error) {
         console.log("failed");
@@ -85,7 +87,7 @@ Page({
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
   // processDoubanData无法知道setData中处理的电影类型到底是哪一种，但我们可以通过getMovieListData函数来想办法
-  processDoubanData: function (moviesDouban, settedKey) {
+  processDoubanData: function (moviesDouban, settedKey, categoryTitle) {
     // 处理 API 数据的主要逻辑： 
     // 1. 定义一个空数组
     // 2. 用 for in 来遍历数据数组
@@ -104,12 +106,15 @@ Page({
         // Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex- beginIndex. 
         title = title.substring(0, 6) + "...";
       };
+      // 用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式来做星星
       var temp = {
+        stars: util.converToStarsArray(subject.rating.stars),
         title: title,
         average: subject.rating.average,
         coverageUrl: subject.images.large,
         movieId: subject.id
       };
+
       movies.push(temp);
       console.log("movies data is ", idx, movies);
     };
@@ -119,6 +124,7 @@ Page({
     // readyData[settedKey] = movies;
     //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系
     readyData[settedKey] = {
+      categoryTitle: categoryTitle,
       movies: movies
     };
     //最新的movies数组里会有遍历后的多组数据，这时将数据绑定到了data中

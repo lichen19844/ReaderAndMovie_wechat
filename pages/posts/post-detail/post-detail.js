@@ -10,7 +10,7 @@ Page({
    */
   //页面关闭再进来，data状态里的数据会被初始化成默认状态，onLoad会重新执行一遍，音乐图标恢复是因为html标签里的isPlayingMusic被初始化了，而音乐不暂停是因为没有产生点击事件来触发
   data: {
-    //isPlayingMusic可以不写，空属性的值就默认为false
+    //isPlayingMusic可以不写，空属性的值就默认为false，但最好写一下
     // isPlayingMusic: false
   },
 
