@@ -15,6 +15,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
+      //posts_key拿到了posts-data.js中所有的假数据
       posts_key: postsData.postList
     });
   },

@@ -117,7 +117,7 @@ Page({
     var readyData = {};
     // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
-    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组）
+    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系
     readyData[settedKey] = {
       movies: movies
     };

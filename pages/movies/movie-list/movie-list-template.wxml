@@ -19,11 +19,11 @@
         <!-- 注意数据的默认排序是根据外部API数据来源的排序 -->
         <!-- 接收来自上一层的movies数据 -->
         <block wx:for="{{movies}}" wx:for-item="movie">
-          <!-- 向下传递通过wx:for方法分解的movie数据 -->
+          <!-- ...的作用是向下传递通过wx:for方法分解的movie数据，便于下一层html直接使用不带movie.样式的子数据渲染页面，如果不写...，那么要在子模板中使用movie.xxx的样式来渲染数据 -->
           <template is="movieTemplate" data="{{...movie}}" />
         </block>
-        <!-- <template is="movieTemplate" /> -->
-        <!-- <template is="movieTemplate" />  -->
+        <!-- 不需要再增加<template is="movieTemplate" /> -->
+        <!-- 不需要再增加<template is="movieTemplate" /> -->
       </view>
 
     </view>

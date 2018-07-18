@@ -13,11 +13,13 @@
     </swiper-item>
   </swiper>
   <!-- block并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。因为 wx:if 是一个控制属性，需要将它添加到一个标签上。如果要一次性判断多个组件标签，可以使用一个block标签将多个组件包装起来，并在上边使用 wx:if 控制属性。 -->
+  <!-- 将拿到的数据做列表渲染，参考https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/list.html -->
   <block wx:for="{{posts_key}}" wx:for-item="item">
     <!--template, template只是个占位符-->
     <!-- postid是由post.wxml中data-postId="{{item.postId}}"获得 -->
     <!-- dataset在组件中可以定义数据，这些数据将会通过事件传递给 SERVICE。 书写方式： 以data - 开头，多个单词由连字符 - 链接，不能有大写(大写会自动转成小写)如data- element - type，最终在 event.currentTarget.dataset 中会将连字符转成驼峰elementType -->
     <view catchtap="onPostTap" data-postId="{{item.postId}}">
+      <!-- ...的作用，可以将数据数组的每个元素做展开，然后将元素里的每个数据对象向下传递，便于下一层html直接使用不带item.样式的子数据来渲染。一般用于模板template，如果不写...，那么要在子模板中使用item.xxx的样式来渲染数据 -->
       <template is="postItem" data="{{...item}}" />
     </view>
   </block>
