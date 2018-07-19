@@ -6,6 +6,7 @@
       <image src="/images/icon/star.png"></image>
       <image src="/images/icon/star.png"></image>
       <image src="/images/icon/star.png"></image> -->
+         <!-- 接受有5个元素的数组[]，并按数组的每个元素的值做列表渲染，同时按元素的值来做判断使用那个图 -->     
       <block wx:for= "{{stars}}" wx:for-item= "i">
         <image wx:if= "{{i}}"  src="/images/icon/star.png"></image>
         <image wx:else src="/images/icon/none-star.png"></image>

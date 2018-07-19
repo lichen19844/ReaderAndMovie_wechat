@@ -73,8 +73,8 @@ Page({
       },
       //如果成功拿到数据，会执行success函数，它会把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据，类型是个对象
       success: function(res) {
-        //res拿到的是完整的数据
-        console.log("success's whole res data is ", res);
+        //res拿到的是一个api里完整的数据
+        console.log("one api success's whole res data is ", res);
         //用一个函数来处理接收的数据，这里是使用res数据的data属性，settedKey不可以可以放入success函数
         that.processDoubanData(res.data, settedKey, categoryTitle);
       },
@@ -96,7 +96,7 @@ Page({
     var movies = [];
     //js中数组push对象，一个对象对应一个地址，定义对象的变量temp放在for循环里面，这样每次都是新的对象，这样每个地址都不一样，movies.push(temp)之后得到不同的值；如果放在for循环外部，对象的地址是不变的，movies数组里最后的数据会覆盖之前的数据，导致需要的数据不对。可参考https://blog.csdn.net/xiaoye319/article/details/78416762
     for (var idx in moviesDouban.subjects) {
-      console.log("test idx data is ", idx, moviesDouban.subjects[idx]);
+      console.log("subjects", idx, "data is ",  moviesDouban.subjects[idx]);
       var subject = moviesDouban.subjects[idx];
       var title = subject.title;
       //名字太长了显示是个问题，故做个名字长度的if判断
@@ -106,8 +106,9 @@ Page({
         // Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex- beginIndex. 
         title = title.substring(0, 6) + "...";
       };
-      // 用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式来做星星
+      // 把星星的分值35或50这样的数字转化成有5个数字的数组，用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式来做星星
       var temp = {
+        //星星调用的是公共的util.js方法
         stars: util.converToStarsArray(subject.rating.stars),
         title: title,
         average: subject.rating.average,
@@ -116,7 +117,7 @@ Page({
       };
 
       movies.push(temp);
-      console.log("movies data is ", idx, movies);
+      console.log("movies", idx, "data is ", movies[idx]);
     };
     
     var readyData = {};
