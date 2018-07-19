@@ -4,6 +4,7 @@ function converToStarsArray(stars){
   // toString()方法是转为字符串，substring方法是从第1个字符开始，一共只要1个字符
   var num = stars.toString().substring(0, 1);
   var array = [];
+  //i <= 5 代表了 5颗星
   for(var i = 1; i <= 5; i++){
     // 思路：把num在外部设置好，然后引入到for循环里做判断用，判断完将我们想要的值放入数组array
     if(i<=num){

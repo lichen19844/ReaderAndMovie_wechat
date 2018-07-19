@@ -96,7 +96,7 @@ Page({
     var movies = [];
     //js中数组push对象，一个对象对应一个地址，定义对象的变量temp放在for循环里面，这样每次都是新的对象，这样每个地址都不一样，movies.push(temp)之后得到不同的值；如果放在for循环外部，对象的地址是不变的，movies数组里最后的数据会覆盖之前的数据，导致需要的数据不对。可参考https://blog.csdn.net/xiaoye319/article/details/78416762
     for (var idx in moviesDouban.subjects) {
-      console.log("subjects", idx, "data is ",  moviesDouban.subjects[idx]);
+      console.log("subjects", idx, "is a subject data ",  moviesDouban.subjects[idx]);
       var subject = moviesDouban.subjects[idx];
       var title = subject.title;
       //名字太长了显示是个问题，故做个名字长度的if判断
@@ -106,9 +106,9 @@ Page({
         // Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex- beginIndex. 
         title = title.substring(0, 6) + "...";
       };
-      // 把星星的分值35或50这样的数字转化成有5个数字的数组，用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式来做星星
+      // 把星星的分值35或50这样的数字转化成有5个数字的数组，用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式给到stars来做星星
       var temp = {
-        //星星调用的是公共的util.js方法
+        //stars调用的是公共的util.js方法，得到的一个[1, 1, 1, 0, 0]形式的数组
         stars: util.converToStarsArray(subject.rating.stars),
         title: title,
         average: subject.rating.average,
@@ -117,15 +117,17 @@ Page({
       };
 
       movies.push(temp);
-      console.log("movies", idx, "data is ", movies[idx]);
+      // 因为还在for循环之中，idx可以直接拿来用
+      console.log("movies", idx, "is a movie data ", movies[idx]);
     };
     
     var readyData = {};
     // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
-    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系
+    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系，html页面上所置放的数据要和AppData的一致！！！
     readyData[settedKey] = {
       categoryTitle: categoryTitle,
+      //把上面获得的movie[]数组引入这里的键值对
       movies: movies
     };
     //最新的movies数组里会有遍历后的多组数据，这时将数据绑定到了data中
