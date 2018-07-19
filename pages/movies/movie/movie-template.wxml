@@ -8,6 +8,7 @@
     <!-- 向下传递movie数据里的average，可以直接使用不带movie.样式的子数据(甚至是子子数据)渲染页面 -->
     <!-- 亦可以写成<template is="starsTemplate" data="{{stars, average}}" /> -->
     <!-- 键值对中“值”的来源必须严格一致，“键”可以自定义，但是将键传入下一层时也必须严格保持和“键”一致的写法！！！ -->
+    <!-- {{stars: stars, score: average}}的意思是stars和average又重新封装成了一个js对象，然后传入了starsTemplate里去，这么做的原因是因为template里只能写一个data，不能写诸如data1，data2等 -->
     <template is="starsTemplate" data="{{stars: stars, score: average}}" />
   </view>
 </template>
