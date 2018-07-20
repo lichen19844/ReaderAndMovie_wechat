@@ -24,7 +24,8 @@ Page({
     //想要打印id，必须写成带有形参的形式options.id
     console.log("options.id is ", options.id);
     // var globalData = app.globalData;
-    //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，  通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
+    //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
+    // post.js里"post-detail/post-detail?id="里的名字id,是自定义的，而且它决定了post-detail.js引用的时候也要写成id
     var postId = options.id;
     // console.log("options is ", options);
     //将postId 赋予this.data.currentPostId，等同于同时将新造变量currentPostId放置在了本页面的data{}数据层面，便于其它函数调用

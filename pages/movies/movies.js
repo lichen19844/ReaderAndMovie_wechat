@@ -59,6 +59,14 @@ Page({
     // })
   },
 
+  onMoreTap: function(event){
+    var category = event.currentTarget.dataset.category;
+    wx.navigateTo({
+          // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category
+      url: 'more-movie/more-movie?category=' + category,
+    })
+  },
+
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
   getMovieListData: function (url, settedKey, categoryTitle, processDoubanData) {

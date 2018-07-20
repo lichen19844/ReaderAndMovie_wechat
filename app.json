@@ -6,7 +6,9 @@
     "pages/movies/movies",
     "pages/movies/stars/stars-template",
     "pages/movies/movie/movie-template",
-    "pages/movies/movie-list/movie-list-template"
+    "pages/movies/movie-list/movie-list-template",
+    "pages/movies/more-movie/more-movie"
+
   ],
   "window": {
     "navigationBarBackgroundColor": "#405f80"
