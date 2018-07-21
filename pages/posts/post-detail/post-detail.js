@@ -159,7 +159,7 @@ Page({
       app.globalData.g_currentMusicPostId = this.data.currentPostId;
       app.globalData.g_isPlayingMusic = false;
       // 错误写法，绑定变量不能这样写： this.data.isPlayingMusic = false;
-      //只有在onLoad函数才可以直接用this.data.val=yyy等操作；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到数据绑定的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
+      //只有在onLoad函数才可以直接用this.data.val=yyy等操作，一般用来传参；如果是在别的除了onLoad以外的函数里（包括onLoad里面嵌套定义的函数），需要涉及到从js逻辑层绑定数据到wxml视图层的，必须使用this.setData()的形式进行更新变量数据；其它函数中this.data.xxx的写法只适用于传参，比如通过引用onLoad函数里的this.data.xxx；凡是非第一层函数的，this可一律设置var that = this;进而使用that来做引用that.data.xxx或that.setData({})绑定数据
     }
     //状态如果为false，音乐则是暂停状态，点击之后触发音乐播放，并改变状态为真，给下一次点击做准备
     else {
@@ -396,10 +396,17 @@ Page({
 //在真机环境，我们不能直接触及后台，只能通过页面来操作。执行退出页面，页面会被卸载销毁，因页面变量isPlayingMusic不是全局变量会跟着被丢失，但音乐播放却还在进行，这是因为音乐总控开关属于后台。
 //我们现在的目的是进入其它页面时，播放图标需要正常显示，可以保持上一首音乐播放的状态
 //正常实现图标的思路是设置一个全局变量，然后利用提取到全局变量的每个页面唯一的id和当前页面来做比较。解决这个问题的思路变成了需要找到一个全局变量来记录音乐播放的状态。这个全局变量和页面无关，不会因为页面的销毁而丢失。这样，变量的生命周期就可以和音乐播放的生命周期在同一个级别上。
+
 //小程序的全局变量应该如何使用。首先对比一个页面中的共享变量是如何设置的。页面的共享变量被设置在页面Page方法的object对象上，比如data就是object对象的一个属性。所以，我们在其他方法中才能够多次使用this.data的方式引用这个data对象。页面的共享变量应该在页面中设置，所以全局共享变量自然应该在应用程序级别设置。我们可以在app.js中添加以下代码，设置小程序的全局变量。
-// var pages = getCurrentPages(); //getCurrentPages() 函数用于获取当前页面栈的实例，以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。getCurrentPages()方法：利用此方法可获取所有打开页面数组，再根据其获取到相应的页面，然后执行页面里的方法。
+
+// var pages = getCurrentPages(); getCurrentPages() 函数用于获取当前页面栈的实例，以数组形式按栈的顺序给出，第一个元素为首页，最后一个元素为当前页面。getCurrentPages()方法：利用此方法可获取所有打开页面数组，再根据其获取到相应的页面，然后执行页面里的方法。
+
 //五层的限制只是针对 navigateTo，redirectTo 则无此限制。因为 redirectTo 的行为是：关闭当前页面，跳转到应用内的某个页面。
 // var Page = pages[pages.length - 1];//当前页
 // var prevPage = pages[pages.length - 2];  //上一个页面
 // var info = prevPage.data //取上页data里的数据也可以修改
 // prevPage.setData({ 键: 值 })//设置数据
+
+//setData（）函数用于将数据从逻辑层发送到视图层（异步），同时改变对应的 this.data 的值（同步）。直接修改 this.data 而不调用 this.setData 是无法改变页面的状态的，还会造成数据不一致。
+//this.data一般用来传参，不用于绑定数据
+//setData（）参数格式:接受一个对象，以键（key）值（value）的方式改变值。

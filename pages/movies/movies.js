@@ -128,7 +128,7 @@ Page({
       // 因为还在for循环之中，idx可以直接拿来用
       console.log("movies", idx, "is a movie data ", movies[idx]);
     };
-    //运用settedKey的方法很重要，它是3个空对象“键”（或叫属性）的共同形参，通过回调函数一路传到这里，然后被做成又一个readyData空对象的“键”（或叫属性），然后再通过用其它方法造好数据的数组和一个早有赋值的参数，再做成一个对象，赋值给交readyData对象的属性settedKey，这个编程思路要牢记！！！！！
+    //运用settedKey的方法很重要，它是3个空对象“键”（或叫属性）的共同形参，通过回调函数一路传到这里，然后被做成又一个readyData空对象的“键”（或叫属性），然后再通过用其它方法造好数据的数组和一个早有赋值的参数，再做成一个对象，赋值给readyData对象的属性settedKey，这个编程思路要牢记！！！！！
     var readyData = {};
     // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
