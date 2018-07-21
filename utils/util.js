@@ -16,8 +16,26 @@ function converToStarsArray(stars) {
   return array;
 }
 
+//小插曲，可以把下面的method作为参数写到http(url, callBack, method)中，通过method参数把'GET'或'POST'等传过来
+function http(url, callBack) {
+  wx.request({
+    url: url,
+    method: 'GET',
+    header: {
+      "Content-Type": "json"
+    },
+    success: function (res) {
+      callBack(res.data);
+    },
+    fail: function (error) {
+      console.log(error);
+    },
+  })
+}
+
 module.exports = {
-  converToStarsArray: converToStarsArray
+  converToStarsArray: converToStarsArray,
+  http: http
 }
 
 

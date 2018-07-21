@@ -83,7 +83,7 @@ Page({
       success: function(res) {
         //res拿到的是一个api里完整的数据
         console.log("one api success's whole res data is ", res);
-        //用一个函数来处理接收的数据，这里是使用res数据的data属性，settedKey不可以可以放入success函数
+        //用一个callback回调函数processDoubanData来处理接收的数据，这里是使用res数据的data属性，settedKey不可以可以放入success函数
         that.processDoubanData(res.data, settedKey, categoryTitle);
       },
       fail: function(error) {
