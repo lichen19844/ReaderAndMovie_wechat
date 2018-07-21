@@ -10,7 +10,9 @@ Page({
    */
   data: {
     //在data中设置一个中间变量，让几个函数共享这个中间变量，设置空字符串""是因为另外一个函数中接收的是字符串（如movies.js中的'正在热映'等）的变量，如title
+    //实际上像navigateTitle: ""和movies: {}在data中不写也不会报错，但写了代码有易读性
     navigateTitle: "",
+    movies: {}
   },
 
   /**
@@ -33,13 +35,36 @@ Page({
       case "电影Top250":
         dataUrl = app.globalData.doubanBase + "/v2/movie/top250";
         break;
-    }
-    util.http(dataUrl, this.callBack)
+    };
+
+    util.http(dataUrl, this.processDoubanData);
   },
 
-  //这里写res的原因是什么？ 在11分钟左右
-  callBack: function(data) {
-    console.log(data)
+  processDoubanData: function (moviesDouban) {
+    console.log(moviesDouban)
+
+    var movies = [];
+    for (var idx in moviesDouban.subjects) {
+      console.log("subjects", idx, "is a subject data ", moviesDouban.subjects[idx]);
+      var subject = moviesDouban.subjects[idx];
+      var title = subject.title;
+      if (title.length >= 6) {
+        title = title.substring(0, 6) + "...";
+      };
+      var temp = {
+        stars: util.converToStarsArray(subject.rating.stars),
+        title: title,
+        average: subject.rating.average,
+        coverageUrl: subject.images.large,
+        movieId: subject.id
+      };
+      movies.push(temp);
+      console.log("movies", idx, "is a movie data ", movies[idx]);
+    };
+
+    this.setData({
+      movies: movies
+    });
   },
 
   /**

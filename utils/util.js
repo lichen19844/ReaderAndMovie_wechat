@@ -26,6 +26,7 @@ function http(url, callBack) {
     },
     success: function (res) {
       callBack(res.data);
+      console.log("util callback res is ", res)
     },
     fail: function (error) {
       console.log(error);

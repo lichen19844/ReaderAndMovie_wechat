@@ -24,7 +24,7 @@ Page({
   onLoad: function(event) {
     // 拿到三组api的URL,放入onLoad函数里，起到原始数据源的作用
     //注意api网址的格式：https://api.douban.com/v2/movie/top250?start=245&count=3
-    //对应正常网页的格式：https://movie.douban.com/top250?start=245&count=3  其中start=245是有效的，而count=3以及total等Properties无效
+    //对应正常网页的格式：https://movie.douban.com/top250?start=245&count=3  其中例如start=245是有效的，而count=3以及total等Properties无效
     var inTheatersUrl = app.globalData.doubanBase + "/v2/movie/in_theaters" + "?start=0&count=3";
     var comingSoonUrl = app.globalData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
@@ -79,7 +79,7 @@ Page({
       header: {
         "Content-Type": "json"
       },
-      //如果成功拿到数据，会执行success函数，它会把wx.request拿到的数据作为参数传入success函数，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据，类型是个对象
+      //wx.request方法执行后，如果相应的页面是正常状态，则会成功拿到页面json数据，并把数据作为参数传入success函数并执行 ，success函数里的形参res指代的就是通过wx.request的url、method、header所拿到的数据，类型是个对象
       success: function(res) {
         //res拿到的是一个api里完整的数据
         console.log("one api success's whole res data is ", res);
