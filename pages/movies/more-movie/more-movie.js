@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    //在data中设置一个中间变量，让几个函数共享这个中间变量，设置空字符串""是因为另外一个函数中有需要字符串的变量，如title
+    navigateTitle: "",
   },
 
   /**
@@ -13,20 +14,28 @@ Page({
    */
   onLoad: function (options) {
     var category = options.category;
+    //函数使用中间变量navigateTitle
+    this.data.navigateTitle = category;
     console.log(category);
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function (event) {
+    wx.setNavigationBarTitle({
+      title: this.data.navigateTitle,
+      success: function (res) {
+        //success
+      }
+    })  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (event) {
   
   },
 
