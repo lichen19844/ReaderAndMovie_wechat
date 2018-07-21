@@ -13,6 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //category的来源可以参考post-detail.js中postId的来源
     var category = options.category;
     //函数使用中间变量navigateTitle
     this.data.navigateTitle = category;

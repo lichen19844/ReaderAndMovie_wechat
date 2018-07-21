@@ -29,11 +29,11 @@ Page({
     var comingSoonUrl = app.globalData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
     var top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
     // 下列异步函数虽然按顺序排列，但因为每个函数实际在每次调用所花费的时间会有不同，导致实际展现到页面的顺序会有变化
-    // 如果有三个相同的getMovieListData函数一起执行，结果会执行最后一次调用的top250Url参数
+    // 如果有三个相同的getMovieListData函数一起执行，加载不一定按顺序来
     //把data中的key传进来当参数,要带引号，除非命名是key的变量可以不用带
     this.getMovieListData(inTheatersUrl, 'inTheaters', '正在热映');
     this.getMovieListData(comingSoonUrl, 'comingSoon', '即将上映');
-    this.getMovieListData(top250Url, 'top250', '电影Top250'); 
+    this.getMovieListData(top250Url, 'top250', '电影Top250');
 
     // wx.request({
     //   url: 'https://api.douban.com/v2/movie/top250',
@@ -59,17 +59,17 @@ Page({
     // })
   },
 
-  onMoreTap: function(event){
+  onMoreTap: function(event) {
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
-          // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category
+      // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category
       url: 'more-movie/more-movie?category=' + category,
     })
   },
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
-  getMovieListData: function (url, settedKey, categoryTitle, processDoubanData) {
+  getMovieListData: function(url, settedKey, categoryTitle, processDoubanData) {
     //that应对success函数而生
     var that = this;
     wx.request({
@@ -95,7 +95,7 @@ Page({
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
   // processDoubanData无法知道setData中处理的电影类型到底是哪一种，但我们可以通过getMovieListData函数来想办法
-  processDoubanData: function (moviesDouban, settedKey, categoryTitle) {
+  processDoubanData: function(moviesDouban, settedKey, categoryTitle) {
     // 处理 API 数据的主要逻辑： 
     // 1. 定义一个空数组
     // 2. 用 for in 来遍历数据数组
@@ -104,7 +104,7 @@ Page({
     var movies = [];
     //js中数组push对象，一个对象对应一个地址，定义对象的变量temp放在for循环里面，这样每次都是新的对象，这样每个地址都不一样，movies.push(temp)之后得到不同的值；如果放在for循环外部，对象的地址是不变的，movies数组里最后的数据会覆盖之前的数据，导致需要的数据不对。可参考https://blog.csdn.net/xiaoye319/article/details/78416762
     for (var idx in moviesDouban.subjects) {
-      console.log("subjects", idx, "is a subject data ",  moviesDouban.subjects[idx]);
+      console.log("subjects", idx, "is a subject data ", moviesDouban.subjects[idx]);
       var subject = moviesDouban.subjects[idx];
       var title = subject.title;
       //名字太长了显示是个问题，故做个名字长度的if判断
@@ -134,6 +134,7 @@ Page({
     // readyData[settedKey] = movies;
     //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系，html页面上所置放的数据要和AppData的一致！！！
     readyData[settedKey] = {
+      //这样categoryTitle和movies所代表的数据才能通过readyData传入公共数据data：{}中，这样wxml页面就能引用了
       categoryTitle: categoryTitle,
       //把上面获得的movie[]数组引入这里的键值对
       movies: movies
@@ -142,7 +143,7 @@ Page({
     this.setData(
       // {movies: movies}
       readyData
-    //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}变成了字符串，但它原来的关系没有变化，settedeKey任然是个变量
+      //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}变成了字符串，但它原来的关系没有变化，settedeKey任然是个变量
     );
 
   },
