@@ -60,6 +60,8 @@ Page({
   },
 
   onMoreTap: function(event) {
+    //category实际指代了movie-list-template.wxml中的{{categoryTitle}}
+    //category通过url传递到了more-movie
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
 
