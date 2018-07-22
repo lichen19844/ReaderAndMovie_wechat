@@ -21,10 +21,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //category的来源可以参考post-detail.js中postId的来源
+    //category的来源方式可以参考post-detail.js中postId的来源
     var category = options.category;
-    this.data.navigateTitle = category;
-    console.log(category);
     //函数使用中间变量navigateTitle
     this.data.navigateTitle = category;
     console.log(category);
@@ -86,6 +84,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function(event) {
+    //动态设置当前页面的标题
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle,
       success: function(res) {
