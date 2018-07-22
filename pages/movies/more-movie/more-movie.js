@@ -43,7 +43,6 @@ Page({
     util.http(dataUrl, this.processDoubanData);
   },
 
-
   scrolltolower: function (event) {
     // 用console验证函数是否生效
     // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
