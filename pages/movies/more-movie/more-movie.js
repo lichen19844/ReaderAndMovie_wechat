@@ -29,6 +29,7 @@ Page({
     var dataUrl = "";
     switch (category) {
       case "正在热映":
+        // "/v2/movie/in_theaters"的写法，小程序默认只加载前20条数据，即"?start=0&count=20"
         dataUrl = app.globalData.doubanBase + "/v2/movie/in_theaters";
         break;
       case "即将上映":
@@ -42,9 +43,16 @@ Page({
     util.http(dataUrl, this.processDoubanData);
   },
 
+
+  scrolltolower: function (event) {
+    // 用console验证函数是否生效
+    // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
+    console.log("加载更多");
+    var nextUrl = this.data.requestUrl + 
+  },
+
   processDoubanData: function (moviesDouban) {
     console.log(moviesDouban)
-
     var movies = [];
     for (var idx in moviesDouban.subjects) {
       console.log("subjects", idx, "is a subject data ", moviesDouban.subjects[idx]);

@@ -1,2 +1,23 @@
 /* pages/movies/movie-grid/movie-grid.wxss */
 @import "../movie/movie-template.wxss";
+/* 
+scroll-view组件下flex会失效,建议在 scroll-view里再套一层view，对这个view采用flex
+1.scroll-view 中的需要滑动的元素不可以用 float 浮动；
+2.scroll-view 中的包裹需要滑动的元素的大盒子用 display:flex; 是没有作用的；
+3.scroll-view 中的需要滑动的元素要用 dislay:inline-block; 进行元素的横向编排；
+4.包裹 scroll-view 的大盒子有明确的宽和加上样式-->  overflow:hidden;white-space:nowrap;
+ */
+
+
+.grid-container {
+  margin: 40rpx 0 10rpx 10rpx;
+  /* iphone6的物理分辨率下，高度为1336rpx，减去导航栏的高度大约是40rpx，所以取1300rpx的值 */
+  height: 1300rpx; 
+}
+
+.single-view-container {
+  /*用不了  display: flex;
+  flex-direction: row; */
+  float: left;
+  margin-bottom: 40rpx;
+}
