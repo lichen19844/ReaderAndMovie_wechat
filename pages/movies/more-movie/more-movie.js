@@ -11,9 +11,11 @@ Page({
   data: {
 
     //在data中设置一个中间变量，让几个函数共享这个中间变量，设置空字符串""是因为另外一个函数中接收的是字符串（如movies.js中的'正在热映'等）的变量，如title
-    //实际上像navigateTitle: ""和movies: {}在data中不写也不会报错，但写了代码有易读性
+    //实际上像navigateTitle: ""和movies: {}在data中不写也不会报错，但写了代码有易读性，这些中间变量都要初始化
     navigateTitle: "",
-    movies: {}
+    movies: {},
+    requestUrl: "",
+    totalCount: 0
   },
 
   /**
@@ -29,6 +31,7 @@ Page({
     //函数使用中间变量navigateTitle
     this.data.navigateTitle = category;
     console.log(category);
+    //在函数内初始化dataUrl
     var dataUrl = "";
     switch (category) {
       case "正在热映":
@@ -42,7 +45,8 @@ Page({
         dataUrl = app.globalData.doubanBase + "/v2/movie/top250";
         break;
     };
-
+    //利用data里能够传递中间变量的特性，把dataUrl从这个函数传递到scrolltolower函数里
+    this.data.requestUrl = dataUrl;
     util.http(dataUrl, this.processDoubanData);
   },
 
@@ -50,7 +54,9 @@ Page({
     // 用console验证函数是否生效
     // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
     console.log("加载更多");
-    var nextUrl = this.data.requestUrl
+    var nextUrl = this.data.requestUrl + 
+    "?start=" + this.data.totalCount + "&count=20";
+    util.http(nextUrl, this.processDoubanData);
   },
 
   processDoubanData: function (moviesDouban) {
@@ -73,7 +79,7 @@ Page({
       movies.push(temp);
       console.log("movies", idx, "is a movie data ", movies[idx]);
     };
-
+    this.data.totalCount += 20;
     this.setData({
       movies: movies
     });
