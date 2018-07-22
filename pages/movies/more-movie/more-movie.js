@@ -22,6 +22,10 @@ Page({
   onLoad: function(options) {
     //category的来源可以参考post-detail.js中postId的来源
     var category = options.category;
+
+    this.data.navigateTitle = category;
+    console.log(category);
+
     //函数使用中间变量navigateTitle
     this.data.navigateTitle = category;
     console.log(category);
@@ -41,7 +45,7 @@ Page({
     util.http(dataUrl, this.processDoubanData);
   },
 
-  processDoubanData: function (moviesDouban) {
+  processDoubanData: function(moviesDouban) {
     console.log(moviesDouban)
 
     var movies = [];
