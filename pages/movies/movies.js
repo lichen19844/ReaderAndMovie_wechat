@@ -65,7 +65,9 @@ Page({
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
 
-          // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
+
+      // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
+
       url: 'more-movie/more-movie?category=' + category,
     })
   },
