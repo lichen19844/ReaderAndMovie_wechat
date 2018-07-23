@@ -49,6 +49,8 @@ Page({
     // 用console验证函数是否生效
     // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
     console.log("加载更多");
+    //小实验：在下拉函数里也可以写入网址动态变化的方法
+    // this.data.totalCount += 20;
     var nextUrl = this.data.requestUrl + 
     "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
@@ -74,6 +76,7 @@ Page({
       movies.push(temp);
       console.log("movies", idx, "is a movie data ", movies[idx]);
     };
+    //写入网址动态变化的方法，每次加载页面，为下拉函数需要的数据做准备
     this.data.totalCount += 20;
     this.setData({
       movies: movies
