@@ -59,15 +59,13 @@ Page({
     // })
   },
 
+  //函数调用的方式：1、被其它函数调用；2、在视图文件中被类似<view catchtap="onMoreTap">
   onMoreTap: function(event) {
     //category实际指代了movie-list-template.wxml中的{{categoryTitle}}
     //category通过url传递到了more-movie
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
-
-
       // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
-
       url: 'more-movie/more-movie?category=' + category,
     })
   },
