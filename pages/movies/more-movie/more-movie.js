@@ -14,7 +14,9 @@ Page({
     navigateTitle: "",
     movies: {},
     requestUrl: "",
-    totalCount: 0
+    totalCount: 0,
+    //isEmpty用来判断movies数据是不是第一次加载
+    isEmpty: true
   },
 
   /**
@@ -73,11 +75,34 @@ Page({
       };
       movies.push(temp);
       console.log("movies", idx, "is a movie data ", movies[idx]);
-    };
-    this.data.totalCount += 20;
+    };//for循环结束
+
+    //将新旧数据进行整合
+    var totalMovies = {};
+    //不可以这么写，否则每次上滑都会初始化isEmpty
+    // this.setData({
+    //   isEmpty: true
+    // });
+    //不为空，代表不是第一次请求才进行整合，并且因为判断里先有的这句，data{}里必须初始化isEmpty
+    if (!this.data.isEmpty) {
+      //this.data.movies是老数据，(movies)是新数据
+      totalMovies = this.data.movies.concat(movies)
+    }
+    //第一次请求则需要不需要整合，并且需要改变isEmpty的状态
+    else {
+      //第一次的话就把刚加载的数据赋值给totalMovies，然后并把isEmpty变成false
+      totalMovies = movies;
+      // this.data.isEmpty = false;
+      this.setData({
+        isEmpty: false
+      });
+    }
     this.setData({
-      movies: movies
+      // movies: movies,
+      movies: totalMovies      
     });
+    // 计数器，数据绑定成功后才进行累加
+    this.data.totalCount += 20;
   },
 
   /**
