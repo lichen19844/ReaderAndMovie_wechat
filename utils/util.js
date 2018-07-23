@@ -39,8 +39,7 @@ module.exports = {
   http: http
 }
 
-
-
+//实例演练
 // var stars = 37;
 // var num = stars.toString().substring(0, 1);
 // var array = [];
