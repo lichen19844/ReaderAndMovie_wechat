@@ -54,6 +54,11 @@ Page({
     var nextUrl = this.data.requestUrl + 
     "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
+    //在发起数据请求是loading，在绑定数据完后loading结束
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: "Loading..."
+    })
   },
 
   processDoubanData: function (moviesDouban) {
@@ -83,7 +88,8 @@ Page({
     // this.setData({
     //   isEmpty: true
     // });
-    //不为空，代表不是第一次请求才进行整合，并且因为判断里先有的这句，data{}里必须初始化isEmpty
+
+    //不为空，如果要绑定新加载的数据，那么需要同旧有的数据合并在一起，并且因为判断里先有的这句，data{}里必须初始化isEmpty
     if (!this.data.isEmpty) {
       //this.data.movies是老数据，(movies)是新数据
       totalMovies = this.data.movies.concat(movies)
@@ -96,11 +102,13 @@ Page({
       this.setData({
         isEmpty: false
       });
-    }
+    };
     this.setData({
       // movies: movies,
       movies: totalMovies      
     });
+    wx.hideNavigationBarLoading();
+    wx.hideLoading();
     // 计数器，数据绑定成功后才进行累加
     this.data.totalCount += 20;
   },
