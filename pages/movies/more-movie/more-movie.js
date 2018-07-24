@@ -16,7 +16,7 @@ Page({
     requestUrl: "",
     totalCount: 0,
     //isEmpty用来判断movies数据是不是第一次加载
-    isEmpty: true
+    isEmpty: true,
   },
 
   /**
@@ -44,6 +44,7 @@ Page({
     };
     //利用data里能够传递中间变量的特性，把dataUrl从这个函数传递到scrolltolower函数里
     this.data.requestUrl = dataUrl;
+    //在调用http之前data里的数据都是初始值，如movies:{} isEmpty:true
     util.http(dataUrl, this.processDoubanData);
   },
 
@@ -98,13 +99,14 @@ Page({
     //不为空，如果要绑定新加载的数据，那么需要同旧有的数据合并在一起，并且因为判断里先有的这句，data{}里必须初始化isEmpty
     if (!this.data.isEmpty) {
       //this.data.movies是老数据，(movies)是新数据
-      totalMovies = this.data.movies.concat(movies)
+      totalMovies = this.data.movies.concat(movies);
     }
     //第一次请求则需要不需要整合，并且需要改变isEmpty的状态
     else {
       //第一次的话就把刚加载的数据赋值给totalMovies，然后并把isEmpty变成false
       totalMovies = movies;
-      // this.data.isEmpty = false;
+      //最好不这样写了 this.data.isEmpty = false;
+      //初始加载之后的状态，有了首次的数据，需要同时将动态变量isEmpty设置false，便于第二次回到if else判断（不是之前，之前代表了还未初始加载，此时数据为空，isEmpty需设置true）
       this.setData({
         isEmpty: false
       });
@@ -117,7 +119,7 @@ Page({
     this.data.totalCount += 20;
     wx.hideNavigationBarLoading();
     wx.hideLoading();
-    wx.stopPullDownRefresh()
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -157,10 +159,16 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-//目前有bug，基本只有下拉的动效，没有实际变化
+  //在scroll-view组件中，使用onPullDownRefresh目前有bug，真机没有效果
   onPullDownRefresh: function (event) {
     //重新加载页面，但是好像有bug
     var refreshUrl = this.data.requestUrl + "?start=0&count=20";
+    //在调用http之前将movies数据置空，否则会受totalMovies的concat方法影响
+    this.data.movies = {};
+    //同时将动态变量isEmpty变成true(数据置空，说明回到了初始加载之前)
+    this.data.isEmpty = true;
+    //注意也要讲totalCount置0，否则会叠加
+    this.data.totalCount = 0;
     util.http(refreshUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
     wx.showLoading({
