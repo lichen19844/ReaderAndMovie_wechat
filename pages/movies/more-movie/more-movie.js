@@ -61,6 +61,15 @@ Page({
     })
   },
 
+  onPullDownRefresh: function(event){
+    var  refreshUrl = this.data.requestUrl + "?start=0&count=20";
+    util.http(refreshUrl, this.processDoubanData);
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: 'Loading...'
+    })
+  },
+
   processDoubanData: function (moviesDouban) {
     console.log(moviesDouban)
     var movies = [];
@@ -107,10 +116,11 @@ Page({
       // movies: movies,
       movies: totalMovies      
     });
-    wx.hideNavigationBarLoading();
-    wx.hideLoading();
     // 计数器，数据绑定成功后才进行累加
     this.data.totalCount += 20;
+    wx.hideNavigationBarLoading();
+    wx.hideLoading();
+    wx.stopPullDownRefresh()
   },
 
   /**
