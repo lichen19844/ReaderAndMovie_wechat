@@ -64,14 +64,12 @@ Page({
     })
   },
 
-  onPullDownRefresh: function(event){
-    var  refreshUrl = this.data.requestUrl + "?start=0&count=20";
-    util.http(refreshUrl, this.processDoubanData);
-    wx.showNavigationBarLoading();
-    wx.showLoading({
-      title: 'Loading...'
-    })
-  },
+  // onReachBottom: function (event) {
+  //   var nextUrl = this.data.requestUrl +
+  //     "?start=" + this.data.totalCount + "&count=20";
+  //   util.http(nextUrl, this.processDoubanData)
+  //   wx.showNavigationBarLoading()
+  // },
 
   processDoubanData: function (moviesDouban) {
     console.log(moviesDouban)
@@ -100,7 +98,6 @@ Page({
     // this.setData({
     //   isEmpty: true
     // });
-
     //不为空，如果要绑定新加载的数据，那么需要同旧有的数据合并在一起，并且因为判断里先有的这句，data{}里必须初始化isEmpty
     if (!this.data.isEmpty) {
       //this.data.movies是老数据，(movies)是新数据
@@ -164,8 +161,17 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-
+//目前有bug，基本只有下拉的动效，没有实际变化
+  onPullDownRefresh: function (event) {
+    //重新加载页面，但是好像有bug
+    var refreshUrl = this.data.requestUrl + "?start=0&count=20";
+    util.http(refreshUrl, this.processDoubanData);
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: 'Loading............'
+    });
+    //好像有bug一直会处于刷新状态
+    // wx.startPullDownRefresh();
   },
 
   /**
