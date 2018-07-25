@@ -2,7 +2,7 @@
 <view class="search">
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
   <input type="text" placeholder="血战钢锯岭、你的名字" 
-  placeholder-class="placeholder" bindfocus="onBindFocus" bindchange="onBindChange" />
+  placeholder-class="placeholder" bindfocus="onBindFocus" />
 </view>
 <view class="movies_container">
   <!-- 注意这里三个重复的movieListTemplate模板对应了三个不同的API数据来源，只是格式一致，所以没法做block、wx:for方法 -->

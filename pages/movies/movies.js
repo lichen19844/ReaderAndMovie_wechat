@@ -96,6 +96,10 @@ Page({
     })
   },
 
+  onBindFocus: function(event){
+    console.log("show search");
+  },
+
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
   // processDoubanData无法知道setData中处理的电影类型到底是哪一种，但我们可以通过getMovieListData函数来想办法
   processDoubanData: function(moviesDouban, settedKey, categoryTitle) {
