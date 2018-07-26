@@ -19,17 +19,24 @@
 
 .search input{
   height: 100%;
-  width: 6oorpx;
+  width: 600rpx;
   margin-left: 20px;
   font-size: 28rpx;
 }
 
 .search-img{
   margin: auto 0 auto 20rpx;
+  /* border: solid 1px; */
 }
 
 .placeholder{
   font-size: 14px;
   color: #d1d1d1;
   margin-left: 20rpx;
+}
+
+.search-panel{
+  /* 搜索页面浮动在原页面的上面 */
+  position: absolute;
+  top: 80rpx;
 }

@@ -1,9 +1,11 @@
 <import src="movie-list/movie-list-template.wxml" />
+
 <view class="search">
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
   <input type="text" placeholder="血战钢锯岭、你的名字" 
   placeholder-class="placeholder" bindfocus="onBindFocus" />
 </view>
+<text>搜索页出来了</text>
 <view class="movies_container">
   <!-- 注意这里三个重复的movieListTemplate模板对应了三个不同的API数据来源，只是格式一致，所以没法做block、wx:for方法 -->
   <view  class="movies-template">
@@ -21,3 +23,7 @@
   </view>
 </view>
 <!-- 通过Wxml工具看出class样式对template是无效的，template是一个占位符，解决方法是给template加一个view组件标签-->
+
+<view class="search-panel">
+  <template is = "movieGridTemplate" />
+</view>
