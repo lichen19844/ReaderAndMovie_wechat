@@ -2,14 +2,16 @@
 
 <template name="movieGridTemplate">
   <!-- 无法在template中写业务逻辑的脚本文件，只能在template的调用方的js脚本文件中写业务逻辑 -->
-  <scroll-view class="grid-container"
+  <!-- <scroll-view class="grid-container"
   scroll-y= "true" scroll-x="false" 
-  bindscrolltolower="scrolltolower">
+  bindscrolltolower="scrolltolower"> -->
+  <view class="grid-container">
     <block wx:for="{{movies}}" wx:for-item="movie">
       <view class="single-view-container">
         <template is="movieTemplate" data="{{...movie}}" />
       </view>
     </block>
-  </scroll-view>
+  </view>
+  <!-- </scroll-view> -->
 
 </template>

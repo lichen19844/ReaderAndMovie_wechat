@@ -48,7 +48,7 @@ Page({
     util.http(dataUrl, this.processDoubanData);
   },
 
-  scrolltolower: function (event) {
+  onReachBottom: function (event) {
     // 用console验证函数是否生效
     // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
     console.log("加载更多");
@@ -61,13 +61,6 @@ Page({
       title: "Loading..."
     })
   },
-
-  // onReachBottom: function (event) {
-  //   var nextUrl = this.data.requestUrl +
-  //     "?start=" + this.data.totalCount + "&count=20";
-  //   util.http(nextUrl, this.processDoubanData)
-  //   wx.showNavigationBarLoading()
-  // },
 
   processDoubanData: function (moviesDouban) {
     console.log(moviesDouban)
@@ -181,9 +174,9 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  // onReachBottom: function() {
 
-  },
+  // },
 
   /**
    * 用户点击右上角分享
