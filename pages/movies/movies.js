@@ -100,12 +100,30 @@ Page({
     })
   },
 
+  onCancelImgTap: function(event){
+    console.log("Cancel infomation");
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      // 清空搜索结果
+      searchResult: false,
+    })
+  },
+
   onBindFocus: function(event){
     console.log("show search");
     this.setData({
       containerShow: false,
       searchPanelShow: true,
     })
+  },
+
+  onBindChange: function(event){
+    // detail  自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入
+    var text = event.detail.value;
+    console.log(event);
+    console.log(event.detail);
+    console.log(text);
   },
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据

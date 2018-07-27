@@ -4,7 +4,8 @@
 <view class="search">
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
   <input type="text" placeholder="血战钢锯岭、你的名字" 
-  placeholder-class="placeholder" bindfocus="onBindFocus" />
+  placeholder-class="placeholder" bindfocus="onBindFocus" bindchange="onBindChange" />
+  <image src="/images/icon/xx.png" class="xx-img" wx:if="{{searchPanelShow}}" bindtap="onCancelImgTap"></image>
 </view>
 
 <view class="movies_container" wx:if= "{{containerShow}}">
