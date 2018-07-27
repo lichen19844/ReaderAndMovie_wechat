@@ -5,8 +5,8 @@
   <input type="text" placeholder="血战钢锯岭、你的名字" 
   placeholder-class="placeholder" bindfocus="onBindFocus" />
 </view>
-<text>搜索页出来了</text>
-<view class="movies_container">
+
+<view class="movies_container" wx:if= "{{containerShow}}">
   <!-- 注意这里三个重复的movieListTemplate模板对应了三个不同的API数据来源，只是格式一致，所以没法做block、wx:for方法 -->
   <view  class="movies-template">
     <!-- 编写模板，自下而上；数据传递，自上而下 -->
@@ -24,6 +24,7 @@
 </view>
 <!-- 通过Wxml工具看出class样式对template是无效的，template是一个占位符，解决方法是给template加一个view组件标签-->
 
-<view class="search-panel">
+<view class="search-panel" wx:if= "{{searchPanelShow}}">
+<!-- 搜索页面直接使用movieGridTemplate模板，并使用了绝对定位absolute，使其浮动在整个movies页面上面 -->
   <template is = "movieGridTemplate" />
 </view>

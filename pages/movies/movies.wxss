@@ -36,7 +36,9 @@
 }
 
 .search-panel{
-  /* 搜索页面浮动在原页面的上面 */
+  /* 搜索页面浮动在原页面的上面，通过绝对定位absolute，记得配合好top left等值，决定定位的用法可以参考https://blog.csdn.net/qq_35809245/article/details/54259784 */
+
   position: absolute;
+  /* top的值和搜索框的高度保持一致，使其正好在搜索框的下方 */
   top: 80rpx;
 }

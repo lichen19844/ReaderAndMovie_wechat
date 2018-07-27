@@ -16,6 +16,10 @@ Page({
     top250: {},
     test1: {},
     test2: {},
+    // 定义电影页面的隐藏与否
+    containerShow: true,
+    // 定义搜索页面的隐藏与否
+    searchPanelShow: false,
   },
 
   /**
@@ -98,6 +102,10 @@ Page({
 
   onBindFocus: function(event){
     console.log("show search");
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true,
+    })
   },
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
