@@ -1,4 +1,5 @@
 <import src="movie-list/movie-list-template.wxml" />
+<import src="movie-grid/movie-grid-template.wxml" />
 
 <view class="search">
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
