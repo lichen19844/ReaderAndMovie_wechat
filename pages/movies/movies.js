@@ -14,6 +14,7 @@ Page({
     inTheaters: {},
     comingSoon: {},
     top250: {},
+    searchResult: {},
     test1: {},
     test2: {},
     // 定义电影页面的隐藏与否
@@ -111,7 +112,7 @@ Page({
   },
 
   onBindFocus: function(event){
-    console.log("show search");
+    console.log(event.detail);
     this.setData({
       containerShow: false,
       searchPanelShow: true,
@@ -124,6 +125,9 @@ Page({
     console.log(event);
     console.log(event.detail);
     console.log(text);
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q={text}";
+    // 直接选用现成的方法getMovieListData
+    this.getMovieListData(searchUrl, "searchResult", "");
   },
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
