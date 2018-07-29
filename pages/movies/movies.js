@@ -131,7 +131,7 @@ Page({
   },
 
   //这个函数的作用--简而言之为【数据绑定】：将getMovieListData函数获得的数据，通过setData的方式，绑定到template的数据组件里，这里会对应绑到movies.wxml上，也可以说是movies.wxml接收了这个movies数据
-  // processDoubanData无法知道setData中处理的电影类型到底是哪一种，但我们可以通过getMovieListData函数来想办法
+  // processDoubanData每次只能用一个形参来接收getMovieListData传入对应的参数，如果getMovieListData函数执行了好几次，那processDoubanData就无法确切知道setData中处理的电影类型到底是哪一种，进入setData后的变量都会变成字符串（这是重点），但我们可以通过操作对象的方法来想办法
   processDoubanData: function(moviesDouban, settedKey, categoryTitle) {
     // 处理 API 数据的主要逻辑： 
     // 1. 定义一个空数组
@@ -165,9 +165,9 @@ Page({
       // 因为还在for循环之中，idx可以直接拿来用
       console.log("movies", idx, "is a movie data ", movies[idx]);
     };
-    //运用settedKey的方法很重要，它是3个空对象的“键”（或叫属性）的共同形参，通过回调函数一路传到这里，然后被做成又一个readyData空对象的“键”（或叫属性），通过人工方式造好数据的movies[]数组，并把数组当做一个参数的赋值（如movies: movies），再做成一个对象，然后再将这个对象赋值给readyData对象的属性settedKey，实现在不同API中使用共同形参，这个参数传递的编程思路要牢记！！！！！
+    //运用settedKey的方法很重要，它是3个空对象的“键”（或叫属性）的共同形参，通过回调函数一路传到这里，然后被做成又一个readyData空对象的“键”（或叫属性），通过人工方式造好数据的movies[]数组，并把数组当做一个参数的赋值，再做成一个对象（如movies: movies），然后再将这个对象赋值给readyData对象的属性settedKey，从而实现在不同API中使用共同形参，这个参数传递的编程思路要牢记！！！！！
     var readyData = {};
-    // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，给对象新增键值对readyData = {settedKey: movies}  等同于readyData.settedKey = movies;
+    // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，相当于给对象新增键值对readyData = {settedKey: movies}  也等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
     //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系，html页面上所置放的数据要和AppData的一致！！！
     readyData[settedKey] = {
@@ -176,11 +176,12 @@ Page({
       //把上面获得的movie[]数组引入这里的键值对
       movies: movies
     };
-    //最新的movies数组里会有遍历后的多组数据，这时将数据绑定到了data中
+    //最新的movies数组里会有遍历后的多组数据，并在这时会将数据绑定到data中
     this.setData(
       // {movies: movies}
       readyData
-      //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}变成了字符串，但它原来的关系没有变化，settedeKey任然是个变量
+      //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}会变成字符串，但它原来的关系没有变化，settedKey任然是个变量。
+      //这就是为什么设置settedKey需要这么繁琐的原因，如果把settedKey直接放入了this.setData，就会使它从变量变成了字符串，从而使得不同的getMovieListData函数只能执行其中一个。
     );
 
   },
