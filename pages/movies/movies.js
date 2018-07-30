@@ -64,7 +64,7 @@ Page({
     // })
   },
 
-  //函数调用的方式：1、被其它函数调用；2、在视图文件中被类似<view catchtap="onMoreTap">
+  //函数调用的方式：1、被文件内外的其它函数调用；2、在视图文件中被类似<view catchtap="onMoreTap">
   onMoreTap: function(event) {
     //category实际指代了movie-list-template.wxml中的{{categoryTitle}}
     //category通过url传递到了more-movie
@@ -77,9 +77,11 @@ Page({
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
+  //categoryTitle的传递路径，例如getMovieListData函数的实参'电影Top250'变成形参categoryTitle，传递给processDoubanData函数，再通过readyData[settedKey]的属性赋值和setData方式，将categoryTitle传入公共data，然后被movie-list-template.wxml内的<view catchtap="onMoreTap" class="more" data-category="{{categoryTitle}}">所捕获，然后通过onMoreTap方法将转变成的变量category再通过navigateTo方法将category传入more-movie.js，然后将category赋值给中间变量navigateTitle，最后在onReady方法下转化为title，被setNavigationBarTitle方法动态设置为页面标题
   getMovieListData: function(url, settedKey, categoryTitle, processDoubanData) {
     //that应对success函数而生
     var that = this;
+    //request专门处理传进来的url
     wx.request({
       url: url,
       //用不到 data: {},
@@ -119,12 +121,13 @@ Page({
     })
   },
 
-  onBindChange: function(event){
-    // detail  自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入
+  onBindConfirm: function(event){
+    // detail  自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入（一般有value, cursor, keyCode），value为输入的字符
     var text = event.detail.value;
     console.log(event);
     console.log(event.detail);
     console.log(text);
+    // var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
     var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q={text}";
     // 直接选用现成的方法getMovieListData
     this.getMovieListData(searchUrl, "searchResult", "");

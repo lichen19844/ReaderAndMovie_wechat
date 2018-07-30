@@ -1,7 +1,8 @@
 <import src="../movie/movie-template.wxml" />
 
 <template name="movieGridTemplate">
-  <text>搜索页面出来了</text>
+  <text>这个模块可以做“更多结果页面。”</text>
+  <text>这个模块可以做“搜索结果页面。”</text>
   <!-- 无法在template中写业务逻辑的脚本文件，只能在template的调用方的js脚本文件中写业务逻辑 -->
   <!-- <scroll-view class="grid-container"
   scroll-y= "true" scroll-x="false" 

@@ -49,6 +49,7 @@ Page({
     util.http(dataUrl, this.processDoubanData);
   },
 
+  //onReachBottom函数方法不要重复写，因小程序会自动生成一个空的函数，不然会以最后一次的生效。
   onReachBottom: function (event) {
     // 用console验证函数是否生效
     // 使用竖向滚动时，需要给 < scroll - view />一个固定高度，通过 WXSS 设置 height。
