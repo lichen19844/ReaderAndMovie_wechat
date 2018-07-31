@@ -37,8 +37,8 @@
 }
 
 .xx-img{
-  width: 30rpx;
-  height: 30rpx;
+  width: 35rpx;
+  height: 35rpx;
   margin: auto 0 auto 20rpx;
 }
 

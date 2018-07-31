@@ -124,11 +124,14 @@ Page({
   },
 
   onBindBlur: function(event){
+    var text = event.detail.value;
     this.setData({
       containerShow: false,
       searchPanelShow: true,
       text: "",
     })
+    // var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    // this.getMovieListData(searchUrl, "searchResult", "");
   },
 
   onBindConfirm: function(event){
