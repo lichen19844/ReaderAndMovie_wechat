@@ -61,7 +61,10 @@ Page({
     } else {
       var postsCollected = {};
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
-      postsCollected[postId] = false;
+      //真机调试报错，如Cannot create property '3' on string '';
+      // postsCollected[postId] = false;
+      //应该写成如下
+      postsCollected.postId = false;
       //意味着在空对象中先放入一个postId: false的对象，以它为起点
       //亦能写成 postCollected = false; 但是注意这里的postCollected不可随意变更，需和其它postCollected名字一致
       // postCollected = false;
