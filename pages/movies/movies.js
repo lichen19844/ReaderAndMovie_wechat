@@ -15,6 +15,7 @@ Page({
     comingSoon: {},
     top250: {},
     searchResult: {},
+    text: "",
     test1: {},
     test2: {},
     // 定义电影页面的隐藏与否
@@ -109,8 +110,9 @@ Page({
       containerShow: true,
       searchPanelShow: false,
       // 清空搜索结果
-      searchResult: false,
-    })
+      searchResult: {},
+      text: "",
+    });
   },
 
   onBindFocus: function(event){
@@ -124,12 +126,16 @@ Page({
   onBindConfirm: function(event){
     // detail  自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入（一般有value, cursor, keyCode），value为输入的字符
     var text = event.detail.value;
+    // this.setData({
+    //   text: event.detail.value,
+    // });
     console.log(event);
     console.log(event.detail);
     console.log(text);
-    // var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
-    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q={text}";
-    // 直接选用现成的方法getMovieListData
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    //豆瓣API提供的写法，{text}本质是指text是个对象，而在javascript中，变量也是对象
+    // var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q={text}";
+    // 直接选用现成的方法getMovieListData，""不会使得标题为空白，不写也可以，等同于不起作用，即仍旧是电影主题的标题“光与影”
     this.getMovieListData(searchUrl, "searchResult", "");
   },
 

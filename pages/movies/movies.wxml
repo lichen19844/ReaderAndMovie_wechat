@@ -28,5 +28,5 @@
 
 <view class="search-panel" wx:if= "{{searchPanelShow}}">
 <!-- 搜索页面直接使用movieGridTemplate模板，并使用了绝对定位absolute，使其浮动在整个movies页面上面 -->
-  <template is = "movieGridTemplate" />
+  <template is = "movieGridTemplate" data="{{...searchResult}}" />
 </view>
