@@ -77,7 +77,7 @@ Page({
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
-  //categoryTitle的传递路径，例如getMovieListData函数的实参'电影Top250'变成形参categoryTitle，传递给processDoubanData函数，再通过readyData[settedKey]的属性赋值和setData方式，将categoryTitle传入公共data，然后被movie-list-template.wxml内的<view catchtap="onMoreTap" class="more" data-category="{{categoryTitle}}">所捕获，然后通过onMoreTap方法将转变成的变量category再通过navigateTo方法将category传入more-movie.js，然后将category赋值给中间变量navigateTitle，最后在onReady方法下转化为title，被setNavigationBarTitle方法动态设置为页面标题
+  //categoryTitle的传递路径，例如getMovieListData函数的实参'电影Top250'通过形参categoryTitle，传递给processDoubanData函数，再通过readyData[settedKey]的属性赋值将categoryTitle以值的形式做了一个{键1：{键2：值}}的绑定关系，再以setData方式，将readyData（从而使得键categoryTitle）传入公共data，然后被movie-list-template.wxml内的<view catchtap="onMoreTap" class="more" data-category="{{categoryTitle}}">所捕获，然后通过onMoreTap方法将转变成的变量category再通过navigateTo方法将category传入more-movie.js，然后将category赋值给中间变量navigateTitle，最后在onReady方法下转化为title，被setNavigationBarTitle方法动态设置为页面标题
   getMovieListData: function(url, settedKey, categoryTitle, processDoubanData) {
     //that应对success函数而生
     var that = this;
@@ -172,7 +172,7 @@ Page({
     var readyData = {};
     // 动态语言赋值,给对象readyData添加一个属性，这个属性的名字由实际使用的变量settedKey决定。对对象的属性进行赋值，将movies数组赋值给这个对象的属性，相当于给对象新增键值对readyData = {settedKey: movies}  也等同于readyData.settedKey = movies;
     // readyData[settedKey] = movies;
-    //对每一个对象属性下面都再人工设置一个叫movies的属性和movies值（数组），可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系，html页面上所置放的数据要和AppData的一致！！！
+    //对每一个对象属性下面都再人工设置一个叫movies键和movies值，可以很清晰的通过AppData来查看数据的结构，和html页面无关，相应html页面全删都没关系，html页面上所置放的数据要和AppData的一致！！！
     readyData[settedKey] = {
       //这样categoryTitle和movies所代表的数据才能通过readyData传入公共数据data：{}中，这样wxml页面就能引用了
       categoryTitle: categoryTitle,
@@ -184,7 +184,7 @@ Page({
       // {movies: movies}
       readyData
       //readyData指代{ settedKey: {movies: movies} }，readyData进入data:{}会变成字符串，但它原来的关系没有变化，settedKey任然是个变量。
-      //这就是为什么设置settedKey需要这么繁琐的原因，如果把settedKey直接放入了this.setData，就会使它从变量变成了字符串，从而使得不同的getMovieListData函数只能执行其中一个。
+      //这就是为什么设置settedKey需要这么繁琐的原因，如果把settedKey直接放入了this.setData，就会使它从变量变成了字符串，从而使得不同的getMovieListData函数只能执行其中一个，失去了灵活性
     );
 
   },
