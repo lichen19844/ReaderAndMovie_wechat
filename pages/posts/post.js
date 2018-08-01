@@ -32,7 +32,8 @@ Page({
     //view标签里的 catchtap="onPostTap" 和 navigateTo决定了是鼠标点击放开后跳转的事件
     wx.navigateTo({
       //postId作为参数通过url传递到post-detail.js
-      url: postsUrl + postId
+      //完整的为url: "post-detail/detail?id=" + postId,  即 id = 某一个postId，然后传入post-detail.js
+      url: postsUrl + postId,
     });
   },
 
