@@ -27,6 +27,7 @@ Page({
     //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
     // post.js里"post-detail/post-detail?id="里的名字id,是自定义的，而且它决定了post-detail.js引用的时候也要写成id
     //这里的postId实际拿到的是post.js中onPostTap函数下url:"post-detail/post-detail?id=" + postId 中的postId,回溯自post.js中var postId = event.currentTarget.dataset.postid;再回溯，来源于post.wxml中的data-postId="{{item.postId}}"，再回溯，来源于post.wxml页面中wx:for="{{posts_key}}" wx:for-item="item"所关联的的post-data.js中的的postId
+    //post.js中传过来的完整url: "post-detail/detail?id=" + postId,  即 id = 某一个postId，然后传入post-detail.js
     var postId = options.id;
     // console.log("options is ", options);
     //将postId 赋予this.data.currentPostId，等同于同时将新造变量currentPostId放置在了本页面的data{}数据层面，变成了中间变量，便于其它函数调用

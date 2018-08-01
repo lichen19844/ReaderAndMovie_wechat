@@ -71,13 +71,16 @@ Page({
     //category通过url传递到了more-movie
     var category = event.currentTarget.dataset.category;
     wx.navigateTo({
-      // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了xxxx.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
+      // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了more-movie.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
       url: 'more-movie/more-movie?category=' + category,
     })
   },
 
   onMovieTap: function (event) {
-
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId,
+    })
   },
 
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
