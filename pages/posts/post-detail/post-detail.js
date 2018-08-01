@@ -49,6 +49,7 @@ Page({
 
     //利用缓存技术，处理页面显示收藏按钮的状态
     //同步获取指定key（本例为'posts_collected'） 到本地缓存Storage中，并赋予postsCollected变量为缓存池
+    //注意在onLoad下的var postsCollected可以被if else里的局部变量var postsCollected所更新，但仅限于if else内使用，反过来操作则不行
     var postsCollected = wx.getStorageSync('posts_collected');
     //注意postsCollected是缓存池 不是指代数据的 postsData 或 postList 或 local_database
     //如果缓存池postsCollected存在
@@ -195,12 +196,12 @@ Page({
     // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     // postCollected = !postCollected;
     // console.log(postsCollected);
-    // //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
-    // //更新最新状态的data数据
+    // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
     // postsCollected[this.data.currentPostId] = postCollected;
+    // //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
     // //更新最新状态的文章数据的所有缓存值
     // // wx.setStorageSync('posts_collected', postsCollected);
-    // // //更新数据绑定变量，从而实现切换图片
+    // //更新数据绑定变量，从而实现切换图片
     // // this.setData({
     // //   collected: postCollected
     // // });
@@ -251,11 +252,18 @@ Page({
   getPostsCollectedSyc: function(event) {
     //wx.getStorageSync的key: value关系公式：var value = wx.getStorageSync('key')
     //postsCollected就是这个value，相当于异步方法里的data，注意和这里的data不是一回事
+    //到缓存池里去捞
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.currentPostId];
+    //每经过一次onCollectionTap函数动作，将原来的postCollected状态取反更新
+    // 收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     postCollected = !postCollected;
+    //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
     postsCollected[this.data.currentPostId] = postCollected;
+    //在这里不需要再写入判断 if (postsCollected) {...}了，因为缓存中已经有了postsCollected
     console.log(postsCollected);
+    //这时postsCollected已经是最新的缓存值，然后作为参数被showModal调用
+    //衍生话题：var a = b 代表定义了一个变量a 也同时是初始化a的值为1， 之后 a = 2 代表了变量a的值更新为2
     this.showModal(postsCollected, postCollected);
   },
 
