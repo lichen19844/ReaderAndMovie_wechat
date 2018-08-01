@@ -111,7 +111,7 @@ Page({
           console.log("listen play");
         }
       }
-      //触发变量变化用监听或点击 二选一 
+      //触发变量变化 用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = true;
       //如果当前监听页面是播放的状态，将当前页面的id赋值给全局变量
       // app.globalData.g_currentMusicPostId = that.data.currentPostId;
@@ -126,7 +126,7 @@ Page({
           console.log("listen pause");
         }
       }
-      //触发变量变化用监听或点击 二选一 
+      //触发变量变化 用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
       //如果当前监听页面是暂停的状态，清空id值
       // app.globalData.g_currentMusicPostId = null;
@@ -137,7 +137,7 @@ Page({
         isPlayingMusic: false,
       });
       console.log("listen stop");
-      //触发变量变化用监听或点击 二选一 
+      //触发变量变化 用监听或点击 二选一 
       app.globalData.g_isPlayingMusic = false;
       //如果当前监听页面是暂停的状态，清空id值
       // app.globalData.g_currentMusicPostId = null;
@@ -161,7 +161,7 @@ Page({
       this.setData({
         isPlayingMusic: false,
       });
-      //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = false;
+      //触发变量变化 用监听或点击 二选一 app.globalData.g_isPlayingMusic = false;
       console.log("do pause");
       // app.globalData.g_currentMusicPostId = null;
       app.globalData.g_currentMusicPostId = this.data.currentPostId;
@@ -181,7 +181,7 @@ Page({
         this.setData({
           isPlayingMusic: true
         });
-      //触发变量变化用监听或点击 二选一 app.globalData.g_isPlayingMusic = true;
+      //触发变量变化 用监听或点击 二选一 app.globalData.g_isPlayingMusic = true;
       console.log("do play");
       app.globalData.g_currentMusicPostId = this.data.currentPostId;
       app.globalData.g_isPlayingMusic = true;
@@ -199,7 +199,7 @@ Page({
     // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
     // postsCollected[this.data.currentPostId] = postCollected;
     // //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
-    // //更新最新状态的文章数据的所有缓存值
+    // //更新最新状态的文章数据的所有缓存值，为下一次被调用做准备
     // // wx.setStorageSync('posts_collected', postsCollected);
     // //更新数据绑定变量，从而实现切换图片
     // // this.setData({
@@ -258,12 +258,12 @@ Page({
     //每经过一次onCollectionTap函数动作，将原来的postCollected状态取反更新
     // 收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     postCollected = !postCollected;
-    //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
+    //再把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章），使得postsCollected为最新的缓存值，然后作为参数被showModal调用
+    //衍生话题：var a = b 代表定义了一个变量a 也同时是初始化a的值为1， 之后 a = 2 代表了变量a的值更新为2
     postsCollected[this.data.currentPostId] = postCollected;
     //在这里不需要再写入判断 if (postsCollected) {...}了，因为缓存中已经有了postsCollected
+    //如果有写wx.setStorageSync('posts_collected', postsCollected);则为更新最新状态的文章数据到缓存值，为下一次被调用做准备
     console.log(postsCollected);
-    //这时postsCollected已经是最新的缓存值，然后作为参数被showModal调用
-    //衍生话题：var a = b 代表定义了一个变量a 也同时是初始化a的值为1， 之后 a = 2 代表了变量a的值更新为2
     this.showModal(postsCollected, postCollected);
   },
 

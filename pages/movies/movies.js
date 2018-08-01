@@ -76,6 +76,10 @@ Page({
     })
   },
 
+  onMovieTap: function (event) {
+
+  },
+
   //所调用的getMovieListData函数，函数里面可以安插微信提供的api接口，这个api接口（设置一个形参）可以直接使用这个函数的实参，并返回使用这个实参的结果给调用者。这里的结果是获取了相应api的数据
   // 接受data里的key，这里设置一个形参settedKey，注意，形参是有顺序的，不然会出错
   //categoryTitle的传递路径，例如getMovieListData函数的实参'电影Top250'通过形参categoryTitle，传递给processDoubanData函数，再通过readyData[settedKey]的属性赋值将categoryTitle以值的形式做了一个{键1：{键2：值}}的绑定关系，再以setData方式，将readyData（从而使得键categoryTitle）传入公共data，然后被movie-list-template.wxml内的<view catchtap="onMoreTap" class="more" data-category="{{categoryTitle}}">所捕获，然后通过onMoreTap方法将转变成的变量category再通过navigateTo方法将category传入more-movie.js，然后将category赋值给中间变量navigateTitle，最后在onReady方法下转化为title，被setNavigationBarTitle方法动态设置为页面标题
