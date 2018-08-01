@@ -47,12 +47,14 @@ Page({
     //   ...
     // };
 
-    //同步获取指定key（本例为'posts_collected'） 到本地缓存Storage中
+    //利用缓存技术，处理页面显示收藏按钮的状态
+    //同步获取指定key（本例为'posts_collected'） 到本地缓存Storage中，并赋予postsCollected变量为缓存池
     var postsCollected = wx.getStorageSync('posts_collected');
-    //注意postsCollected 不是 postsData 或 postList 或 local_database
+    //注意postsCollected是缓存池 不是指代数据的 postsData 或 postList 或 local_database
+    //如果缓存池postsCollected存在
     if (postsCollected) {
-      var postCollected = postsCollected[postId]
       //把postId读取到定义的postsCollected缓存池中，并将postId的键值赋予变量postCollected
+      var postCollected = postsCollected[postId]
       if (postCollected) {
         this.setData({
           //加载时的判断
@@ -60,21 +62,21 @@ Page({
         });
       }
     } else {
-      var postsCollected = {};
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
-      //真机调试报错，如Cannot create property '3' on string '';
-      // postsCollected[postId] = false;
-      //应该写成如下
-      postsCollected.postId = false;
+      var postsCollected = {};
+      postsCollected[postId] = false;
+      //也可以写成如下
+      // postsCollected.postId = false;
       //意味着在空对象中先放入一个postId: false的对象，以它为起点
       //亦能写成 postCollected = false; 但是注意这里的postCollected不可随意变更，需和其它postCollected名字一致
       // postCollected = false;
       // this.setData({
       //   collected: postCollected
       // });
-      //把空对象更新到缓存里
+      //接着把更新过的空对象{postId: false}设置到缓存里
       wx.setStorageSync('posts_collected', postsCollected);
     };
+
     //设计音乐播放对应图标的状态，由2个条件同时满足才行，其中判断全局变量的值和当前页面的id值是否一致
     if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId) {
       // 错误写法 this.data.isPlayingMusic = true;
@@ -185,6 +187,7 @@ Page({
     }
   },
 
+  //收藏按钮的动作
   onCollectionTap: function(event) {
     // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected
@@ -227,7 +230,7 @@ Page({
     // this.getPostsCollectedAsy();
   },
 
-  //异步的方法
+  //异步的方法，此例不用
   getPostsCollectedAsy: function(event) {
     var that = this;
     wx.getStorage({
@@ -261,6 +264,7 @@ Page({
     //先让用户确定是否收藏
     wx.showModal({
       title: "收藏",
+      //三元表达式，  "收藏该文章?" : "取消收藏该文章？" 代表了 true: false，是对postCollected真假的判断
       content: postCollected ? "收藏该文章?" : "取消收藏该文章？",
       showCancel: "true",
       cancelText: "取消",
