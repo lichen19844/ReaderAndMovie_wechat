@@ -67,10 +67,9 @@ Page({
   },
 
   processDoubanData: function (moviesDouban) {
-    console.log(moviesDouban)
+    console.log(moviesDouban);
     var movies = [];
     for (var idx in moviesDouban.subjects) {
-      console.log("subjects", idx, "is a subject data ", moviesDouban.subjects[idx]);
       var subject = moviesDouban.subjects[idx];
       var title = subject.title;
       if (title.length >= 6) {
@@ -83,8 +82,8 @@ Page({
         coverageUrl: subject.images.large,
         movieId: subject.id
       };
+      //for循环后，根据idx的排序往movies数组中数据添加完毕
       movies.push(temp);
-      console.log("movies", idx, "is a movie data ", movies[idx]);
     };//for循环结束
 
     //将新旧数据进行整合
@@ -112,7 +111,7 @@ Page({
       // movies: movies,
       movies: totalMovies      
     });
-    // 计数器，数据绑定成功后才进行累加
+    // 计数器，数据绑定成功后才进行累加，每一次上滑会触发onReachBottom，再触发processDoubanData，每次totalCount累加20
     this.data.totalCount += 20;
     wx.hideNavigationBarLoading();
     wx.hideLoading();

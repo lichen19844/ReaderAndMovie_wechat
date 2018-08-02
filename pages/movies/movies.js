@@ -188,7 +188,7 @@ Page({
         coverageUrl: subject.images.large,
         movieId: subject.id
       };
-
+      //for循环后，根据idx的排序往movies数组中数据添加完毕
       movies.push(temp);
       // 因为还在for循环之中，idx可以直接拿来用
       console.log("movies", idx, "is a movie data ", movies[idx]);
