@@ -37,9 +37,14 @@ function http(url, callBack) {
 function convertToCastString (casts) {
   var castsjoin = "";
   for(var idx in casts) {
+    //将循环后的casts[idx]拼接起来
     castsjoin = castsjoin + casts[idx].name + " / ";
   };
+  //castsjoin.length是指上面拼接后字符串的长度
+  console.log("castsjoin.length is ", castsjoin.length);
+  console.log("castsjoin.length - 2 is ", castsjoin.length - 2);
   return castsjoin.substring(0, castsjoin.length-2);
+
 }
 
 module.exports = {
