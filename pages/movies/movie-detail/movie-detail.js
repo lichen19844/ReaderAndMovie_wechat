@@ -58,7 +58,10 @@ Page({
       summary: data.summary
 
     };
-
+    this.setData({
+      movie: movie
+    });
+    console.log("更新后的movie是 ", movie)
   },
 
   /**

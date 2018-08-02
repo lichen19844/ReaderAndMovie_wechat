@@ -92,9 +92,9 @@ Page({
     // this.setData({
     //   isEmpty: true
     // });
-    //不为空，如果要绑定新加载的数据，那么需要同旧有的数据合并在一起，并且因为判断里先有的这句，data{}里必须初始化isEmpty
+    //判断不为空，如果要绑定新加载的数据，那么需要同旧有的数据合并在一起，并且因为判断里先有的这句，data{}里必须初始化isEmpty
     if (!this.data.isEmpty) {
-      //this.data.movies是老数据，(movies)是新数据
+      //this.data.movies是老数据，(movies)是新数据，concat是js的方法
       totalMovies = this.data.movies.concat(movies);
     }
     //第一次请求则需要不需要整合，并且需要改变isEmpty的状态
