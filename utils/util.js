@@ -34,19 +34,32 @@ function http(url, callBack) {
   })
 }
 
+//for的应用，一种是将循环数据叠加到字符串本身，另外一种是将循环数据遍历到一个数组
 function convertToCastString (casts) {
   var castsjoin = "";
   for(var idx in casts) {
     //这个方法会将循环后的casts[idx]拼接成一个长的字符串，name的值是个字符串
     castsjoin = castsjoin + casts[idx].name + " / ";
   };
-  //castsjoin.length是指上面拼接后字符串的长度
+  //castsjoin.length是指上面拼接后字符串的长度，length-2会将最后的斜杠/去除掉
   console.log("castsjoin.length is ", castsjoin.length);
   console.log("castsjoin.length - 2 is ", castsjoin.length - 2);
   return castsjoin.substring(0, castsjoin.length-2);
 }
 
+function convertToCastInfos (casts){
+  var castsArray = [];
+  for(var idx in casts){
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+}
+
 module.exports = {
+  convertToCastInfos: convertToCastInfos,
   convertToCastString: convertToCastString,
   converToStarsArray: converToStarsArray,
   http: http,

@@ -25,7 +25,8 @@ Page({
   processDoubanData: function(data){
     console.log(data);
     //处理director数据，对绑定的movie变量填充，更新绑定变量
-    //先定义一个空的director变量，用来做判空处理
+    //先定义一个属性值为空的director变量对象，用来做判空处理
+    //判空的目的是怕API数据中的新老数据完整度不一致，只能根据经验观察来优先判断概率较大的空值数据，如director，重点观察数据的二级以下数据
     var director = {
       avatar: "",
       name: "",
@@ -51,10 +52,10 @@ Page({
       generes: data.genres.join("、"),
       stars: util.converToStarsArray(data.rating.stars),
       score: data.rating.average,
-      //把处理过的对象director放入movies对象中
+      //把经过判空处理过对象director放入movies对象中
       director: director,
       casts: util.convertToCastString(data.casts),   
-      // castsInfo: util.convertToCastInfos(data.casts),
+      castsInfo: util.convertToCastInfos(data.casts),
       summary: data.summary
 
     };

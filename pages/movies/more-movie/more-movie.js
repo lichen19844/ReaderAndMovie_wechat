@@ -97,7 +97,7 @@ Page({
       //this.data.movies是老数据，(movies)是新数据，concat是js的方法
       totalMovies = this.data.movies.concat(movies);
     }
-    //第一次请求则需要不需要整合，并且需要改变isEmpty的状态
+    //第一次请求不需要整合，但拿到数据后就要改变isEmpty的状态
     else {
       //第一次的话就把刚加载的数据赋值给totalMovies，然后并把isEmpty变成false
       totalMovies = movies;
