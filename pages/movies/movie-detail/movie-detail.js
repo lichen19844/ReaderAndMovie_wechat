@@ -23,6 +23,10 @@ Page({
 
   //data拿到的是http里callback所拿到的res.data数据
   processDoubanData: function(data){
+    //如果是空值，就直接返回，什么也不做，这时的setData中的movie就不会被设置更新，data中的movie数据就是初始化的空值
+    if(!data){
+      return;
+    };
     console.log(data);
     //处理director数据，对绑定的movie变量填充，更新绑定变量
     //先定义一个属性值为空的director变量对象，用来做判空处理
