@@ -1,4 +1,14 @@
-<view class="container">
+<view class="detail_container">
   <!-- 在原生图片尺寸明显大于界面宽度的情况下，如果不给图片设定高宽，小程序默认会给宽度为320rpx的范围，mode用bottom right效果会比较明显 -->
   <image class="head-img" src= "{{movie.movieImg}}" mode="aspectFill" />
+  <view class="head-img-hover" data-src="{{movie.movieImg}}" catchtap="viewMoivePostImg">
+    <text class="main-title">{{movie.title}}</text>
+    <text class="sub-title">{{movie.country + " . " + movie.year}}</text>
+    <view class="like">
+      <text class="highlight-font">{{movie.wishCount}}</text>
+      <text class="plain-font">人喜欢</text>
+      <text class="highlight-font">{{movie.commentCount}}</text>
+      <text class="plain-font">条评论</text>
+    </view>
+  </view>
 </view>
