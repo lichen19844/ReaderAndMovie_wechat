@@ -33,7 +33,7 @@ Page({
     var dataUrl = "";
     switch (category) {
       case "正在热映":
-        // "/v2/movie/in_theaters"的写法，小程序默认只加载前20条数据，即"?start=0&count=20"
+        // "/v2/movie/in_theaters"的写法，小程序默认会加载前20条数据，即"?start=0&count=20"
         dataUrl = app.globalData.doubanBase + "/v2/movie/in_theaters";
         break;
       case "即将上映":
@@ -157,14 +157,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   //在scroll-view组件中，使用onPullDownRefresh目前有bug，真机没有效果
+  //刷新的作用是回到页面初始加载的状态，回到最初的onLoad
   onPullDownRefresh: function (event) {
     //重新加载页面，但是好像有bug
     var refreshUrl = this.data.requestUrl + "?start=0&count=20";
-    //在调用http之前将movies数据置空，否则会受totalMovies的concat方法影响
+    //每次刷新，在调用http之前将movies数据置空，否则会受totalMovies的concat方法影响
     this.data.movies = {};
     //同时将动态变量isEmpty变成true(数据置空，说明回到了初始加载之前)
     this.data.isEmpty = true;
-    //注意也要讲totalCount置0，否则会叠加
+    //注意刷新的时候也要将totalCount置0，回到初始页面，否则会叠加
     this.data.totalCount = 0;
     util.http(refreshUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
