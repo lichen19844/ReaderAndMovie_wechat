@@ -19,8 +19,9 @@
   <image class="movie-img" src="{{movie.movieImg}}" data-src="{{movie.movieImg}}" catchtap="viewMoviePostImg" />
 
   <view class="summary">
-    <view class="original-title">
-      <text>{{movie.originalTitle}}</text>
+    <!-- 在小程序里，子view标签不会完全覆盖父view标签的class，部分属性会失效，如color,font ，如果是text标签就可以覆盖父元素的css-->
+    <view>
+      <text class="original-title">{{movie.originalTitle}}</text>
     </view>
     <view class="flex-row">
       <text class="mark">评分</text>

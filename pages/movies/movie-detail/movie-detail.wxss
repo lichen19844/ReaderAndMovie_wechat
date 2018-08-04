@@ -1,4 +1,6 @@
 /* pages/movies/movie-detail/movie-detail.wxss */
+@import "../stars/stars-template.wxss";
+
 .detail_container {
   display: flex;
   flex-direction: column;
@@ -73,8 +75,32 @@
 }
 
 .original-title {
-  color: #1f3463;
+  color: #631f5d;
   font-size: 24rpx;
   font-weight: bold;
   margin-bottom: 40rpx;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10rpx;
+}
+
+.mark {
+  margin-right: 30rpx;
+  /* 文本不会换行 */
+  white-space: nowrap;
+  color: #999;
+}
+
+.hr {
+  margin-top: 45rpx;
+  height: 1px;
+  width: 750rpx;
+  background-color: #d9d9d9;
+}
+
+.synopsis {
+  
 }
