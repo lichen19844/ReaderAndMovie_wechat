@@ -109,6 +109,10 @@
   margin-top: 50rpx;
 }
 
+.synopsis-font {
+  color: #999;
+}
+
 .summary-content {
   margin-top: 20rpx;
   margin-right: 40rpx;
@@ -142,7 +146,7 @@
   margin-bottom: 50rpx;
   margin-right: 40rpx;
   width: 170rpx;
-  /* 使文字处于图片正下方 */
+  /* 使文字处于图片正下方居中 */
   text-align: center;
   /* 正常换行 */
   white-space: normal;
@@ -156,5 +160,5 @@
 .cast-name {
   margin: 10rpx auto 0;
   /* 允许在单词内换行 */
-  word-break: break-all;
+  /* word-break: break-all; */
 }

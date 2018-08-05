@@ -44,7 +44,7 @@
   <view class="hr"></view>
 
   <view class="synopsis">
-    <text style="color: #999">剧情简介</text>
+    <text class="synopsis-font">剧情简介</text>
     <text class="summary-content">{{movie.summary}}</text>
   </view>
 
