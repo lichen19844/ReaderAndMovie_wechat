@@ -54,6 +54,9 @@
     <text class="cast-font">影人</text>
     
     <scroll-view class="cast-imgs" scroll-x="true" style="width: 100%">
+      <!-- wx:for主要用于循环输出数组,对象等;需要注意的是: 由于小程序里面没有指定对应的循环参数, 所以默认是由item来指代,所以在多层循环当中,第n层的循环会把第n-1层的item覆盖掉; -->
+      <!-- wx:for-item一般用于指定第二层及以上循环当中的指代字段名;  -->
+      <!-- wx:for-items这个功能,效果和wx:for是一样的,都是用于循环数据的; -->
       <block wx:for="{{movie.castsInfo}}" wx:for-item="item">
         <view class="cast-container">
           <image class="cast-img" src="{{item.img}}"></image>
