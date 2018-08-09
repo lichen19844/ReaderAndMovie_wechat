@@ -12,7 +12,7 @@ class Movie {
   getMovieData(cb) {
     // 将cb绑定到实例上待用，有点像this.data的作用
     this.cb = cb;
-    // bind(this)指向了class
+    // bind(this)绑定环境的上下文，使得processDoubanData中的this是Movie实例对象的this环境
     util.http(this.url, this.processDoubanData.bind(this));
   };
   //processDoubanData函数紧跟在调用http函数后面，这个函数的作用就是冲着movie去的，得到一个新的movie对象
@@ -50,6 +50,7 @@ class Movie {
       summary: data.summary
     }
     //通过回调函数将movie数据返回给movie-detail.js里作为cb的参数并加工成需要的方式
+    //异步+函数+回调 是一种方法，用来传递对象
     this.cb(movie);
   }
 };
