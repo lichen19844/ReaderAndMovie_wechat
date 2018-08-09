@@ -22,10 +22,14 @@ Page({
     var movieId = options.id;
     console.log(movieId);
     var url = app.globalData.doubanBase + "/v2/movie/subject/" + movieId;
+    //把豆瓣地址作为参数传给Movie class
     var movie = new Movie(url);
     // class方法
     // var that = this;
+        // var movieData = movie.getMovieData();  //不能用同步方法
+    // //(movie)为接收Movie.js里的movie数据
     // movie.getMovieData(function(movie){
+    // setData是异步方法
     //   that.setData({
     //     movie: movie
     //   })

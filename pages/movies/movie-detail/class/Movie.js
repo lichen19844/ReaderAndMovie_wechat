@@ -7,18 +7,15 @@ class Movie {
     this.url = url;
   };
 
-  // function(movie) {
-  //   this.setData({
-  //     movie: movie
-  //   })
-  // }  function(movie)就是cb
+  //movie-detail.js里的function(movie){...}就是 cb
+  //这个函数是对外的，会被外部的文件所调用，如movie-detail.js里的movie.getMovieData(...)
   getMovieData(cb) {
-    // 将cb绑定到实例上
+    // 将cb绑定到实例上待用，有点像this.data的作用
     this.cb = cb;
     // bind(this)指向了class
     util.http(this.url, this.processDoubanData.bind(this));
   };
-
+  //processDoubanData函数紧跟在调用http函数后面，这个函数的作用就是冲着movie去的，得到一个新的movie对象
   processDoubanData(data) {
     if (!data) {
       return;
@@ -52,6 +49,7 @@ class Movie {
       castsInfo: util.convertToCastInfos(data.casts),
       summary: data.summary
     }
+    //通过回调函数将movie数据返回给movie-detail.js里作为cb的参数并加工成需要的方式
     this.cb(movie);
   }
 };
