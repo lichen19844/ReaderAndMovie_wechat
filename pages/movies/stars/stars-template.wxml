@@ -8,9 +8,12 @@
       <image src="/images/icon/star.png"></image> -->
          <!--wx:for="{{stars}}"得到的一个有5个元素[1, 1, 1, 0, 0]形式的数组的数据源，使得它按数组的每个元素的值做列表渲染，然后通过wx:for-item指定数组当前元素的变量名为i，同时wx:if使得它按元素的值来做判断使用哪个图 -->     
       <block wx:for= "{{stars}}" wx:for-item= "i">
-        <image wx:if= "{{i}}"  src="/images/icon/star.png"></image>
-        <!-- if为1则为真，为0则为假走else -->
+        <image wx:if= "{{i==1}}"  src="/images/icon/star.png"></image>
+        <image wx:elif= "{{i==0.5}}" src="/images/icon/half_star.png"></image>
         <image wx:else src="/images/icon/none-star.png"></image>
+        <!-- if为1则为真，为0则为假走else -->
+        <!-- <image wx:if= "{{i}}"  src="/images/icon/star.png"></image> 
+        <image wx:else src="/images/icon/none-star.png"></image> -->
         <!-- <image wx:elif= "{{i==1}}" src="..."></image>
         <image wx:elif= "{{i==2}}" src="..."></image>
         <image wx:elif= "{{i==0}}" src="..."></image> -->
