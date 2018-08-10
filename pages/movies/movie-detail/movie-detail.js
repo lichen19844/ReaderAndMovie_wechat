@@ -27,7 +27,7 @@ Page({
     // class方法
     // var that = this;
     // var movieData = movie.getMovieData(...);  //不能用同步方法，会拿不到movieData，因为getMovieData里面有异步的setData，所在的类因此也不能直接返回值，需要通过回调的形式
-    // //(movie)为接收Movie.js里的movie数据，function不是在这个Page里被调用的，如果写成this.setData，它的this是指向Movie.js里的this.cb(movie)的this
+    // //(movie)为接收Movie.js里的movie数据，此处的function不是在这个Page里被调用的，如果写成this.setData，它的this会指向Movie.js里的this.cb(movie)的this
     // movie.getMovieData(function(movie){
     // setData将数据从逻辑层发送到视图层是异步,也就是说改变值是同步的,改变值之后渲染页面是异步的
     //   that.setData({

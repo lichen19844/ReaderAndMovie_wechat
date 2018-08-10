@@ -12,7 +12,7 @@ class Movie {
   getMovieData(cb) {
     // 将cb绑定到实例上待用，有点像this.data的作用
     this.cb = cb;
-    // bind(this)绑定环境的上下文，使得processDoubanData中的this是Movie实例对象的this环境
+    // bind(this)的作用是把函数体内的this绑定到processDoubanData所在环境的上下文，使得processDoubanData中this.cb(movie)的this成为了Movie实例对象的this环境
     util.http(this.url, this.processDoubanData.bind(this));
   };
   //processDoubanData函数紧跟在调用http函数后面，这个函数的作用就是冲着movie去的，得到一个新的movie对象
