@@ -24,15 +24,17 @@ Page({
     //想要打印id，必须写成带有形参的形式options.id
     console.log("options.id is ", options.id);
     // var globalData = app.globalData;
-    //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，通过options参数由鼠标点击后获取的postId，然后传递到了post-detail.js
+    //此处的options.id 来源于post.js里的url: "post-detail/post-detail?id=" + postId里的id，通过options参数由鼠标点击后获取onPostTap事件里的postId，然后传递到了post-detail.js
     // post.js里"post-detail/post-detail?id="里的名字id,是自定义的，而且它决定了post-detail.js引用的时候也要写成id
-    //这里的postId实际拿到的是post.js中onPostTap函数下url:"post-detail/post-detail?id=" + postId 中的postId,回溯自post.js中var postId = event.currentTarget.dataset.postid;再回溯，来源于post.wxml中的data-postId="{{item.postId}}"，再回溯，来源于post.wxml页面中wx:for="{{posts_key}}" wx:for-item="item"所关联的的post-data.js中的的postId
+    //这里的postId实际拿到的是post.js中onPostTap函数下url:"post-detail/post-detail?id=" + postId 中的id=postId,回溯自post.js中var postId = event.currentTarget.dataset.postid;再回溯，postid来源于post.wxml中的data-postId="{{item.postId}}"，再回溯，{{item.postId}}来源于post.wxml页面中wx:for="{{posts_key}}" wx:for-item="item"所关联的post.js中的posts_key所对应到post-data.js中的postId
     //post.js中传过来的完整url: "post-detail/detail?id=" + postId,  即 id = 某一个postId，然后传入post-detail.js
     var postId = options.id;
     // console.log("options is ", options);
-    //将postId 赋予this.data.currentPostId，等同于同时将新造变量currentPostId放置在了本页面的data{}数据层面，变成了中间变量，便于其它函数调用
+    //将获取到的 postId 赋予this.data.currentPostId，也意味着将新造变量currentPostId放置在了本页面的data{}数据层面，变成了中间变量，能便于其它函数调用
     this.data.currentPostId = postId;
     console.log("postId is ", this.data.currentPostId);
+    //postList是一个有很多对象的数组，数组里的元素排序从0开始，这里的[postId]恰巧在假数据中是按0开始往后排的，这样postData就是其中某一个为对象的元素，并按postId来指定顺序
+    //在onLoad中定义了postData这样的变量，只是为拿到某一个详情单页的数据做好准备，什么时候使用怎么使用要看具体情况
     var postData = postsData.postList[postId];
     console.log("postData is ", postData);
     this.setData({
@@ -41,21 +43,22 @@ Page({
     });
 
     //模拟所有的缓存状态
-    // var postsCollectde = {
+    // var postsCollected = {
     //   1: "ture",
     //   2: "false",
     //   3: "true",
     //   ...
     // };
+    // var postsCollected = wx.getStorageSync('posts_collected');
 
     //利用缓存技术，处理页面显示收藏按钮的状态
-    //同步获取指定key（本例为'posts_collected'） 到本地缓存Storage中，并赋予postsCollected变量为缓存池
-    //注意在onLoad下的var postsCollected可以被if else里的局部变量var postsCollected所更新，但仅限于if else内使用，反过来操作则不行
+    //同步获取指定key（本例为'posts_collected'） 到本地缓存Storage中，并赋予变量postsCollected为缓存池
+    //注意在onLoad下的var postsCollected可以被if else判断里else的局部变量var postsCollected = {}所更新，但仅限于if else内使用，反过来操作则不行
     var postsCollected = wx.getStorageSync('posts_collected');
     //注意postsCollected是缓存池 不是指代数据的 postsData 或 postList 或 local_database
     //如果缓存池postsCollected存在
     if (postsCollected) {
-      //把postId读取到定义的postsCollected缓存池中，并将postId的键值赋予变量postCollected
+      //把postId读取到定义的postsCollected缓存池中，postsCollected是一个对象，将postId的键值赋予变量postCollected，方法参考movies.js中的readyData[settedKey]用法，等同于postsCollected = {postId: postCollected}, 这里的[postId]恰巧在假数据中是按0开始往后排的；这里的情况和var postData = postsData.postList[postId]利用数组的方法不一样
       var postCollected = postsCollected[postId]
       if (postCollected) {
         this.setData({
@@ -65,9 +68,11 @@ Page({
       }
     } else {
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
+      //如果缓存池不存在，先给postsCollected一个空对象
       var postsCollected = {};
+      //空对象意味着不可能被收藏，让当前的文章收藏状态为false
       postsCollected[postId] = false;
-      //也可以写成如下
+      //也可以写成如下，正因为它会使得postsCollected = {postId: false}
       // postsCollected.postId = false;
       //意味着在空对象中先放入一个postId: false的对象，以它为起点
       //亦能写成 postCollected = false; 但是注意这里的postCollected不可随意变更，需和其它postCollected名字一致
@@ -192,14 +197,14 @@ Page({
   //收藏按钮的动作
   onCollectionTap: function(event) {
     // var postsCollected = wx.getStorageSync('posts_collected');
-    // //post键值赋予变量postCollected
+    // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
     // var postCollected = postsCollected[this.data.currentPostId];
     // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     // postCollected = !postCollected;
     // console.log(postsCollected);
     // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
     // postsCollected[this.data.currentPostId] = postCollected;
-    // //在这里不需要写入判断 if (postsCollected) {...}了，因为缓存中已经有了
+    // //在这里不需要对空判断 if (postsCollected) {...}了，因为缓存中已经有了
     // //更新最新状态的文章数据的所有缓存值，为下一次被调用做准备
     // // wx.setStorageSync('posts_collected', postsCollected);
     // //更新数据绑定变量，从而实现切换图片

@@ -16,7 +16,7 @@ Page({
   // 这里onLoad内代码少的大概原因是，是因为它所需数据全部来自posts-data.js这个公共文件，无需像movies.js那样要添加回调函数来接收外部的API数据。这里做了个实验，如果删除除onLoad函数以外的所有函数，post页面显示一切正常，但是去掉onLoad函数里面的代码，post页面的显示就不正常了
   onLoad: function(options) {
     this.setData({
-      //posts_key拿到了posts-data.js中所有的假数据
+      //post.js需要posts-data.js中所有的假数据，并赋值给posts_key，传到post.wxml中使用
       posts_key: postsData.postList
     });
   },
