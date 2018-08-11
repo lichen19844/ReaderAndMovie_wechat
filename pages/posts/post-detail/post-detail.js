@@ -66,6 +66,7 @@ Page({
           collected: postCollected
         });
       }
+      // 这里不写else是默认postCollected不存在的话，就不需要对collected赋值，对应了wxml
     } else {
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
       //如果缓存池不存在，先给postsCollected一个空对象
