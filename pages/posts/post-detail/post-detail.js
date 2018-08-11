@@ -66,7 +66,9 @@ Page({
           collected: postCollected
         });
       }
-      // 这里不写else是默认postCollected不存在的话，就不需要对collected赋值，对应了wxml
+      console.log('实验 postCollected 是什么值 ', postCollected);
+      console.log('实验 collected 是什么值 ', this.data.collected);      
+      // 这里不写对应 if(postCollected) 的 else 是默认如果postCollected不存在的话，就不需要对collected赋值，无论是false还是undefined 它都对应了post-detail.wxml的<image wx:else ...>
     } else {
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
       //如果缓存池不存在，先给postsCollected一个空对象
