@@ -27,19 +27,19 @@ Page({
     var thumbId = event.currentTarget.dataset.thumbid;
     this.data.currentThumbId = thumbId;
     console.log('thumbId is ', thumbId);
-    // var thumbeds = wx.getStorageSync('thumbeds');
-    // if(thumbeds) {
-    //   var thumbed = thumbeds[thumbId];
-    //   if(thumbed) {
-    //     this.setData({
-    //       isthumbed: thumbed
-    //     });
-    //   }
-    // } else {
-    //   var thumbeds = {};
-    //   thumbeds[thumbId] = false;
-    //   wx.setStorageSync('thumbeds', thumbeds)
-    // }
+    var thumbeds = wx.getStorageSync('thumbeds');
+    if(thumbeds) {
+      var thumbed = thumbeds[thumbId];
+      if(thumbed) {
+        this.setData({
+          isthumbed: thumbed
+        });
+      }
+    } else {
+      var thumbeds = {};
+      thumbeds[thumbId] = false;
+      wx.setStorageSync('thumbeds', thumbeds)
+    }
 
     // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
