@@ -19,27 +19,48 @@ Page({
       //post.js需要posts-data.js中所有的假数据，并赋值给posts_key，传到post.wxml中使用
       posts_key: postsData.postList
     });
+    console.log('posts_key is ', this.data.posts_key);
 
-    var postId = this.data.currentPostId;
+  },
 
-    var highStareds = wx.getStorageSync('highStareds');
-    if(highStareds) {
-      var highStared = highStareds[postId];
-      if(highStared) {
-        this.setData({
-          stared: highStared
-        });
-      }
-    } else {
-      var highStareds = {};
-      highStareds[postId] = false;
-      wx.setStorageSync('highStareds', highStareds)
-    }
+  onThumbTap: function (event) {
+    var thumbId = event.currentTarget.dataset.thumbid;
+    this.data.currentThumbId = thumbId;
+    console.log('thumbId is ', thumbId);
+    // var thumbeds = wx.getStorageSync('thumbeds');
+    // if(thumbeds) {
+    //   var thumbed = thumbeds[thumbId];
+    //   if(thumbed) {
+    //     this.setData({
+    //       isthumbed: thumbed
+    //     });
+    //   }
+    // } else {
+    //   var thumbeds = {};
+    //   thumbeds[thumbId] = false;
+    //   wx.setStorageSync('thumbeds', thumbeds)
+    // }
+
+    // var postsCollected = wx.getStorageSync('posts_collected');
+    // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
+    // var postCollected = postsCollected[this.data.currentPostId];
+    // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
+    // postCollected = !postCollected;
+    // console.log(postsCollected);
+    // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
+    // postsCollected[this.data.currentPostId] = postCollected;
+    // //在这里不需要对空判断 if (postsCollected) {...}了，因为缓存中已经有了
+    // //更新最新状态的文章数据的所有缓存值，为下一次被调用做准备
+    // // wx.setStorageSync('posts_collected', postsCollected);
+    // //更新数据绑定变量，从而实现切换图片
+    // // this.setData({
+    // //   collected: postCollected
+    // // });
   },
 
   onPostTap: function(event) {
     var postId = event.currentTarget.dataset.postid;
-    this.data.currentPostId = postId;
+    // this.data.currentPostId = postId;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     //因需要将具体的id绑定到具体的点击事件上，为此产生某一个具体的id的传递（一层层变量的推演）：首先在外部有一个js的数据库文件post-data.js文件，然后在本页引用这个post.js文件，设置变量postsData来指代，然后又在加载页面时设置变量posts_key: postsData.postList，使得变量posts_key指代了外部文件内的数据，然后在view组件上使用 wx:for 控制属性绑定这个数组数据的变量posts_key，此时view组件已经捕获到了原本在js文件中的id数据，这时再通过dataset方法data-xxx在组件中记录这个数据，然后数据同时结合绑定这个组件的事件来传递回post.js内，通过var postId = event.currentTarget.dataset.postid;锁定住了这个id为我们需要的post.js内的postId变量。在这个过程中，其实在设置变量posts_key: postsData.postList时我已经拿到了所有数据，但此时无法做到锚定具体的数据，有了id这个标识符，我们就可以方便的运用它了。
     //dataset在组件中可以定义数据，这些数据将会通过事件传递给 SERVICE。 书写方式： 以data - 开头，多个单词由连字符 - 链接，不能有大写(大写会自动转成小写)如data- element - type，最终在 event.currentTarget.dataset 中会将连字符转成驼峰elementType
