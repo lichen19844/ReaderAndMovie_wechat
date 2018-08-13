@@ -1,4 +1,4 @@
-<!-- 经过实验，也不能在template内部的view标签注册事件，和使用dataset属性 -->
+<!-- 经过实验，可以在template内部的组件标签注册事件，和使用dataset属性 -->
 <template name= "postItem">
     <view class="post-container">
       <view class="post-author-date">
