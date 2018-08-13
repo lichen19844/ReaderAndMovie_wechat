@@ -20,28 +20,30 @@ Page({
       posts_key: postsData.postList
     });
     var posts_key = this.data.posts_key;
-    console.log('posts_key is ', posts_key);
+    // console.log('posts_key is ', posts_key);
+    var temmpp = [];
     for (var idx in posts_key){
       var iidd = posts_key[idx].postId;
-      console.log(iidd);
-      this.setData({
-        iidd: iidd
-      });
+      // console.log(iidd);
+      temmpp.push(iidd);
+      // this.setData({
+      //   iidd: iidd
+      // });
       var thumbeds = wx.getStorageSync('thumbeds');
-
       if (thumbeds) {
-        var thumbed = thumbeds[iidd];
-        if (thumbed) {
-          this.setData({
-            thumbed: thumbed
-          });
-        }
+        // var thumbed = thumbeds[iidd];
+        // if (thumbed) {
+        //   this.setData({
+        //     isthumbed: thumbed
+        //   });
+        // }
       } else {
         var thumbeds = {};
-        thumbeds[iidd] = false;
+        // thumbeds[iidd] = false;
         wx.setStorageSync('thumbeds', thumbeds)
       }
     }
+    console.log(temmpp);
   },
 
   onThumbTap: function (event) {
