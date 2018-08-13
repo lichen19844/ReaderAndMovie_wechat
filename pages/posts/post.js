@@ -20,7 +20,7 @@ Page({
       posts_key: postsData.postList
     });
     console.log('posts_key is ', this.data.posts_key);
-
+    
   },
 
   onThumbTap: function (event) {
@@ -43,19 +43,19 @@ Page({
 
     // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
-    // var postCollected = postsCollected[this.data.currentPostId];
+    var thumbed = thumbeds[this.data.currentThumbId];
     // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
-    // postCollected = !postCollected;
+    thumbed = !thumbed;
     // console.log(postsCollected);
     // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
-    // postsCollected[this.data.currentPostId] = postCollected;
+    thumbeds[this.data.currentThumbId] = thumbed;
     // //在这里不需要对空判断 if (postsCollected) {...}了，因为缓存中已经有了
     // //更新最新状态的文章数据的所有缓存值，为下一次被调用做准备
-    // // wx.setStorageSync('posts_collected', postsCollected);
+    wx.setStorageSync('thumbeds', thumbeds);
     // //更新数据绑定变量，从而实现切换图片
-    // // this.setData({
-    // //   collected: postCollected
-    // // });
+    this.setData({
+      isthumbed: thumbed
+    });
   },
 
   onPostTap: function(event) {

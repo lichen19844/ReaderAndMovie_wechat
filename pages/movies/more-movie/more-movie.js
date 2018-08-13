@@ -67,7 +67,7 @@ Page({
   },
 
   processDoubanData: function (moviesDouban) {
-    console.log(moviesDouban);
+    console.log('moviesDouban', moviesDouban);
     var movies = [];
     for (var idx in moviesDouban.subjects) {
       var subject = moviesDouban.subjects[idx];
