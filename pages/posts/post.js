@@ -19,8 +19,29 @@ Page({
       //post.js需要posts-data.js中所有的假数据，并赋值给posts_key，传到post.wxml中使用
       posts_key: postsData.postList
     });
-    console.log('posts_key is ', this.data.posts_key);
-    
+    var posts_key = this.data.posts_key;
+    console.log('posts_key is ', posts_key);
+    for (var idx in posts_key){
+      var iidd = posts_key[idx].postId;
+      console.log(iidd);
+      this.setData({
+        iidd: iidd
+      });
+      var thumbeds = wx.getStorageSync('thumbeds');
+
+      if (thumbeds) {
+        var thumbed = thumbeds[iidd];
+        if (thumbed) {
+          this.setData({
+            thumbed: thumbed
+          });
+        }
+      } else {
+        var thumbeds = {};
+        thumbeds[iidd] = false;
+        wx.setStorageSync('thumbeds', thumbeds)
+      }
+    }
   },
 
   onThumbTap: function (event) {
@@ -28,20 +49,6 @@ Page({
     this.data.currentThumbId = thumbId;
     console.log('thumbId is ', thumbId);
     var thumbeds = wx.getStorageSync('thumbeds');
-    if(thumbeds) {
-      var thumbed = thumbeds[thumbId];
-      if(thumbed) {
-        this.setData({
-          isthumbed: thumbed
-        });
-      }
-    } else {
-      var thumbeds = {};
-      thumbeds[thumbId] = false;
-      wx.setStorageSync('thumbeds', thumbeds)
-    }
-
-    // var postsCollected = wx.getStorageSync('posts_collected');
     // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
     var thumbed = thumbeds[this.data.currentThumbId];
     // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
@@ -56,6 +63,8 @@ Page({
     this.setData({
       isthumbed: thumbed
     });
+    console.log('isthumbed is ', this.data.isthumbed)
+    console.log(thumbeds)
   },
 
   onPostTap: function(event) {
