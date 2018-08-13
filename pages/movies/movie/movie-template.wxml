@@ -1,5 +1,5 @@
 <import src="../stars/stars-template.wxml" />
-
+````
 <template name="movieTemplate">
   <view class="movie-container" catchtap="onMovieTap" data-movieId="{{movieId}}">
     <!-- 接收来自上一层的movie数据，数据里有coverageUrl和title，可以直接写出来 -->

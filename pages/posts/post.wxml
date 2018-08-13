@@ -23,7 +23,7 @@
       <!-- ...的作用，可以将数据数组的每个元素做展开，然后将元素里的每个数据对象向下传递，便于下一层html直接使用不带item.样式的子数据(甚至是子子数据)来渲染。一般用于模板template，如果不写...，那么要在子模板中使用item.xxx的样式来渲染数据 -->
       <template is="postItem" data="{{...item}}" />
     </view>
-    <view catchtap="onThumbTap" data-thumbId="{{item.postId}}">
+    <view>
         <template is="thumbItem" data="{{...item}}" />
     </view>
   </block>

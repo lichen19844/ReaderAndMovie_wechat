@@ -3,7 +3,7 @@
 <template name="movieListTemplate">
   <view class="movie-list-container">
     <view class="inner-container">
-
+``````
       <view class="moive-head">
         <!-- <view class="slogntext"> -->
         <text class="slogn">{{categoryTitle}}</text>
