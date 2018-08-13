@@ -129,6 +129,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
 
+  //onReady在onLoad之后执行，里面的内容一般来说可以放入onLoad
   onReady: function(event) {
     //动态设置当前页面的标题
     wx.setNavigationBarTitle({

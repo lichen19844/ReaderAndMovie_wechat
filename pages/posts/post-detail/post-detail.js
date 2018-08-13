@@ -60,6 +60,7 @@ Page({
     if (postsCollected) {
       //把postId读取到定义的postsCollected缓存池中，postsCollected是一个对象，将postId的键值赋予变量postCollected，方法参考movies.js中的readyData[settedKey]用法，等同于postsCollected = {postId: postCollected}, 这里的[postId]恰巧在假数据中是按0开始往后排的；这里的情况和var postData = postsData.postList[postId]利用数组的方法不一样
       var postCollected = postsCollected[postId]
+      //如果postCollected是false的话是不会执行这个if的，也没有相应的else执行，所以是什么也不做，collected也不会被赋值，会变成undefined
       if (postCollected) {
         this.setData({
           //加载时的判断
@@ -73,7 +74,8 @@ Page({
       //为wx.setStorageSync定义一个data属性，这里是一个空的对象，方便放入任何内容，也可以放入一个空数组[]
       //如果缓存池不存在，先给postsCollected一个空对象
       var postsCollected = {};
-      //空对象意味着不可能被收藏，让当前的文章收藏状态为false
+      //空对象意味着当前文文章不可能被收藏，此时应认人为让当前的文章收藏状态为false
+      // 将false赋值给postsCollected[postId]，刷新缓存池中的postsCollected，这里的false和postCollected没有直接关系
       postsCollected[postId] = false;
       //也可以写成如下，正因为它会使得postsCollected = {postId: false}
       // postsCollected.postId = false;
