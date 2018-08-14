@@ -1,7 +1,7 @@
 <template name="thumbItem">
   <view class="post-like">
     <view catchtap="onThumbTap" data-thumbId="{{postId}}">
-      <image wx:if="{{isthumbed}}" class="post-like-image" src="/images/icon/star.png" />
+      <image wx:if="{{thumbed}}" class="post-like-image" src="/images/icon/star.png" />
       <image wx:else class="post-like-image" src="/images/icon/chat.png" />
     </view>
 

@@ -7,7 +7,7 @@ Page({
    */
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
-    isthumbed: false
+    thumbed: false
   },
 
   /**
@@ -27,42 +27,64 @@ Page({
       // this.setData({
       //   thumbId: thumbId
       // });
-      var thumbeds = wx.getStorageSync('thumbeds');
-      if (thumbeds) {
+      // var thumbeds = wx.getStorageSync('thumbeds');
+      // if (thumbeds) {
         // var thumbed = thumbeds[thumbId];
         // if (thumbed) {
         //   this.setData({
-        //     isthumbed: thumbed
+        //     thumbed: thumbed
         //   });
         // }
-      } else {
-        var thumbeds = {};
+      // } else {
+        // var thumbeds = {};
         // thumbeds[thumbId] = false;
-        wx.setStorageSync('thumbeds', thumbeds)
-      }
+        // wx.setStorageSync('thumbeds', thumbeds)
+      // }
     }
     console.log(temmpp);
+    this.setData({
+      temmpp: temmpp
+    })
   },
 
-  onThumbTap: function (event) {
-    var thumbId = event.currentTarget.dataset.thumbid;
-    this.data.currentThumbId = thumbId;
-    console.log('thumbId is ', thumbId);
-    var thumbeds = wx.getStorageSync('thumbeds');
-    var thumbed = thumbeds[this.data.currentThumbId];
-    thumbed = !thumbed;
-    console.log('thumbed is ', thumbed)
-    thumbeds[this.data.currentThumbId] = thumbed;
-    wx.setStorageSync('thumbeds', thumbeds);
+  onShow: function(event){
+    var posts_key = this.data.posts_key;
+    var thumbeds = wx.getStorageSync('posts_collected');
+    var postId = this.data.postId;
+    for (var idx in posts_key) {
+      var thumbId = posts_key[idx].postId;
+      var thumbed = thumbeds[thumbId];
     this.setData({
-      isthumbed: thumbed
-    });
-    console.log('isthumbed is ', this.data.isthumbed)
-    console.log('thumbeds is ', thumbeds)
+      thumbed: thumbed
+    })
+    }
+    console.log('posts_key is ', posts_key);
+    console.log('thumbeds is ', thumbeds);
+    console.log('thumbed is ', thumbed);
   },
+
+  // onThumbTap: function (event) {
+  //   var thumbId = event.currentTarget.dataset.thumbid;
+  //   this.data.currentThumbId = thumbId;
+  //   console.log('thumbId is ', thumbId);
+  //   var thumbeds = wx.getStorageSync('thumbeds');
+  //   var thumbed = thumbeds[this.data.currentThumbId];
+  //   thumbed = !thumbed;
+  //   console.log('thumbed is ', thumbed)
+  //   thumbeds[this.data.currentThumbId] = thumbed;
+  //   wx.setStorageSync('thumbeds', thumbeds);
+  //   this.setData({
+  //     thumbed: thumbed
+  //   });
+  //   console.log('thumbed is ', this.data.thumbed)
+  //   console.log('thumbeds is ', thumbeds)
+  // },
 
   onPostTap: function(event) {
     var postId = event.currentTarget.dataset.postid;
+    this.setData({
+      postId: postId
+    })
     // this.data.currentPostId = postId;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     //因需要将具体的id绑定到具体的点击事件上，为此产生某一个具体的id的传递（一层层变量的推演）：首先在外部有一个js的数据库文件post-data.js文件，然后在本页引用这个post.js文件，设置变量postsData来指代，然后又在加载页面时设置变量posts_key: postsData.postList，使得变量posts_key指代了外部文件内的数据，然后在view组件上使用 wx:for 控制属性绑定这个数组数据的变量posts_key，此时view组件已经捕获到了原本在js文件中的id数据，这时再通过dataset方法data-xxx在组件中记录这个数据，然后数据同时结合绑定这个组件的事件来传递回post.js内，通过var postId = event.currentTarget.dataset.postid;锁定住了这个id为我们需要的post.js内的postId变量。在这个过程中，其实在设置变量posts_key: postsData.postList时我已经拿到了所有数据，但此时无法做到锚定具体的数据，有了id这个标识符，我们就可以方便的运用它了。
