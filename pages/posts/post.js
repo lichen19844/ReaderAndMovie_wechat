@@ -7,7 +7,7 @@ Page({
    */
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
-
+    isthumbed: false
   },
 
   /**
@@ -20,18 +20,16 @@ Page({
       posts_key: postsData.postList
     });
     var posts_key = this.data.posts_key;
-    // console.log('posts_key is ', posts_key);
     var temmpp = [];
     for (var idx in posts_key){
-      var iidd = posts_key[idx].postId;
-      // console.log(iidd);
-      temmpp.push(iidd);
+      var thumbId = posts_key[idx].postId;
+      temmpp.push(thumbId);
       // this.setData({
-      //   iidd: iidd
+      //   thumbId: thumbId
       // });
       var thumbeds = wx.getStorageSync('thumbeds');
       if (thumbeds) {
-        // var thumbed = thumbeds[iidd];
+        // var thumbed = thumbeds[thumbId];
         // if (thumbed) {
         //   this.setData({
         //     isthumbed: thumbed
@@ -39,7 +37,7 @@ Page({
         // }
       } else {
         var thumbeds = {};
-        // thumbeds[iidd] = false;
+        // thumbeds[thumbId] = false;
         wx.setStorageSync('thumbeds', thumbeds)
       }
     }
@@ -51,22 +49,16 @@ Page({
     this.data.currentThumbId = thumbId;
     console.log('thumbId is ', thumbId);
     var thumbeds = wx.getStorageSync('thumbeds');
-    // //post键值赋予变量postCollected 使得postsCollected = {this.data.currentPostId: postCollected}
     var thumbed = thumbeds[this.data.currentThumbId];
-    // //收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
     thumbed = !thumbed;
-    // console.log(postsCollected);
-    // //并把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章）
+    console.log('thumbed is ', thumbed)
     thumbeds[this.data.currentThumbId] = thumbed;
-    // //在这里不需要对空判断 if (postsCollected) {...}了，因为缓存中已经有了
-    // //更新最新状态的文章数据的所有缓存值，为下一次被调用做准备
     wx.setStorageSync('thumbeds', thumbeds);
-    // //更新数据绑定变量，从而实现切换图片
     this.setData({
       isthumbed: thumbed
     });
     console.log('isthumbed is ', this.data.isthumbed)
-    console.log(thumbeds)
+    console.log('thumbeds is ', thumbeds)
   },
 
   onPostTap: function(event) {
@@ -107,3 +99,18 @@ Page({
   //target指的是触发事件的源组件，currentTarget指的是事件绑定（捕获）的当前组件
   //在post.wxml中，onSwiperItemTap收到的事件对象target和currentTarget都是image组件，而onSwiperTap收到的事件对象target是当前点击的image组件，而currentTarget是onSwiperTap所绑定捕获的当前swiper组件，而恰好swiper组件中没有设id
 })
+
+
+
+// 学习用
+// var a = ['a', 'b', 'c']
+// var obj = {}
+// a.forEach((item, index) => { obj[index] = item })
+// console.log(obj)
+
+// var arr = ['啦啦', '呵呵', '哒哒', '嗯嗯']
+// var obj = {}
+// for (var key in arr) {
+//   obj[key] = arr[key]
+// }
+// console.log(obj)//{0: "啦啦", 1: "呵呵", 2: "哒哒", 3: "嗯嗯"}
