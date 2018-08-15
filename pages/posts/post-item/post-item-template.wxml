@@ -1,4 +1,6 @@
 <template name="postItem">
+<view>{{test}}</view>
+
   <view class="post-container">
     <view class="post-author-date">
       <image wx:if="{{img_condition}}" class="post-author" src="{{avatar}}"></image>

@@ -7,7 +7,8 @@ Page({
    */
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
-    thumbed: false
+    thumbed: false,
+    test: 'testttt'
   },
 
   /**
