@@ -7,6 +7,7 @@ Page({
    */
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
+    posts_key: [],
     isthumbed: false
   },
 
@@ -20,6 +21,7 @@ Page({
       posts_key: postsData.postList
     });
     var posts_key = this.data.posts_key;
+    console.log('posts_key is ', posts_key)
     var temmpp = [];
     for (var idx in posts_key){
       var thumbId = posts_key[idx].postId;
