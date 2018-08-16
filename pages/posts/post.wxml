@@ -25,11 +25,12 @@
       <template is="postItem" data="{{...item}}" />
     </view>
     <view>
-        <template is="thumbItem" data="{{...item}}" />
+      <template is="thumbItem" data="{{...item}}" />
     </view>
   </block>
 
   <view>
-<template is="stdInfo" wx:for="{{stdInfo}}" data="{{...stdInfo[index], ...{index: index, name: item.name} }}"></template>  </view>
+    <template is="stdInfo" wx:for="{{stdInfo}}" data="{{...stdInfo[index], ...{index: index, name: item.name} }}"></template>
+  </view>
 
 </view>
