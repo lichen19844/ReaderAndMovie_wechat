@@ -8,7 +8,21 @@ Page({
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
     posts_key: [],
-    isthumbed: false
+    isthumbed: false,
+    stdInfo: [
+      {
+        name: "lostexin",
+        age: 21,
+        gender: "m",
+        title: "老子是魔法少女"
+      },
+      {
+        name: "afei",
+        age: 21,
+        gender: "m",
+        title: "邪王真眼"
+      }
+    ]
   },
 
   /**

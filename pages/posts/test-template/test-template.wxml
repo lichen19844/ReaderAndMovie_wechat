@@ -1,0 +1,8 @@
+<template name="stdInfo">
+  <view>
+    <!-- 这里用到了index -->
+    <text>{{index + 1}} </text>
+    <text>{{title}}</text>
+    <text> {{name}}</text>
+  </view>
+</template>

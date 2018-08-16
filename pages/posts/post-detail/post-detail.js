@@ -95,6 +95,10 @@ Page({
       })
     };
     this.setMusicMonitor();
+
+    getApp().globalData.wx_id = {1:1, 2:2, 3:3};
+    var globaltest = getApp().globalData.wx_id;
+    console.log('globaltest is ', globaltest)
   },
 
   setMusicMonitor: function() {
