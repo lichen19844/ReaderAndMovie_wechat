@@ -272,7 +272,7 @@ Page({
     postsCollected[this.data.currentPostId] = postCollected;
     //在这里不需要再写入判断 if (postsCollected) {...}了，因为缓存中已经有了postsCollected
     //如果有写wx.setStorageSync('posts_collected', postsCollected);则为更新最新状态的文章数据到缓存值，为下一次被调用做准备
-    console.log(postsCollected);
+    console.log('还未刷新数据到setStorageSync的postsCollected', postsCollected);
     this.showModal(postsCollected, postCollected);
   },
 
@@ -299,7 +299,10 @@ Page({
             collected: postCollected
           });
           that.showToast(postsCollected, postCollected);
-        }
+        };
+        var postsssCollected = wx.getStorageSync('posts_collected');
+        console.log('想要变成的postsCollected ', postsCollected)       
+        console.log('已经刷入数据的postsssCollected ', postsssCollected)
       },
     });
   },
