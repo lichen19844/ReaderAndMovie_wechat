@@ -1,7 +1,7 @@
 var postsData = require('../../../data/posts-data.js');
 var app = getApp();
 console.log("app is ", app);
-console.log("getApp().globalData is ", getApp().globalData);
+console.log("getApp().globalData is ", app.globalData);
 console.log("postsData's length is ", postsData.postList.length);
 Page({
 
@@ -95,10 +95,7 @@ Page({
       })
     };
     this.setMusicMonitor();
-
-    getApp().globalData.wx_id = {1:1, 2:2, 3:3};
-    var globaltest = getApp().globalData.wx_id;
-    console.log('globaltest is ', globaltest)
+    
   },
 
   setMusicMonitor: function() {
@@ -407,6 +404,29 @@ Page({
       });
       console.log("next post id is " + postId);
     };
+
+  },
+
+  onbackTap: function (event){
+    wx.request({
+      //地址仅为示例
+      url: 'https://www.baidu.com/',
+      success: function (res) {
+        if (res) {
+          app.globalData.wx_id = { a: 1, b: 2, c: 3 };
+          var globaltest = app.globalData.wx_id;
+          console.log('globaltest is ', globaltest);
+          //地址二选一 都是可以实现的
+          // wx.switchTab({
+          //   url: '../post'            
+          // });
+          wx.navigateTo({
+            url: '../../testglobal/testglobal'
+          });
+        }
+      }
+    });
+
 
   },
 

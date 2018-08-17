@@ -36,6 +36,6 @@ App({
     g_currentMusicPostId: null,
     // doubanBase: "https://api.douban.com",
     doubanBase: "http://t.yushu.im",
-    wx_id: []
+    wx_id: {}
   }
 })

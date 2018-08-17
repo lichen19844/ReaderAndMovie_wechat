@@ -1,5 +1,5 @@
 var postsData = require('../../data/posts-data.js')
-
+var app = getApp();
 Page({
 
   /**
@@ -21,8 +21,9 @@ Page({
         age: 21,
         gender: "m",
         title: "邪王真眼"
-      }
-    ]
+      },
+    ],
+    wx_id_post: {}
   },
 
   /**
@@ -110,10 +111,20 @@ Page({
     wx.navigateTo({
       url: postsUrl + postId
     });
-  }
+  },
   //target 和 currentTarget 区别
   //target指的是触发事件的源组件，currentTarget指的是事件绑定（捕获）的当前组件
   //在post.wxml中，onSwiperItemTap收到的事件对象target和currentTarget都是image组件，而onSwiperTap收到的事件对象target是当前点击的image组件，而currentTarget是onSwiperTap所绑定捕获的当前swiper组件，而恰好swiper组件中没有设id
+
+  onShow: function (event) {
+    console.log('app.globalData.wx_id is ', app.globalData.wx_id)
+    var wx_id_post = this.data.wx_id_post;
+    console.log('origin wx_id_post is ', wx_id_post)
+    this.setData({
+      wx_id_post: app.globalData.wx_id
+    });
+    console.log('lasted wx_id_post is ', this.data.wx_id_post)
+  },
 })
 
 

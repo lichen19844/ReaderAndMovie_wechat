@@ -11,6 +11,7 @@
   <view class="author-date">
     <text catchtap="onPreviousTap" class="const-text">上一篇</text>
     <text catchtap="onNextTap" class="const-text">下一篇</text>
+    <text catchtap="onbackTap" class="const-text">通过全局变量将A页数据传递到B页，成为B页的数据</text>
   </view>
 
   <view class="tool">

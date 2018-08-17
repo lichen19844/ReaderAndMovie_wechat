@@ -1,0 +1,13 @@
+<!--pages/testglobal/testglobal.wxml-->
+<view>
+  <text>pages/testglobal/testglobal.wxml</text>
+</view>
+<view>
+  <text>{{wx_id_testglobal.a}}</text>
+</view>
+<view>
+  <text>{{wx_id_testglobal.b}}</text>
+</view>
+<view>
+  <text>{{wx_id_testglobal.c}}</text>
+</view>
