@@ -1,3 +1,5 @@
+var app = getApp();
+
 // 引入Movie class
 import {
   Movie
@@ -42,6 +44,25 @@ Page({
       })
     });
     // util.http(url, this.processDoubanData);
+
+    wx.request({
+      //地址仅为示例
+      url: 'https://www.baidu.com/',
+      success: function (res) {
+        if (res) {
+          app.globalData.wx_id = { a: 4, b: 5, c: 6, d: 7 };
+          var globaltest = app.globalData.wx_id;
+          console.log('globaltest is ', globaltest);
+          //地址二选一 都是可以实现的
+          // wx.switchTab({
+          //   url: '../post'            
+          // });
+          wx.navigateTo({
+            url: '../../testglobal/testglobal'
+          });
+        }
+      }
+    })
   },
 
   // //data拿到的是http里callback所拿到的res.data数据
