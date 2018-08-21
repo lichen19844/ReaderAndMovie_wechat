@@ -28,6 +28,7 @@ Page({
    */
   onShow: function (event) {
     console.log('app.globalData.wx_id is ', app.globalData.wx_id)
+    //如果有页面通过导航传进来，会将刷新的全局变量传给testglobal.js
     var wx_id_testglobal = this.data.wx_id_testglobal;
     console.log('origin wx_id_testglobal is ', wx_id_testglobal)
     this.setData({

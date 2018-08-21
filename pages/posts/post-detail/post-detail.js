@@ -413,6 +413,7 @@ Page({
       url: 'https://www.baidu.com/',
       success: function (res) {
         if (res) {
+          // 将数据读入全局变量
           app.globalData.wx_id = { a: 1, b: 2, c: 3 };
           var globaltest = app.globalData.wx_id;
           console.log('globaltest is ', globaltest);
@@ -420,6 +421,7 @@ Page({
           // wx.switchTab({
           //   url: '../post'            
           // });
+          // navigateTo会将刷新的全局变量传给testglobal.js
           wx.navigateTo({
             url: '../../testglobal/testglobal'
           });
