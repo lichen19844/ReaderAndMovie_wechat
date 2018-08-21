@@ -59,7 +59,7 @@
       <!-- wx:for-items这个功能,效果和wx:for是一样的,都是用于循环数据的; -->
       <block wx:for="{{movie.castsInfo}}" wx:for-item="item">
         <view class="cast-container">
-          <image class="cast-img" src="{{item.img}}"></image>
+          <image class="cast-img" src="{{item.img}}" catchtap="onbackTap"></image>
           <text class="cast-name">{{item.name}}</text>
         </view>
       </block>

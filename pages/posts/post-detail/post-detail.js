@@ -428,8 +428,6 @@ Page({
         }
       }
     });
-
-
   },
 
   onShow: function() {
