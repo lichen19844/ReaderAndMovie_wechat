@@ -70,6 +70,7 @@ Page({
     //category实际指代了movie-list-template.wxml中的{{categoryTitle}}
     //category通过url传递到了more-movie
     var category = event.currentTarget.dataset.category;
+    console.log('test category is ', category);
     wx.navigateTo({
       // movie.js里"more-movie/more-movie?category="里的名字category,是自定义的，而且它决定了more-movie.js引用的时候也要写成category，这里的category等同于getMovieListData函数中的categoryTitle
       url: 'more-movie/more-movie?category=' + category,
@@ -78,6 +79,7 @@ Page({
 
   onMovieTap: function (event) {
     var movieId = event.currentTarget.dataset.movieid;
+    console.log('test movieId is ', movieId);
     wx.navigateTo({
       url: 'movie-detail/movie-detail?id=' + movieId,
     })

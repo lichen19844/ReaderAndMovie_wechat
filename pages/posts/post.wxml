@@ -1,4 +1,5 @@
 <import src="post-item/post-item-template.wxml" />
+<import src="thumb-item/thumb-item-template.wxml" />
 
 <view>
   <swiper catchtap="onSwiperTap" vertical='{{false}}' indicator-dots="lalala" autoplay="{{true}}" interval="2000" duration="500">
@@ -25,6 +26,9 @@
       <!-- 同样不可以在block标签上注册事件，因为block也会在编译后“消失” -->
       <!-- 模板拥有自己的作用域，只能使用 data 传入的数据 -->
       <template is="postItem" data="{{...item}}" />
+    </view>
+    <view>
+        <template is="thumbItem" data="{{...item}}" />
     </view>
   </block>
 </view>

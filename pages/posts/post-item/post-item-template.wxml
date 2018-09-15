@@ -14,5 +14,8 @@
         <image class="post-like-image" src="/images/icon/view.png"></image>
         <text class="post-like-font">{{reading}}</text>
       </view>
-    </view>
+    <text class="post-title">{{title}}</text>
+    <image class="post-image" src="{{imgSrc}}"></image>
+    <text class="post-content">{{content}}</text>
+  </view>
 </template>
