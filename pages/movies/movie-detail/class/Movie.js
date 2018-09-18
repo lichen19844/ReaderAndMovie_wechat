@@ -51,6 +51,8 @@ class Movie {
     }
     //通过回调函数将movie数据返回给movie-detail.js里作为cb的参数并加工成需要的方式
     //异步+函数+回调 是一种方法，用来传递对象
+    //不能用var that = this;  无法通过data保存this再赋值给that，因为没有this.data的形式
+    // 这里this.cb的this原本不是外部的this，必须通过对processDoubanData绑定外部的this，使得这里的this指向外部
     this.cb(movie);
   }
 };
