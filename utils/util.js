@@ -1,81 +1,81 @@
 // 专门存放公共方法，这个js文件被引用之后，里面就可以使用相应的变量了，如movies.js中的实参subject.rating.stars，这里的stars是它的形参
 // 把星星的分值35或50这样的数字转化成有5个数字的数组，用[1, 1, 1, 1, 1]和[1, 1, 1, 0, 0]等形式来做星星
 function converToStarsArray(stars) {
-  // toString()方法是转为字符串，substring方法是从第1个字符开始，一共只要1个字符
-  var num = stars.toString().substring(0, 1);
-  var array = [];
-  // //i <= 5 代表了 5颗星
-  // for (var i = 1; i <= 5; i++) {
-  //   // 思路：把num在外部设置好，然后引入到for循环里做判断用，判断完将我们想要的值放入数组array
-  //   if (i <= num) {
-  //     array.push(1);
-  //   } else {
-  //     array.push(0);
-  //   }
-  // }
-  // 半星的做法1：
-  for (var i = 1; i <= 5; i++) {
-    if (stars >= 10) {
-      array.push(1);
-      stars -= 10;
-    } else if (stars >= 5) {
-      array.push(0.5);
-      stars -= 5;
-    } else {
-      array.push(0);
+    // toString()方法是转为字符串，substring方法是从第1个字符开始，一共只要1个字符
+    var num = stars.toString().substring(0, 1);
+    var array = [];
+    // //i <= 5 代表了 5颗星
+    // for (var i = 1; i <= 5; i++) {
+    //   // 思路：把num在外部设置好，然后引入到for循环里做判断用，判断完将我们想要的值放入数组array
+    //   if (i <= num) {
+    //     array.push(1);
+    //   } else {
+    //     array.push(0);
+    //   }
+    // }
+    // 半星的做法1：
+    for (var i = 1; i <= 5; i++) {
+        if (stars >= 10) {
+            array.push(1);
+            stars -= 10;
+        } else if (stars >= 5) {
+            array.push(0.5);
+            stars -= 5;
+        } else {
+            array.push(0);
+        }
     }
-  }
-  return array;
+    return array;
 }
 
 //小插曲，可以把下面的method作为参数写到http(url, callBack, method)中，通过method参数把'GET'或'POST'等传过来
 function http(url, callBack) {
-  wx.request({
-    url: url,
-    method: 'GET',
-    header: {
-      "Content-Type": "json"
-    },
-    success: function(res) {
-      callBack(res.data);
-      console.log("util callback res is ", res)
-    },
-    fail: function(error) {
-      console.log(error);
-    },
-  })
+    wx.request({
+        url: url,
+        method: 'GET',
+        header: {
+            "Content-Type": "json"
+        },
+        success: function(res) {
+            callBack(res.data);
+            console.log("util callback res is ", res)
+        },
+        fail: function(error) {
+            console.log(error);
+        },
+    })
 }
 
 //for的应用，一种是将循环数据叠加到字符串本身，另外一种是将循环数据遍历到一个数组
 function convertToCastString(casts) {
-  var castsjoin = "";
-  for (var idx in casts) {
-    //这个方法会将循环后的casts[idx]拼接成一个长的字符串，name的值是个字符串
-    castsjoin = castsjoin + casts[idx].name + " / ";
-  };
-  //castsjoin.length是指上面拼接后字符串的长度，length-2会将最后的斜杠/去除掉
-  console.log("castsjoin.length is ", castsjoin.length);
-  console.log("castsjoin.length - 2 is ", castsjoin.length - 2);
-  return castsjoin.substring(0, castsjoin.length - 2);
+    var castsjoin = "";
+    for (var idx in casts) {
+        //这个方法会将循环后的casts[idx]拼接成一个长的字符串，name的值是个字符串
+        castsjoin = castsjoin + casts[idx].name + " / ";
+    };
+    //castsjoin.length是指上面拼接后字符串的长度，length-2会将最后的斜杠/去除掉
+    console.log("castsjoin.length is ", castsjoin.length);
+    console.log("castsjoin.length - 2 is ", castsjoin.length - 2);
+    return castsjoin.substring(0, castsjoin.length - 2);
 }
 
 function convertToCastInfos(casts) {
-  var castsArray = [];
-  for (var idx in casts) {
-    var cast = {
-      img: casts[idx].avatars ? casts[idx].avatars.large : "",
-      name: casts[idx].name
+    var castsArray = [];
+    for (var idx in casts) {
+        var cast = {
+            img: casts[idx].avatars ? casts[idx].avatars.large : "",
+            name: casts[idx].name
+        }
+        castsArray.push(cast);
     }
-    castsArray.push(cast);
-  }
-  return castsArray;
+    return castsArray;
 }
 
 module.exports = {
-  convertToCastInfos: convertToCastInfos,
-  convertToCastString: convertToCastString,
-  converToStarsArray: converToStarsArray,
-  http: http,
+    convertToCastInfos: convertToCastInfos,
+    convertToCastString: convertToCastString,
+    converToStarsArray: converToStarsArray,
+    http: http,
 }
 
 //实例演练
