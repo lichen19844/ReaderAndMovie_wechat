@@ -14,7 +14,7 @@
       </view>
 
       <view class="movies-container">
-        <!-- 这里三个movieTemplate模板对应了同一个API数据来源，格式一致，顒可以做block、wx:for方法 -->
+        <!-- 这里三个movieTemplate模板对应了同一个API数据来源，格式一致，可以做block、wx:for方法 -->
         <!-- 注意数据的默认排序是根据外部API数据来源的排序 -->
         <!-- 接收来自上一层的movies数据 -->
         <block wx:for="{{movies}}" wx:for-item="movie">
