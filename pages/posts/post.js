@@ -43,6 +43,7 @@ Page({
       }
     }
     console.log('temmpp is ', temmpp);
+    console.log('options is ', options)
   },
 
   onThumbTap: function (event) {
@@ -63,6 +64,7 @@ Page({
   },
 
   onPostTap: function(event) {
+    console.log('event is ', event)
     var postId = event.currentTarget.dataset.postid;
     // 多此一举
     // var postId = this.data.posts_key[event.currentTarget.dataset.postid].postId;
