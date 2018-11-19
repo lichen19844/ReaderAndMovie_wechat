@@ -7,7 +7,7 @@ Page({
    */
   //data是onLoad和onPostTap的公共数据池，比如posts_key
   data: {
-    isthumbed: false
+    isthumbed: false,
   },
 
   /**
@@ -20,6 +20,7 @@ Page({
       posts_key: postsData.postList
     });
     var posts_key = this.data.posts_key;
+    // temmpp实验的目的是想拿到postsData中所有的id
     var temmpp = [];
     for (var idx in posts_key){
       var thumbId = posts_key[idx].postId;
@@ -41,7 +42,7 @@ Page({
         wx.setStorageSync('thumbeds', thumbeds)
       }
     }
-    console.log(temmpp);
+    console.log('temmpp is ', temmpp);
   },
 
   onThumbTap: function (event) {
@@ -63,6 +64,9 @@ Page({
 
   onPostTap: function(event) {
     var postId = event.currentTarget.dataset.postid;
+    // 多此一举
+    // var postId = this.data.posts_key[event.currentTarget.dataset.postid].postId;
+
     // this.data.currentPostId = postId;
     //postid是由post.wxml中data-postId="{{item.postId}}"获得，而item.postId的排序又是由wx:for="{{posts_key}}"决定
     //因需要将具体的id绑定到具体的点击事件上，为此产生某一个具体的id的传递（一层层变量的推演）：首先在外部有一个js的数据库文件post-data.js文件，然后在本页引用这个post.js文件，设置变量postsData来指代，然后又在加载页面时设置变量posts_key: postsData.postList，使得变量posts_key指代了外部文件内的数据，然后在view组件上使用 wx:for 控制属性绑定这个数组数据的变量posts_key，此时view组件已经捕获到了原本在js文件中的id数据，这时再通过dataset方法data-xxx在组件中记录这个数据，然后数据同时结合绑定这个组件的事件来传递回post.js内，通过var postId = event.currentTarget.dataset.postid;锁定住了这个id为我们需要的post.js内的postId变量。在这个过程中，其实在设置变量posts_key: postsData.postList时我已经拿到了所有数据，但此时无法做到锚定具体的数据，有了id这个标识符，我们就可以方便的运用它了。
