@@ -140,7 +140,7 @@
 }
 
 .cast-container {
-  /* 对行内元素进行排布 */
+  /* 消除容器本身的块状特性，可以用inline-flex,inline-flex 将对象作为内联块级弹性伸缩盒显示,自适应自己和内部子元素的宽度和高度 */
   display: inline-flex;
   flex-direction: column;
   margin-bottom: 50rpx;
