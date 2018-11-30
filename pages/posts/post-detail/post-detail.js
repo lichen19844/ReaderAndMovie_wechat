@@ -101,8 +101,11 @@ Page({
 
     setMusicMonitor: function() {
         var that = this;
+        // 页面栈
         var pages = getCurrentPages();
+        // 当前页
         var currentPage = pages[pages.length - 1];
+        // 上一页
         var prevPage = pages[pages.length - 2];
         //页面栈实际不存在这个页面： var nextPage = pages[pages.length];
         console.log("pages is ", pages);
