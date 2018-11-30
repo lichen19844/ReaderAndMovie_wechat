@@ -125,7 +125,7 @@ Page({
   },
 
   onBindFocus: function(event){
-    console.log(event.detail);
+    console.log('event.detail is ', event.detail);
     this.setData({
       containerShow: false,
       searchPanelShow: true,
@@ -146,7 +146,7 @@ Page({
   onBindConfirm: function(event){
     // detail  自定义事件所携带的数据，如表单组件的提交事件会携带用户的输入（一般有value, cursor, keyCode），value为输入的字符
     var text = event.detail.value;
-    console.log(event);
+    console.log('event is ', event);
     console.log(event.detail);
     console.log(text);
     var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
