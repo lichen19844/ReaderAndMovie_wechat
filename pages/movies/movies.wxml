@@ -5,7 +5,7 @@
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
   <!-- input组件里设置好value属性可以操作清空搜索框 -->
   <input type="text" value="{{text}}" placeholder="血战钢锯岭、你的名字" 
-  placeholder-class="placeholder" bindfocus="onBindFocus" bindblur="onBindBlur" bindconfirm="onBindConfirm" />
+  placeholder-class="placeholder" bindfocus="onBindFocus" bindblur="onBindBlur" bindconfirm="onBindConfirm" maxlength="20" />
   <image src="/images/icon/xx.png" class="xx-img" wx:if="{{searchPanelShow}}" bindtap="onCancelImgTap"></image>
 </view>
 
