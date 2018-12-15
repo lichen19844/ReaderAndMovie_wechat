@@ -272,7 +272,7 @@ Page({
         //每经过一次onCollectionTap函数动作，将原来的postCollected状态取反更新
         // 收藏变成未收藏，未收藏变成收藏，第一次点击后，会从默认的false变成true
         postCollected = !postCollected;
-        //再把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章），使得postsCollected为最新的缓存值，然后作为参数被showModal调用
+        //❤️❤️再把postCollected的最新状态更新到postsCollected内对应id具体的缓存值（针对某一篇文章），使得postsCollected为最新的缓存值，然后作为参数被showModal调用
         //衍生话题：var a = b 代表定义了一个变量a 也同时是初始化a的值为1， 之后 a = 2 代表了变量a的值更新为2
         postsCollected[this.data.currentPostId] = postCollected;
         //在这里不需要再写入判断 if (postsCollected) {...}了，因为缓存中已经有了postsCollected
